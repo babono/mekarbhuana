@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Karla:ital,wght@0,300..700;1,400&family=Noto+Serif+Balinese&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#12100D;-webkit-font-smoothing:antialiased}
+  a{color:#8E2C22;text-decoration:none}
+  a:hover{color:#B4832B}
+  input,textarea,select,button{font-family:Karla,system-ui,sans-serif}
+  ::selection{background:#B4832B;color:#12100D}
+  @keyframes gaL{to{transform:translateX(-101%)}}
+  @keyframes gaR{to{transform:translateX(101%)}}
+  @keyframes gcTop{to{transform:translateY(-101%)}}
+  @keyframes gcBot{to{transform:translateY(101%)}}
+  @keyframes gbSeal{to{transform:scale(7);opacity:0}}
+  @keyframes gFade{to{opacity:0}}
+  @keyframes gContent{to{opacity:0;transform:translateY(-18px) scale(1.06)}}
+  @keyframes spinSlow{to{transform:rotate(360deg)}}
+  @keyframes spinBack{to{transform:rotate(-360deg)}}
+  @keyframes riseIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  @keyframes breathe{0%,100%{opacity:.35;transform:scale(1)}50%{opacity:.9;transform:scale(1.06)}}
+  @keyframes emberDrift{0%{transform:translateY(0) scale(1);opacity:0}15%{opacity:.7}100%{transform:translateY(-320px) scale(.4);opacity:0}}
+  @keyframes shimmerLine{0%{background-position:-200% 0}100%{background-position:200% 0}}
+  @keyframes eqBar{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#12100D;display:flex;flex-direction:column;align-items:center">
+
+<div style="width:100%;max-width:{{ stageMax }};container-type:inline-size;background:#F5F0E6;color:#1C1310;font-family:Karla,system-ui,sans-serif;box-shadow:0 0 90px rgba(0,0,0,.55);position:relative;overflow:hidden">
+
+<header style="position:sticky;top:0;z-index:60;background:rgba(245,240,230,.93);backdrop-filter:blur(14px);border-bottom:1px solid #DFD3BC">
+  <div style="max-width:1280px;margin:0 auto;padding:13px 26px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px">
+    <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:11px;cursor:pointer;flex:0 0 auto">
+      <div style="width:38px;height:38px;border:1px solid #B4832B;border-radius:50%;display:grid;place-items:center;background:linear-gradient(150deg,#F7E9C9,#E6CE96)">
+        <span style="font-family:'Noto Serif Balinese',serif;font-size:19px;color:#7A5312;line-height:1">ᬒᬁ</span>
+      </div>
+      <div>
+        <div style="font:400 15px/1 Marcellus;letter-spacing:.19em;color:#2A1B12">MEKAR BHUANA</div>
+        <div style="font:400 8.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.19em;color:#9A7A3A;margin-top:4px">GAMELAN &amp; DANCE · DENPASAR</div>
+      </div>
+    </div>
+
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;flex-wrap:wrap;align-items:center;gap:2px">
+        <span onClick="{{ goHome }}" style="font:500 12px/1 Karla;letter-spacing:.08em;text-transform:uppercase;color:#4A3D31;padding:9px 9px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap" style-hover="color:#8E2C22;border-bottom:2px solid #B4832B">About</span>
+        <span onClick="{{ goPrograms }}" style="font:500 12px/1 Karla;letter-spacing:.08em;text-transform:uppercase;color:#4A3D31;padding:9px 9px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap" style-hover="color:#8E2C22;border-bottom:2px solid #B4832B">Programs</span>
+        <span onClick="{{ goHire }}" style="font:500 12px/1 Karla;letter-spacing:.08em;text-transform:uppercase;color:#4A3D31;padding:9px 9px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap" style-hover="color:#8E2C22;border-bottom:2px solid #B4832B">Hire</span>
+        <span onClick="{{ goRead }}" style="font:500 12px/1 Karla;letter-spacing:.08em;text-transform:uppercase;color:#4A3D31;padding:9px 9px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap" style-hover="color:#8E2C22;border-bottom:2px solid #B4832B">Read</span>
+        <span onClick="{{ goEnc }}" style="font:500 12px/1 Karla;letter-spacing:.08em;text-transform:uppercase;color:#4A3D31;padding:9px 9px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap" style-hover="color:#8E2C22;border-bottom:2px solid #B4832B">Encyclopedia</span>
+        <span onClick="{{ goContact }}" style="font:500 12px/1 Karla;letter-spacing:.08em;text-transform:uppercase;color:#4A3D31;padding:9px 9px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap" style-hover="color:#8E2C22;border-bottom:2px solid #B4832B">Visit</span>
+      </nav>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+        <span onClick="{{ goLogin }}" style="font:500 12px/1 Karla;letter-spacing:.11em;text-transform:uppercase;color:#6B5B49;cursor:pointer;padding:9px 4px" style-hover="color:#8E2C22">Login</span>
+        <span onClick="{{ goEnc }}" style="font:600 12px/1 Karla;letter-spacing:.13em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:13px 22px;cursor:pointer;border:1px solid #8E2C22" style-hover="background:#B4832B;border-color:#B4832B;color:#1C1310">Subscribe to read</span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMobile }}">
+      <div onClick="{{ toggleMenu }}" style="margin-left:auto;width:44px;height:44px;border:1px solid #C9BBA2;display:grid;place-items:center;gap:5px;cursor:pointer;align-content:center">
+        <div style="width:19px;height:1.5px;background:#3E2A1C"></div>
+        <div style="width:19px;height:1.5px;background:#3E2A1C"></div>
+        <div style="width:19px;height:1.5px;background:#3E2A1C"></div>
+      </div>
+    </sc-if>
+  </div>
+  <div style="height:4px;background:repeating-linear-gradient(90deg,#1C1310 0 14px,#F5F0E6 14px 28px);opacity:.42"></div>
+
+  <sc-if value="{{ menuOpen }}">
+    <div style="background:#2A1B12;padding:14px 22px 26px;display:flex;flex-direction:column">
+      <span onClick="{{ goHome }}" style="font:400 20px/1 Marcellus;color:#F0E4CC;padding:15px 0;border-bottom:1px solid rgba(240,228,204,.16);cursor:pointer">About</span>
+      <span onClick="{{ goPrograms }}" style="font:400 20px/1 Marcellus;color:#F0E4CC;padding:15px 0;border-bottom:1px solid rgba(240,228,204,.16);cursor:pointer">Programs</span>
+      <span onClick="{{ goHire }}" style="font:400 20px/1 Marcellus;color:#F0E4CC;padding:15px 0;border-bottom:1px solid rgba(240,228,204,.16);cursor:pointer">Hire</span>
+      <span onClick="{{ goRead }}" style="font:400 20px/1 Marcellus;color:#F0E4CC;padding:15px 0;border-bottom:1px solid rgba(240,228,204,.16);cursor:pointer">Read</span>
+      <span onClick="{{ goEnc }}" style="font:400 20px/1 Marcellus;color:#F0E4CC;padding:15px 0;border-bottom:1px solid rgba(240,228,204,.16);cursor:pointer">Encyclopedia</span>
+      <span onClick="{{ goContact }}" style="font:400 20px/1 Marcellus;color:#F0E4CC;padding:15px 0;border-bottom:1px solid rgba(240,228,204,.16);cursor:pointer">Visit &amp; contact</span>
+      <span onClick="{{ goLogin }}" style="font:400 20px/1 Marcellus;color:#F0E4CC;padding:15px 0;cursor:pointer">Member login</span>
+      <span onClick="{{ goEnc }}" style="margin-top:16px;text-align:center;font:600 12px/1 Karla;letter-spacing:.13em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:16px;cursor:pointer">Subscribe to read</span>
+    </div>
+  </sc-if>
+</header>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<main>
+
+<sc-if value="{{ dirA }}" hint-placeholder-val="{{ true }}">
+<section data-screen-label="Home hero A" style="position:relative;min-height:680px;background:#231810;display:grid;place-items:center;overflow:hidden;padding:90px 26px 130px">
+  <dc-import name="Plate" label="hero film still — Legong dancer, close crop" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,19,13,.72),rgba(28,19,13,.5) 40%,rgba(28,19,13,.92))"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:15%;min-width:74px;background:linear-gradient(100deg,#1B140E,#3A2718);clip-path:polygon(0 0,100% 6%,100% 94%,0 100%);border-right:1px solid rgba(224,177,85,.45)">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(224,177,85,.08) 0 2px,transparent 2px 24px)"></div>
+  </div>
+  <div style="position:absolute;right:0;top:0;bottom:0;width:15%;min-width:74px;background:linear-gradient(260deg,#1B140E,#3A2718);clip-path:polygon(0 6%,100% 0,100% 100%,0 94%);border-left:1px solid rgba(224,177,85,.45)">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(224,177,85,.08) 0 2px,transparent 2px 24px)"></div>
+  </div>
+  <div style="position:relative;text-align:center;max-width:820px;animation:riseIn .9s ease both">
+    <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.4em;color:#E0B155;margin-bottom:26px">FAMILY-BASED GAMELAN &amp; DANCE CENTRE</div>
+    <h1 style="font:400 clamp(40px,7.4cqw,92px)/1.02 Marcellus;letter-spacing:-.02em;color:#F7F1E4;margin:0 0 26px;text-wrap:balance">Bronze that still<br>remembers Bali</h1>
+    <p style="font:300 clamp(16px,1.55cqw,20px)/1.75 Karla;color:#D3C3A8;margin:0 auto 40px;max-width:540px;text-wrap:pretty">Twenty-seven gamelan sets live in our family compound in Kesiman. Some of them were nearly lost. All of them are still played.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+      <span onClick="{{ goPrograms }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#1C1310;background:#E0B155;padding:19px 34px;cursor:pointer" style-hover="background:#F5EDDC">Learn with us</span>
+      <span onClick="{{ goEnc }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#F5EDDC;border:1px solid rgba(245,237,220,.4);padding:19px 34px;cursor:pointer" style-hover="border-color:#E0B155;color:#E0B155">Read the encyclopedia</span>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:9px;background:repeating-linear-gradient(90deg,#1C1310 0 15px,#EDE2CB 15px 30px);opacity:.85"></div>
+</section>
+</sc-if>
+
+<sc-if value="{{ dirB }}">
+<section data-screen-label="Home hero B" style="position:relative;background:#F5F0E6;overflow:hidden">
+  <div style="max-width:1280px;margin:0 auto;padding:80px 26px 90px;display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:60px;align-items:center">
+    <div style="animation:riseIn .9s ease both">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:30px">
+        <div style="width:52px;height:1px;background:#B4832B"></div>
+        <span style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.32em;color:#9A7A3A">EST. 2002 · DENPASAR</span>
+      </div>
+      <h1 style="font:400 clamp(38px,5.6cqw,74px)/1.05 Marcellus;letter-spacing:-.02em;color:#241810;margin:0 0 12px;text-wrap:balance">The blossoming world</h1>
+      <div style="font-family:'Noto Serif Balinese',serif;font-size:clamp(22px,2.6cqw,34px);color:#B4832B;line-height:2;margin-bottom:26px">ᬫᭂᬓᬃ ᬪᬸᬯᬦ</div>
+      <p style="font:300 clamp(16px,1.5cqw,19px)/1.8 Karla;color:#544537;margin:0 0 20px;max-width:480px;text-wrap:pretty">That is what <em style="color:#8E2C22;font-style:italic">Mekar Bhuana</em> means — the hope that Bali's oldest music flowers outward, beyond the island, and finds its way home again.</p>
+      <p style="font:300 15px/1.85 Karla;color:#6B5B49;margin:0 0 38px;max-width:460px">We teach it, restore it, record it and play it — from a family compound with twenty-seven gamelan sets in it.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <span onClick="{{ goPrograms }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:19px 34px;cursor:pointer" style-hover="background:#241810">Learn with us</span>
+        <span onClick="{{ goEnc }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#3E2A1C;border:1px solid #C9BBA2;padding:19px 34px;cursor:pointer" style-hover="border-color:#B4832B;color:#8E2C22">Read the encyclopedia</span>
+      </div>
+    </div>
+    <div style="position:relative;min-height:520px">
+      <dc-import name="Plate" label="hero — gamelan set in the open pavilion" hint-size="100%,520px" style="position:absolute;inset:0"></dc-import>
+      <div style="position:absolute;left:-34px;bottom:-28px;width:150px;height:150px;border-radius:50%;background:#F5F0E6;border:1px solid #B4832B;display:grid;place-items:center">
+        <div style="position:absolute;inset:9px;border:1px dashed rgba(180,131,43,.5);border-radius:50%;animation:spinSlow 60s linear infinite"></div>
+        <div style="text-align:center">
+          <div style="font-family:'Noto Serif Balinese',serif;font-size:24px;color:#8E2C22;line-height:1.6">ᬒᬁ</div>
+          <div style="font:500 8px/1.5 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#9A7A3A">SINCE<br>2002</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height:9px;background:repeating-linear-gradient(90deg,#1C1310 0 15px,#EDE2CB 15px 30px);opacity:.5"></div>
+</section>
+</sc-if>
+
+<sc-if value="{{ dirC }}">
+<section data-screen-label="Home hero C" style="position:relative;background:#14100C;overflow:hidden">
+  <div style="height:26px;background:repeating-linear-gradient(90deg,#EDE2CB 0 26px,#14100C 26px 52px)"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:70px 26px 0">
+    <h1 style="font:400 clamp(44px,10.5cqw,150px)/.92 Marcellus;letter-spacing:-.035em;color:#F7F1E4;margin:0;text-transform:uppercase;animation:riseIn .8s ease both">Gamelan<br><span style="color:#B4832B">is not a</span><br>museum</h1>
+  </div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 26px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:44px;align-items:end;margin-top:-28px">
+    <div style="position:relative;min-height:420px;margin-top:56px">
+      <dc-import name="Plate" label="hero — hands on a gangsa, mid-strike" hint-size="100%,420px" style="position:absolute;inset:0"></dc-import>
+    </div>
+    <div style="padding-bottom:16px">
+      <div style="font-family:'Noto Serif Balinese',serif;font-size:30px;color:#B4832B;line-height:2;margin-bottom:14px">ᬲᬸᬯᬭ ᬩᬮᬶ</div>
+      <p style="font:300 clamp(16px,1.6cqw,21px)/1.7 Karla;color:#D3C3A8;margin:0 0 30px;max-width:440px;text-wrap:pretty">It is played at temple anniversaries, at cremations, at four in the morning when nobody is watching. We are a family compound in Denpasar that keeps twenty-seven sets of it alive.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <span onClick="{{ goPrograms }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#14100C;background:#EDE2CB;padding:19px 34px;cursor:pointer" style-hover="background:#E0B155">Learn with us</span>
+        <span onClick="{{ goEnc }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#EDE2CB;border:1px solid rgba(237,226,203,.35);padding:19px 34px;cursor:pointer" style-hover="border-color:#E0B155;color:#E0B155">Read the encyclopedia</span>
+      </div>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<section style="background:#EDE4D4;border-bottom:1px solid #DCCFB6">
+  <div style="max-width:1280px;margin:0 auto;padding:34px 26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:26px">
+    <div><div style="font:400 clamp(28px,3.2cqw,40px)/1 Marcellus;color:#8E2C22">27</div><div style="font:400 12px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#7C6B51;margin-top:8px">GAMELAN SETS IN OUR CARE</div></div>
+    <div><div style="font:400 clamp(28px,3.2cqw,40px)/1 Marcellus;color:#8E2C22">100+</div><div style="font:400 12px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#7C6B51;margin-top:8px">ENSEMBLES DOCUMENTED</div></div>
+    <div><div style="font:400 clamp(28px,3.2cqw,40px)/1 Marcellus;color:#8E2C22">24</div><div style="font:400 12px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#7C6B51;margin-top:8px">YEARS TEACHING VISITORS</div></div>
+    <div><div style="font:400 clamp(28px,3.2cqw,40px)/1 Marcellus;color:#8E2C22">#9</div><div style="font:400 12px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#7C6B51;margin-top:8px">OF 154 IN DENPASAR</div></div>
+  </div>
+</section>
+
+<section id="about" style="background:#F5F0E6;padding:96px 26px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:44px">
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.3em;color:#9A7A3A">01 — WHO WE ARE</span>
+      <div style="flex:1;height:1px;background:#D8CBB2"></div>
+      <div style="width:8px;height:8px;transform:rotate(45deg);background:#B4832B"></div>
+      <div style="width:12px;height:12px;transform:rotate(45deg);border:1px solid #B4832B"></div>
+      <div style="width:8px;height:8px;transform:rotate(45deg);background:#B4832B"></div>
+      <div style="flex:1;height:1px;background:#D8CBB2"></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:46px">
+      <span onClick="{{ setAbout0 }}" style="font:500 12px/1 Karla;letter-spacing:.13em;text-transform:uppercase;padding:15px 24px;cursor:pointer;border:1px solid #C9BBA2;background:{{ tb0 }};color:{{ tc0 }}">The centre</span>
+      <span onClick="{{ setAbout1 }}" style="font:500 12px/1 Karla;letter-spacing:.13em;text-transform:uppercase;padding:15px 24px;cursor:pointer;border:1px solid #C9BBA2;background:{{ tb1 }};color:{{ tc1 }}">Mekar Bhuana Aotearoa</span>
+      <span onClick="{{ setAbout2 }}" style="font:500 12px/1 Karla;letter-spacing:.13em;text-transform:uppercase;padding:15px 24px;cursor:pointer;border:1px solid #C9BBA2;background:{{ tb2 }};color:{{ tc2 }}">Founders &amp; team</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:start">
+      <div>
+        <sc-if value="{{ ab0 }}" hint-placeholder-val="{{ true }}">
+          <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:0 0 24px;text-wrap:balance">A house that happens to be full of bronze</h2>
+          <p style="font:300 17px/1.85 Karla;color:#4A3D31;margin:0 0 20px;text-wrap:pretty">Mekar Bhuana is not an institution. It is a family compound — a garden, a pavilion, a kitchen, and rehearsal space that fills with sound most evenings. Guests sit on the same mats the players do.</p>
+          <p style="font:300 17px/1.85 Karla;color:#4A3D31;margin:0 0 20px;text-wrap:pretty">We work on the older and rarer end of Balinese music: archaic ensembles, seven-tone tunings, instruments that had gone quiet in their own villages. Much of what we teach explains why the music sounds the way it does — the rice calendar, the ceremonies, the agrarian year that shaped it.</p>
+          <p style="font:300 17px/1.85 Karla;color:#4A3D31;margin:0">Because we are family-based, we do not take walk-ins. Everything is booked at least two weeks ahead, by email.</p>
+        </sc-if>
+        <sc-if value="{{ ab1 }}">
+          <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:0 0 24px;text-wrap:balance">Five sets, twelve thousand kilometres away</h2>
+          <p style="font:300 17px/1.85 Karla;color:#4A3D31;margin:0 0 20px;text-wrap:pretty">Mekar Bhuana Aotearoa holds five of our gamelan sets in New Zealand, including a Selonding and a seven-tone Semara Pagulingan tuned a little higher than its sibling in Bali.</p>
+          <p style="font:300 17px/1.85 Karla;color:#4A3D31;margin:0">It exists so that students in the southern hemisphere can sit at real instruments rather than recordings — and so that Balinese teachers have somewhere to travel to.</p>
+        </sc-if>
+        <sc-if value="{{ ab2 }}">
+          <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:0 0 24px;text-wrap:balance">An ethnomusicologist, a dancer, and a village of teachers</h2>
+          <p style="font:300 17px/1.85 Karla;color:#4A3D31;margin:0 0 20px;text-wrap:pretty">The centre is run by its founders — a native English-speaking ethnomusicologist and a Balinese dancer and teacher — alongside instructors drawn from villages across the island, each with their own regional style and repertoire.</p>
+          <p style="font:300 17px/1.85 Karla;color:#4A3D31;margin:0">That means explanations in fluent English, and playing that is unmistakably local.</p>
+        </sc-if>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:34px">
+          <span onClick="{{ goContact }}" style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#3E2A1C;padding:17px 30px;cursor:pointer" style-hover="background:#8E2C22">Visit the centre</span>
+          <span onClick="{{ goPrograms }}" style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#3E2A1C;border:1px solid #C9BBA2;padding:17px 30px;cursor:pointer" style-hover="border-color:#B4832B;color:#8E2C22">See the calendar</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <dc-import name="Plate" label="temple ceremony at night" hint-size="100%,210px" style="height:210px"></dc-import>
+        <dc-import name="Plate" label="gamelan gong kebyar, full set" hint-size="100%,210px" style="height:210px;margin-top:34px"></dc-import>
+        <dc-import name="Plate" label="students in the pavilion" hint-size="100%,210px" style="height:210px"></dc-import>
+        <dc-import name="Plate" label="rehearsal, evening" hint-size="100%,210px" style="height:210px;margin-top:34px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#3A2718;padding:100px 26px;position:relative;overflow:hidden">
+  <div style="position:absolute;right:-150px;bottom:-80px;font-family:'Noto Serif Balinese',serif;font-size:210px;color:rgba(224,177,85,.035);line-height:1;pointer-events:none">ᬫᬮᬚᬄ</div>
+  <div style="max-width:1280px;margin:0 auto;position:relative">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px">
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.3em;color:#E0B155">02 — PROGRAMS</span>
+      <div style="flex:1;height:1px;background:rgba(224,177,85,.28)"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;align-items:end;margin-bottom:56px">
+      <h2 style="font:400 clamp(30px,4cqw,52px)/1.12 Marcellus;color:#F7F1E4;margin:0;text-wrap:balance">Come and put your hands on it</h2>
+      <p style="font:300 16px/1.8 Karla;color:#C4B296;margin:0;max-width:460px;text-wrap:pretty">Every session is led by working musicians and dancers, with an English-speaking ethnomusicologist to explain what you're hearing. Book at least two weeks ahead — we're a home, not a venue.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:18px">
+      <div onClick="{{ goPrograms }}" style="background:#2A1B12;border:1px solid rgba(224,177,85,.22);cursor:pointer" style-hover="border-color:#E0B155">
+        <dc-import name="Plate" label="private lesson, gangsa" hint-size="100%,180px" style="height:180px"></dc-import>
+        <div style="padding:26px">
+          <div style="font-family:'Noto Serif Balinese',serif;font-size:19px;color:#B4832B;line-height:1.8">ᬫᬮᬚᬄ</div>
+          <div style="font:400 21px/1.2 Marcellus;color:#F2E7D2;margin:8px 0 12px">Lessons</div>
+          <p style="font:300 14px/1.7 Karla;color:#A9977C;margin:0 0 18px">Sixty minutes, one instrument, one teacher. Private or in a group you bring yourself.</p>
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#E0B155">FROM 60 MIN →</span>
+        </div>
+      </div>
+      <div onClick="{{ goPrograms }}" style="background:#2A1B12;border:1px solid rgba(224,177,85,.22);cursor:pointer" style-hover="border-color:#E0B155">
+        <dc-import name="Plate" label="workshop group at the rindik" hint-size="100%,180px" style="height:180px"></dc-import>
+        <div style="padding:26px">
+          <div style="font-family:'Noto Serif Balinese',serif;font-size:19px;color:#B4832B;line-height:1.8">ᬮᭀᬓᬓᬃᬬ</div>
+          <div style="font:400 21px/1.2 Marcellus;color:#F2E7D2;margin:8px 0 12px">Workshops</div>
+          <p style="font:300 14px/1.7 Karla;color:#A9977C;margin:0 0 18px">Two to four hours with two experts — history, sociology and playing, in that order.</p>
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#E0B155">2–4 HOURS →</span>
+        </div>
+      </div>
+      <div onClick="{{ goPrograms }}" style="background:#2A1B12;border:1px solid rgba(224,177,85,.22);cursor:pointer" style-hover="border-color:#E0B155">
+        <dc-import name="Plate" label="mask painting, study-abroad group" hint-size="100%,180px" style="height:180px"></dc-import>
+        <div style="padding:26px">
+          <div style="font-family:'Noto Serif Balinese',serif;font-size:19px;color:#B4832B;line-height:1.8">ᬫᭂᬮᬮᬶ</div>
+          <div style="font:400 21px/1.2 Marcellus;color:#F2E7D2;margin:8px 0 12px">Cultural immersion</div>
+          <p style="font:300 14px/1.7 Karla;color:#A9977C;margin:0 0 18px">Multi-day study-abroad programmes: gamelan, dance, puppetry, cooking, ceremony, a final performance.</p>
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#E0B155">MULTI-DAY →</span>
+        </div>
+      </div>
+      <div onClick="{{ goPrograms }}" style="background:#2A1B12;border:1px solid rgba(224,177,85,.22);cursor:pointer" style-hover="border-color:#E0B155">
+        <dc-import name="Plate" label="family session with children" hint-size="100%,180px" style="height:180px"></dc-import>
+        <div style="padding:26px">
+          <div style="font-family:'Noto Serif Balinese',serif;font-size:19px;color:#B4832B;line-height:1.8">ᬓᬸᬮᬯᬃᬕ</div>
+          <div style="font:400 21px/1.2 Marcellus;color:#F2E7D2;margin:8px 0 12px">Family activities</div>
+          <p style="font:300 14px/1.7 Karla;color:#A9977C;margin:0 0 18px">Built for mixed ages — children, teenagers and adults at the same set of instruments.</p>
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#E0B155">ALL AGES →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#B4832B;padding:0;position:relative">
+  <div style="max-width:1280px;margin:0 auto;padding:88px 26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:52px;align-items:center">
+    <div>
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.3em;color:#452D0E">03 — THE COMPOUND</span>
+      <h2 style="font:400 clamp(30px,4cqw,52px)/1.12 Marcellus;color:#241810;margin:22px 0 20px;text-wrap:balance">Open-air, half garden, entirely lived in</h2>
+      <p style="font:300 16.5px/1.8 Karla;color:#3A2A14;margin:0 0 26px;max-width:440px;text-wrap:pretty">A pavilion, a walled garden, a studio and an outdoor rehearsal ground — attached to our house. Frangipani drops onto the gongs. The neighbours know the repertoire.</p>
+      <div style="display:flex;flex-direction:column;gap:11px;font:400 13px/1.6 'IBM Plex Mono',monospace;letter-spacing:.06em;color:#452D0E">
+        <div style="display:flex;gap:12px;align-items:center"><div style="width:6px;height:6px;transform:rotate(45deg);background:#241810"></div>OPEN-AIR REHEARSAL GROUNDS</div>
+        <div style="display:flex;gap:12px;align-items:center"><div style="width:6px;height:6px;transform:rotate(45deg);background:#241810"></div>OUTDOOR GAMELAN SET-UP</div>
+        <div style="display:flex;gap:12px;align-items:center"><div style="width:6px;height:6px;transform:rotate(45deg);background:#241810"></div>RECORDING STUDIO &amp; ARCHIVE</div>
+        <div style="display:flex;gap:12px;align-items:center"><div style="width:6px;height:6px;transform:rotate(45deg);background:#241810"></div>GARDEN PAVILION FOR PERFORMANCES</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <dc-import name="Plate" label="open-air rehearsal ground" hint-size="100%,260px" style="height:260px"></dc-import>
+      <dc-import name="Plate" label="outdoor gamelan set-up" hint-size="100%,260px" style="height:260px"></dc-import>
+    </div>
+  </div>
+</section>
+
+<section style="background:#F5F0E6;padding:96px 26px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px">
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.3em;color:#9A7A3A">04 — COLLECTIONS</span>
+      <div style="flex:1;height:1px;background:#D8CBB2"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;align-items:end;margin-bottom:48px">
+      <h2 style="font:400 clamp(30px,4cqw,52px)/1.12 Marcellus;color:#241810;margin:0;text-wrap:balance">Twenty-seven sets, each with a reason to exist</h2>
+      <p style="font:300 16px/1.8 Karla;color:#4A3D31;margin:0;max-width:460px;text-wrap:pretty">Twenty-two in Bali, five in Aotearoa. Several were rebuilt from a handful of surviving keys; one is the only ensemble of its kind outside Indonesia.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px">
+      <div style="background:#FFFDF8;border:1px solid #DCCFB6">
+        <dc-import name="Plate" label="Semara Kirang — angklung set" hint-size="100%,210px" style="height:210px"></dc-import>
+        <div style="padding:26px">
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A">RESTORED 2019</div>
+          <div style="font:400 22px/1.2 Marcellus;color:#241810;margin:12px 0 12px">Semara Kirang</div>
+          <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:0">A very unusual angklung from Lombok, restored and reconstructed. Its four sweet-toned keys had lost the lowest one entirely — <em style="font-style:italic;color:#8E2C22">kirang</em> means missing.</p>
+        </div>
+      </div>
+      <div style="background:#FFFDF8;border:1px solid #DCCFB6">
+        <dc-import name="Plate" label="Selonding Set 2 — iron keys" hint-size="100%,210px" style="height:210px"></dc-import>
+        <div style="padding:26px">
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A">AOTEAROA · 2013</div>
+          <div style="font:400 22px/1.2 Marcellus;color:#241810;margin:12px 0 12px">Selonding Set 2</div>
+          <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:0">Modelled on the Bugbug formation — 48 keys, smaller and lower than the set in Bali, and the only one of its kind outside Indonesia.</p>
+        </div>
+      </div>
+      <div style="background:#FFFDF8;border:1px solid #DCCFB6">
+        <dc-import name="Plate" label="Seven-tone Semara Pagulingan" hint-size="100%,210px" style="height:210px"></dc-import>
+        <div style="padding:26px">
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A">SEVEN-TONE</div>
+          <div style="font:400 22px/1.2 Marcellus;color:#241810;margin:12px 0 12px">Semara Pagulingan</div>
+          <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:0">Tuned higher than our Balinese set and built smaller — a different instrument to sit at, though the repertoire is the same.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#241810;padding:96px 26px;position:relative;overflow:hidden">
+  <div style="position:absolute;left:0;top:0;bottom:0;width:9px;background:repeating-linear-gradient(180deg,#EDE2CB 0 15px,#241810 15px 30px);opacity:.5"></div>
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:60px;align-items:center">
+      <div style="position:relative">
+        <div style="display:flex;gap:16px">
+          <dc-import name="Plate" label="Encyclopedia cover — English" hint-size="100%,360px" style="height:360px;flex:1"></dc-import>
+          <dc-import name="Plate" label="Ensiklopedia cover — Bahasa" hint-size="100%,320px" style="height:320px;flex:1;margin-top:40px"></dc-import>
+        </div>
+      </div>
+      <div>
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.3em;color:#E0B155">05 — ENCYCLOPEDIA</span>
+        <h2 style="font:400 clamp(30px,4cqw,52px)/1.12 Marcellus;color:#F7F1E4;margin:22px 0 20px;text-wrap:balance">Every Balinese gamelan we could find, written down</h2>
+        <p style="font:300 16.5px/1.8 Karla;color:#C4B296;margin:0 0 26px;max-width:470px;text-wrap:pretty">Four hundred pages. More than a hundred ensembles — ancient to contemporary, popular to extinct — each with links to video and audio, read as a flipbook in English or Bahasa Indonesia.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:26px;margin-bottom:34px">
+          <div><div style="font:400 30px/1 Marcellus;color:#E0B155">400+</div><div style="font:400 11px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8B7A62;margin-top:7px">PAGES</div></div>
+          <div><div style="font:400 30px/1 Marcellus;color:#E0B155">100+</div><div style="font:400 11px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8B7A62;margin-top:7px">ENSEMBLES</div></div>
+          <div><div style="font:400 30px/1 Marcellus;color:#E0B155">2</div><div style="font:400 11px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8B7A62;margin-top:7px">LANGUAGES</div></div>
+        </div>
+        <div style="border:1px solid rgba(224,177,85,.3);padding:22px 24px;margin-bottom:26px;display:flex;flex-wrap:wrap;gap:18px;align-items:baseline">
+          <span style="font:400 14px/1.5 Karla;color:#A9977C;text-decoration:line-through">USD 7.50</span>
+          <span style="font:400 30px/1 Marcellus;color:#F7F1E4">USD 5.00</span>
+          <span style="font:400 13px/1.5 Karla;color:#C4B296">per month · until 7 August 2026</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <span onClick="{{ goEnc }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#1C1310;background:#E0B155;padding:19px 34px;cursor:pointer" style-hover="background:#F5EDDC">See all plans</span>
+          <span onClick="{{ goEnc }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#F5EDDC;border:1px solid rgba(245,237,220,.35);padding:19px 34px;cursor:pointer" style-hover="border-color:#E0B155;color:#E0B155">Read a preview</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#F5F0E6;padding:96px 26px">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px">
+    <div onClick="{{ goHire }}" style="background:#FFFDF8;border:1px solid #DCCFB6;padding:38px;cursor:pointer;display:flex;flex-direction:column" style-hover="border-color:#B4832B">
+      <div style="width:44px;height:44px;border:1px solid #B4832B;border-radius:50%;display:grid;place-items:center;margin-bottom:26px"><div style="width:11px;height:11px;transform:rotate(45deg);background:#B4832B"></div></div>
+      <div style="font:400 24px/1.2 Marcellus;color:#241810;margin-bottom:14px">Hire a troupe</div>
+      <p style="font:300 15px/1.75 Karla;color:#544537;margin:0 0 22px;flex:1">Professional and semi-professional groups for festivals, openings, hotels and villas. Classical and archaic repertoire only — dance always with a full orchestra.</p>
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#8E2C22">PERFORMANCES →</span>
+    </div>
+    <div onClick="{{ goHire }}" style="background:#FFFDF8;border:1px solid #DCCFB6;padding:38px;cursor:pointer;display:flex;flex-direction:column" style-hover="border-color:#B4832B">
+      <div style="width:44px;height:44px;border:1px solid #B4832B;border-radius:50%;display:grid;place-items:center;margin-bottom:26px"><div style="width:11px;height:11px;transform:rotate(45deg);border:1px solid #B4832B"></div></div>
+      <div style="font:400 24px/1.2 Marcellus;color:#241810;margin-bottom:14px">Hire an expert</div>
+      <p style="font:300 15px/1.75 Karla;color:#544537;margin:0 0 22px;flex:1">Speakers and consultants on Balinese gamelan, dance and culture for your event, seminar or university module.</p>
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#8E2C22">EXPERTS →</span>
+    </div>
+    <div onClick="{{ goHire }}" style="background:#FFFDF8;border:1px solid #DCCFB6;padding:38px;cursor:pointer;display:flex;flex-direction:column" style-hover="border-color:#B4832B">
+      <div style="width:44px;height:44px;border:1px solid #B4832B;border-radius:50%;display:grid;place-items:center;margin-bottom:26px"><div style="width:11px;height:2px;background:#B4832B"></div></div>
+      <div style="font:400 24px/1.2 Marcellus;color:#241810;margin-bottom:14px">Record with us</div>
+      <p style="font:300 15px/1.75 Karla;color:#544537;margin:0 0 22px;flex:1">Engineers who know where to put a microphone in front of bronze — multi-track or natural stereo, in our studio or on location.</p>
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#8E2C22">RECORDING →</span>
+    </div>
+  </div>
+</section>
+
+<section style="background:#EDE4D4;padding:96px 26px;border-top:1px solid #DCCFB6">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px">
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.3em;color:#9A7A3A">06 — PRESERVATION</span>
+      <div style="flex:1;height:1px;background:#D3C4A8"></div>
+    </div>
+    <h2 style="font:400 clamp(30px,4cqw,52px)/1.12 Marcellus;color:#241810;margin:0 0 46px;max-width:680px;text-wrap:balance">Some of this music has four players left</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px">
+      <div style="background:#F5F0E6;border-top:3px solid #8E2C22;padding:34px">
+        <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#8E2C22;margin-bottom:18px">IN PROGRESS</div>
+        <div style="font:400 22px/1.25 Marcellus;color:#241810;margin-bottom:14px">Restoring a Gender Wayang</div>
+        <p style="font:300 15px/1.75 Karla;color:#544537;margin:0">Four instruments, and only the original keys survive. The resonators, frames and carving all have to be rebuilt from scratch.</p>
+      </div>
+      <div style="background:#F5F0E6;border-top:3px solid #B4832B;padding:34px">
+        <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:18px">SEEKING FUNDING</div>
+        <div style="font:400 22px/1.25 Marcellus;color:#241810;margin-bottom:14px">A Javanese gamelan from the 1830s</div>
+        <p style="font:300 15px/1.75 Karla;color:#544537;margin:0">A historic ensemble with Chinese connections and rare instruments dating back to the early nineteenth century, waiting on a restoration budget.</p>
+      </div>
+      <div style="background:#F5F0E6;border-top:3px solid #3E2A1C;padding:34px">
+        <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#6B5B49;margin-bottom:18px">ARCHIVE</div>
+        <div style="font:400 22px/1.25 Marcellus;color:#241810;margin-bottom:14px">Documentation &amp; repatriation</div>
+        <p style="font:300 15px/1.75 Karla;color:#544537;margin:0 0 20px">Recordings, measurements and photographs of ensembles across Bali — including instruments returned to the villages they came from.</p>
+        <span onClick="{{ goRead }}" style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#8E2C22;cursor:pointer">READ THE FIELD NOTES →</span>
+      </div>
+    </div>
+    <div style="margin-top:34px;background:#3E2A1C;padding:38px;display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font:400 24px/1.3 Marcellus;color:#F2E7D2;margin-bottom:8px">Restoration is paid for by people, not grants</div>
+        <div style="font:300 15px/1.7 Karla;color:#BCAA8E">Donations go through Yayasan Semara Gita Bhuana and should be tax deductible.</div>
+      </div>
+      <span onClick="{{ goDonate }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#241810;background:#E0B155;padding:19px 34px;cursor:pointer;white-space:nowrap" style-hover="background:#F5EDDC">Donate</span>
+    </div>
+  </div>
+</section>
+
+</main>
+</sc-if>
+
+<sc-if value="{{ isPrograms }}">
+<main data-screen-label="Programs">
+  <section style="background:#3A2718;padding:78px 26px 66px;position:relative;overflow:hidden">
+    <div style="position:absolute;right:-60px;bottom:-70px;font-family:'Noto Serif Balinese',serif;font-size:200px;color:rgba(224,177,85,.06);line-height:1">ᬫᬮᬚᬄ</div>
+    <div style="max-width:1280px;margin:0 auto;position:relative">
+      <div style="font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9D8B70;margin-bottom:22px"><span onClick="{{ goHome }}" style="cursor:pointer;color:#E0B155">MEKAR BHUANA</span> / PROGRAMS</div>
+      <h1 style="font:400 clamp(38px,6cqw,78px)/1.04 Marcellus;color:#F7F1E4;margin:0 0 20px">Learn with us</h1>
+      <p style="font:300 clamp(16px,1.5cqw,19px)/1.75 Karla;color:#C4B296;margin:0;max-width:540px;text-wrap:pretty">Four ways in — from a single hour at a gangsa to a two-week study-abroad programme. All bookings need two weeks' notice.</p>
+    </div>
+  </section>
+
+  <section style="background:#F5F0E6;padding:88px 26px">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center">
+      <div>
+        <div style="font-family:'Noto Serif Balinese',serif;font-size:24px;color:#B4832B;line-height:2">ᬫᬮᬚᬄ</div>
+        <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:6px 0 20px">Lessons</h2>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 18px;text-wrap:pretty">One-off or package lessons with an expert, at our centre or remotely. Each one focuses on a specific gamelan instrument or a specific dance — not a survey.</p>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 18px">Practical lessons run 60 minutes; package lessons run 90. If you want the history and sociology behind what you're playing, book a workshop instead.</p>
+        <p style="font:300 14.5px/1.8 Karla;color:#8E2C22;margin:0 0 30px;padding-left:16px;border-left:2px solid #B4832B">Please note: you need to form your own group. We don't have groups for you to join.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <span onClick="{{ goContact }}" style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:17px 30px;cursor:pointer" style-hover="background:#241810">Book a lesson</span>
+          <span style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#3E2A1C;border:1px solid #C9BBA2;padding:17px 30px;cursor:pointer" style-hover="border-color:#B4832B;color:#8E2C22">Check availability</span>
+        </div>
+      </div>
+      <dc-import name="Plate" label="dance lesson in the pavilion" hint-size="100%,420px" style="height:420px"></dc-import>
+    </div>
+  </section>
+
+  <section style="background:#EDE4D4;padding:88px 26px">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center">
+      <dc-import name="Plate" label="four students at gangsa, workshop" hint-size="100%,420px" style="height:420px"></dc-import>
+      <div>
+        <div style="font-family:'Noto Serif Balinese',serif;font-size:24px;color:#B4832B;line-height:2">ᬮᭀᬓᬓᬃᬬ</div>
+        <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:6px 0 20px">Workshops</h2>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 18px;text-wrap:pretty">Two, three or four hours with two experts, private or in a group you bring. Presentations, video, and local practitioners demonstrating — then you play.</p>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 30px">This is the format for people who want to understand why a kotekan interlocks, why the pairs of instruments are deliberately tuned apart, and what the music is actually for.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <span onClick="{{ goContact }}" style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:17px 30px;cursor:pointer" style-hover="background:#241810">Book a workshop</span>
+          <span style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#3E2A1C;border:1px solid #C9BBA2;padding:17px 30px;cursor:pointer" style-hover="border-color:#B4832B;color:#8E2C22">Check availability</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#F5F0E6;padding:88px 26px">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center">
+      <div>
+        <div style="font-family:'Noto Serif Balinese',serif;font-size:24px;color:#B4832B;line-height:2">ᬫᭂᬮᬮᬶ</div>
+        <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:6px 0 20px">Cultural immersion</h2>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 22px;text-wrap:pretty">For universities and groups planning a study abroad. We build the programme with you: gamelan, dance, puppetry, mask painting, cooking, tours, in-house rehearsals, a final student performance, a ceremony if the calendar allows, and certificates at the end.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:30px">
+          <div style="border:1px solid #DCCFB6;padding:14px;font:400 12px/1.5 'IBM Plex Mono',monospace;letter-spacing:.06em;color:#6B5B49">GAMELAN &amp; DANCE</div>
+          <div style="border:1px solid #DCCFB6;padding:14px;font:400 12px/1.5 'IBM Plex Mono',monospace;letter-spacing:.06em;color:#6B5B49">PUPPETRY &amp; MASKS</div>
+          <div style="border:1px solid #DCCFB6;padding:14px;font:400 12px/1.5 'IBM Plex Mono',monospace;letter-spacing:.06em;color:#6B5B49">CEREMONY VISITS</div>
+          <div style="border:1px solid #DCCFB6;padding:14px;font:400 12px/1.5 'IBM Plex Mono',monospace;letter-spacing:.06em;color:#6B5B49">FINAL PERFORMANCE</div>
+        </div>
+        <span onClick="{{ goContact }}" style="display:inline-block;font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:17px 30px;cursor:pointer" style-hover="background:#241810">Request the programme PDF</span>
+      </div>
+      <dc-import name="Plate" label="study-abroad group, mask painting" hint-size="100%,420px" style="height:420px"></dc-import>
+    </div>
+  </section>
+
+  <section style="background:#EDE4D4;padding:88px 26px">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center">
+      <dc-import name="Plate" label="family group with children at rindik" hint-size="100%,380px" style="height:380px"></dc-import>
+      <div>
+        <div style="font-family:'Noto Serif Balinese',serif;font-size:24px;color:#B4832B;line-height:2">ᬓᬸᬮᬯᬃᬕ</div>
+        <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:6px 0 20px">Family activities</h2>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 30px;text-wrap:pretty">Inclusive, genuinely fun, and educational without announcing it. Suitable for children, teenagers and adults together, based on minimum participant numbers.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <span onClick="{{ goContact }}" style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:17px 30px;cursor:pointer" style-hover="background:#241810">Ask about dates</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#3A2718;padding:88px 26px">
+    <div style="max-width:1280px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;align-items:center;margin-bottom:44px">
+        <div>
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.3em;color:#E0B155">INSTRUCTORS</span>
+          <h2 style="font:400 clamp(28px,3.6cqw,44px)/1.14 Marcellus;color:#F7F1E4;margin:20px 0 18px">Teachers from a dozen different villages</h2>
+          <p style="font:300 16px/1.8 Karla;color:#C4B296;margin:0;max-width:460px">Each brings their own regional style. Several have taught foreign students for two decades; all of them still play in their own banjar.</p>
+        </div>
+        <dc-import name="Plate" label="instructor teaching a foreign student" hint-size="100%,300px" style="height:300px"></dc-import>
+      </div>
+      <div style="border:1px solid rgba(224,177,85,.28);padding:34px;background:#2A1B12">
+        <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin-bottom:26px">
+          <div style="font:400 22px/1.3 Marcellus;color:#F2E7D2">Centre schedule</div>
+          <div style="font:400 11px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#8B7A62">GMT+08 · CENTRAL INDONESIA TIME</div>
+        </div>
+        <dc-import name="Plate" label="embedded booking calendar — month view" hint-size="100%,300px" style="height:300px"></dc-import>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px">
+          <span onClick="{{ goContact }}" style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#1C1310;background:#E0B155;padding:17px 30px;cursor:pointer" style-hover="background:#F5EDDC">Book</span>
+          <span onClick="{{ goContact }}" style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5EDDC;border:1px solid rgba(245,237,220,.3);padding:17px 30px;cursor:pointer" style-hover="border-color:#E0B155;color:#E0B155">Contact</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isHire }}">
+<main data-screen-label="Hire">
+  <section style="background:#3A2718;padding:78px 26px 66px">
+    <div style="max-width:1280px;margin:0 auto">
+      <div style="font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9D8B70;margin-bottom:22px"><span onClick="{{ goHome }}" style="cursor:pointer;color:#E0B155">MEKAR BHUANA</span> / HIRE</div>
+      <h1 style="font:400 clamp(38px,6cqw,78px)/1.04 Marcellus;color:#F7F1E4;margin:0 0 20px">Hire</h1>
+      <p style="font:300 clamp(16px,1.5cqw,19px)/1.75 Karla;color:#C4B296;margin:0;max-width:540px;text-wrap:pretty">Troupes, experts and recording — classical and archaic Balinese repertoire, played live.</p>
+    </div>
+  </section>
+
+  <section style="background:#F5F0E6;padding:88px 26px">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:start">
+      <div>
+        <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:0 0 20px">Performances</h2>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 18px;text-wrap:pretty">We have professional and semi-professional troupes, many of which have performed at major festivals in Indonesia and overseas. They're available for festivals, events, launches, openings, hotels and villas.</p>
+        <div style="background:#EDE4D4;border-left:3px solid #8E2C22;padding:24px 26px;margin:26px 0">
+          <div style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#8E2C22;margin-bottom:14px">BEFORE YOU WRITE TO US</div>
+          <p style="font:300 15px/1.8 Karla;color:#4A3D31;margin:0">We don't do modern gamelan, Bali fusion, or dancers performing to recorded music — the last of which is against Indonesian regulation anyway. Dance is always with a full orchestra, and our prices reflect that.</p>
+        </div>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 30px">We also perform regularly at temple ceremonies across Bali. Write to us to find out whether we're playing while you're on the island — attendance is by donation.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <span onClick="{{ goContact }}" style="font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:17px 30px;cursor:pointer" style-hover="background:#241810">Enquire about a booking</span>
+        </div>
+      </div>
+      <dc-import name="Plate" label="full troupe on stage, festival" hint-size="100%,440px" style="height:440px"></dc-import>
+    </div>
+  </section>
+
+  <section style="background:#EDE4D4;padding:88px 26px">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center">
+      <dc-import name="Plate" label="expert giving a talk to a seated group" hint-size="100%,380px" style="height:380px"></dc-import>
+      <div>
+        <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:0 0 20px">Experts</h2>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 30px;text-wrap:pretty">Hire a specialist in Balinese gamelan, dance or culture for your event, seminar, university module or workshop — in English or Indonesian, in Bali or remotely.</p>
+        <span onClick="{{ goContact }}" style="display:inline-block;font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#3E2A1C;border:1px solid #B4832B;padding:17px 30px;cursor:pointer" style-hover="background:#B4832B;color:#241810">Ask about availability</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#F5F0E6;padding:88px 26px">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center">
+      <div>
+        <h2 style="font:400 clamp(28px,3.6cqw,46px)/1.14 Marcellus;color:#241810;margin:0 0 20px">Recording</h2>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 18px;text-wrap:pretty">Bronze is difficult to record. The partials are inharmonic, the paired instruments beat against each other on purpose, and a microphone in the wrong place turns all of it to mush.</p>
+        <p style="font:300 16.5px/1.85 Karla;color:#4A3D31;margin:0 0 26px">Our small team records gamelan and nothing else. Two options: multi-track with spot microphones, easier to edit; or stereo with selective spots, more natural but harder to fix afterwards.</p>
+        <span onClick="{{ goContact }}" style="display:inline-block;font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:17px 30px;cursor:pointer" style-hover="background:#241810">Get a quote</span>
+      </div>
+      <dc-import name="Plate" label="live recording session, microphones on kendang" hint-size="100%,400px" style="height:400px"></dc-import>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isRead }}">
+<main data-screen-label="Read">
+  <section style="background:#3A2718;padding:78px 26px 66px">
+    <div style="max-width:1280px;margin:0 auto">
+      <div style="font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9D8B70;margin-bottom:22px"><span onClick="{{ goHome }}" style="cursor:pointer;color:#E0B155">MEKAR BHUANA</span> / READ</div>
+      <h1 style="font:400 clamp(38px,6cqw,78px)/1.04 Marcellus;color:#F7F1E4;margin:0 0 20px">Field notes</h1>
+      <p style="font:300 clamp(16px,1.5cqw,19px)/1.75 Karla;color:#C4B296;margin:0;max-width:540px;text-wrap:pretty">Research, arguments and dispatches from the workshop floor — written by the people doing the restoring.</p>
+    </div>
+  </section>
+  <section style="background:#F5F0E6;padding:80px 26px">
+    <div style="max-width:1280px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:44px">
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;padding:12px 20px;background:#3E2A1C;color:#F2E7D2;cursor:pointer">ALL</span>
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;padding:12px 20px;border:1px solid #C9BBA2;color:#6B5B49;cursor:pointer" style-hover="border-color:#B4832B;color:#8E2C22">RESEARCH</span>
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;padding:12px 20px;border:1px solid #C9BBA2;color:#6B5B49;cursor:pointer" style-hover="border-color:#B4832B;color:#8E2C22">RESTORATION</span>
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;padding:12px 20px;border:1px solid #C9BBA2;color:#6B5B49;cursor:pointer" style-hover="border-color:#B4832B;color:#8E2C22">TEACHING</span>
+        <span onClick="{{ goEnc }}" style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;padding:12px 20px;border:1px solid #C9BBA2;color:#6B5B49;cursor:pointer" style-hover="border-color:#B4832B;color:#8E2C22">E-BOOKS</span>
+      </div>
+      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:44px;align-items:center;background:#FFFDF8;border:1px solid #DCCFB6;margin-bottom:22px">
+        <dc-import name="Plate" label="Searching for Sekati — archival photograph, c.1920" hint-size="100%,380px" style="height:380px"></dc-import>
+        <div style="padding:38px">
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#8E2C22;margin-bottom:16px">FEATURED · RESEARCH</div>
+          <h2 style="font:400 clamp(24px,2.8cqw,36px)/1.2 Marcellus;color:#241810;margin:0 0 16px;text-wrap:balance">Searching for Sekati — the mystery of a Balinese gamelan thought to be extinct</h2>
+          <p style="font:300 15.5px/1.8 Karla;color:#544537;margin:0 0 22px">Bali has an astounding number of ensemble types, and the number keeps growing. Somewhere in that richness, one of the oldest may still be sitting in a village storeroom.</p>
+          <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#8E2C22;cursor:pointer">READ THE ARTICLE →</span>
+        </div>
+      </article>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px">
+        <div style="background:#FFFDF8;border:1px solid #DCCFB6;cursor:pointer" style-hover="border-color:#B4832B">
+          <dc-import name="Plate" label="students with instruments, group photo" hint-size="100%,190px" style="height:190px"></dc-import>
+          <div style="padding:28px">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:14px">TEACHING</div>
+            <h3 style="font:400 21px/1.28 Marcellus;color:#241810;margin:0 0 14px">What is the difference between a lesson and a workshop?</h3>
+            <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:0">The question we get more than any other from people writing in for the first time.</p>
+          </div>
+        </div>
+        <div style="background:#FFFDF8;border:1px solid #DCCFB6;cursor:pointer" style-hover="border-color:#B4832B">
+          <dc-import name="Plate" label="dancers and gamelan, ceremony" hint-size="100%,190px" style="height:190px"></dc-import>
+          <div style="padding:28px">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:14px">RESEARCH · PART I</div>
+            <h3 style="font:400 21px/1.28 Marcellus;color:#241810;margin:0 0 14px">Democracy and equality in Balinese gamelan</h3>
+            <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:0">Bali still has a deeply traditional society — the late Made Wijaya went as far as calling it mediaeval, and functioning.</p>
+          </div>
+        </div>
+        <div style="background:#FFFDF8;border:1px solid #DCCFB6;cursor:pointer" style-hover="border-color:#B4832B">
+          <dc-import name="Plate" label="gambang instrument in storage, dusty" hint-size="100%,190px" style="height:190px"></dc-import>
+          <div style="padding:28px">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:14px">RESTORATION</div>
+            <h3 style="font:400 21px/1.28 Marcellus;color:#241810;margin:0 0 14px">Documentation and repatriation of gambang from Banjar Bedhe, Tabanan</h3>
+            <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:0">Measuring, photographing and returning a set that had not been played in living memory.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:44px;background:#3E2A1C;padding:38px;display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font:400 24px/1.3 Marcellus;color:#F2E7D2;margin-bottom:8px">E-books &amp; the Encyclopedia</div>
+          <div style="font:300 15px/1.7 Karla;color:#BCAA8E;max-width:460px">Longer work lives behind a subscription — including the 400-page Encyclopedia of Balinese Gamelan Ensembles.</div>
+        </div>
+        <span onClick="{{ goEnc }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#241810;background:#E0B155;padding:19px 34px;cursor:pointer;white-space:nowrap" style-hover="background:#F5EDDC">Subscribe to read</span>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isEnc }}">
+<main data-screen-label="Encyclopedia">
+  <section style="background:#241810;padding:80px 26px;position:relative;overflow:hidden">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:9px;background:repeating-linear-gradient(180deg,#EDE2CB 0 15px,#241810 15px 30px);opacity:.45"></div>
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center">
+      <div>
+        <div style="font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9D8B70;margin-bottom:22px"><span onClick="{{ goHome }}" style="cursor:pointer;color:#E0B155">MEKAR BHUANA</span> / ENCYCLOPEDIA</div>
+        <h1 style="font:400 clamp(34px,5cqw,66px)/1.06 Marcellus;color:#F7F1E4;margin:0 0 20px;text-wrap:balance">Encyclopedia of Balinese Gamelan Ensembles</h1>
+        <p style="font:300 clamp(16px,1.5cqw,19px)/1.75 Karla;color:#C4B296;margin:0 0 30px;max-width:520px;text-wrap:pretty">From ancient to contemporary, popular to extinct. Over a hundred ensembles across four hundred pages, read as a 3D flipbook with links out to video and audio for each one.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <span onClick="{{ goLogin }}" style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#1C1310;background:#E0B155;padding:19px 34px;cursor:pointer" style-hover="background:#F5EDDC">Login and start reading</span>
+          <span style="font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#F5EDDC;border:1px solid rgba(245,237,220,.35);padding:19px 34px;cursor:pointer" style-hover="border-color:#E0B155;color:#E0B155">Preview a chapter</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:18px">
+        <div style="flex:1">
+          <dc-import name="Plate" label="cover — English edition" hint-size="100%,340px" style="height:340px"></dc-import>
+          <div style="font:400 12px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#A9977C;margin-top:12px;text-align:center">ENGLISH</div>
+        </div>
+        <div style="flex:1;margin-top:36px">
+          <dc-import name="Plate" label="sampul — edisi Bahasa Indonesia" hint-size="100%,340px" style="height:340px"></dc-import>
+          <div style="font:400 12px/1.6 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#A9977C;margin-top:12px;text-align:center">BAHASA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#F5F0E6;padding:80px 26px">
+    <div style="max-width:1120px;margin:0 auto">
+      <div style="display:flex;gap:0;margin-bottom:46px;border:1px solid #C9BBA2;width:fit-content">
+        <span onClick="{{ setPlanEn }}" style="font:500 12px/1 Karla;letter-spacing:.13em;text-transform:uppercase;padding:15px 28px;cursor:pointer;background:{{ pbEn }};color:{{ pcEn }}">English edition</span>
+        <span onClick="{{ setPlanId }}" style="font:500 12px/1 Karla;letter-spacing:.13em;text-transform:uppercase;padding:15px 28px;cursor:pointer;border-left:1px solid #C9BBA2;background:{{ pbId }};color:{{ pcId }}">Edisi Bahasa</span>
+      </div>
+
+      <sc-if value="{{ planEn }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px">
+          <div style="background:#FFFDF8;border:1px solid #DCCFB6;padding:34px;display:flex;flex-direction:column">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A">1 MONTH</div>
+            <div style="margin:20px 0 6px;font:300 15px/1 Karla;color:#9A8871;text-decoration:line-through">USD 7.50</div>
+            <div style="font:400 clamp(26px,3.2cqw,40px)/1.1 Marcellus;color:#241810;white-space:nowrap">USD 5.00</div>
+            <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:20px 0 0;flex:1">A month of access to the English edition — 400+ pages, 100+ ensembles.</p>
+            <div style="font:400 11px/1.6 'IBM Plex Mono',monospace;color:#8E2C22;margin:20px 0">UNTIL 7 AUGUST 2026</div>
+            <span onClick="{{ goJoin }}" style="text-align:center;font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#3E2A1C;padding:17px;cursor:pointer" style-hover="background:#8E2C22">Subscribe</span>
+          </div>
+          <div style="background:#FFFDF8;border:2px solid #8E2C22;padding:34px;display:flex;flex-direction:column;position:relative">
+            <div style="position:absolute;top:-1px;right:-1px;background:#8E2C22;color:#F5F0E6;font:500 9.5px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;padding:8px 12px">MOST TAKEN</div>
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A">6 MONTHS</div>
+            <div style="margin:20px 0 6px;font:300 15px/1 Karla;color:#9A8871;text-decoration:line-through">USD 41.25</div>
+            <div style="font:400 clamp(26px,3.2cqw,40px)/1.1 Marcellus;color:#241810;white-space:nowrap">USD 27.50</div>
+            <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:20px 0 0;flex:1">Six months — long enough to actually work through it, chapter by chapter.</p>
+            <div style="font:400 11px/1.6 'IBM Plex Mono',monospace;color:#8E2C22;margin:20px 0">UNTIL 7 AUGUST 2026</div>
+            <span onClick="{{ goJoin }}" style="text-align:center;font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:17px;cursor:pointer" style-hover="background:#241810">Subscribe</span>
+          </div>
+          <div style="background:#FFFDF8;border:1px solid #DCCFB6;padding:34px;display:flex;flex-direction:column">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A">1 YEAR</div>
+            <div style="margin:20px 0 6px;font:300 15px/1 Karla;color:#9A8871;text-decoration:line-through">USD 75.00</div>
+            <div style="font:400 clamp(26px,3.2cqw,40px)/1.1 Marcellus;color:#241810;white-space:nowrap">USD 50.00</div>
+            <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:20px 0 0;flex:1">A full year, for researchers and university libraries citing it regularly.</p>
+            <div style="font:400 11px/1.6 'IBM Plex Mono',monospace;color:#8E2C22;margin:20px 0">UNTIL 7 AUGUST 2026</div>
+            <span onClick="{{ goJoin }}" style="text-align:center;font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#3E2A1C;padding:17px;cursor:pointer" style-hover="background:#8E2C22">Subscribe</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ planId }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px">
+          <div style="background:#FFFDF8;border:1px solid #DCCFB6;padding:34px;display:flex;flex-direction:column">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A">1 BULAN</div>
+            <div style="font:400 clamp(24px,3cqw,36px)/1.1 Marcellus;color:#241810;margin:20px 0 0;white-space:nowrap">IDR 40.000</div>
+            <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:20px 0 0;flex:1">Akses satu bulan ke Ensiklopedia Ansambel Gamelan Bali — 400+ halaman, 100+ ansambel.</p>
+            <span onClick="{{ goJoin }}" style="margin-top:24px;text-align:center;font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#3E2A1C;padding:17px;cursor:pointer" style-hover="background:#8E2C22">Berlangganan</span>
+          </div>
+          <div style="background:#FFFDF8;border:2px solid #8E2C22;padding:34px;display:flex;flex-direction:column">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A">6 BULAN</div>
+            <div style="font:400 clamp(24px,3cqw,36px)/1.1 Marcellus;color:#241810;margin:20px 0 0;white-space:nowrap">IDR 220.000</div>
+            <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:20px 0 0;flex:1">Enam bulan akses penuh ke versi Bahasa Indonesia.</p>
+            <span onClick="{{ goJoin }}" style="margin-top:24px;text-align:center;font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:17px;cursor:pointer" style-hover="background:#241810">Berlangganan</span>
+          </div>
+          <div style="background:#FFFDF8;border:1px solid #DCCFB6;padding:34px;display:flex;flex-direction:column">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A">1 TAHUN</div>
+            <div style="font:400 clamp(24px,3cqw,36px)/1.1 Marcellus;color:#241810;margin:20px 0 0;white-space:nowrap">IDR 400.000</div>
+            <p style="font:300 14.5px/1.75 Karla;color:#544537;margin:20px 0 0;flex:1">Satu tahun akses — untuk peneliti dan perpustakaan kampus.</p>
+            <span onClick="{{ goJoin }}" style="margin-top:24px;text-align:center;font:600 12px/1 Karla;letter-spacing:.14em;text-transform:uppercase;color:#F5F0E6;background:#3E2A1C;padding:17px;cursor:pointer" style-hover="background:#8E2C22">Berlangganan</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="margin-top:46px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px;border-top:1px solid #DCCFB6;padding-top:38px">
+        <div><div style="font:400 18px/1.3 Marcellus;color:#241810;margin-bottom:10px">Read as a flipbook</div><p style="font:300 14.5px/1.75 Karla;color:#544537;margin:0">In the browser, on any device, with the original page layout intact.</p></div>
+        <div><div style="font:400 18px/1.3 Marcellus;color:#241810;margin-bottom:10px">Linked media</div><p style="font:300 14.5px/1.75 Karla;color:#544537;margin:0">Every ensemble entry links out to recordings and video of it being played.</p></div>
+        <div><div style="font:400 18px/1.3 Marcellus;color:#241810;margin-bottom:10px">No AI training</div><p style="font:300 14.5px/1.75 Karla;color:#544537;margin:0">Unauthorised scraping, data mining or extraction of this archive is prohibited.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isContact }}">
+<main data-screen-label="Contact">
+  <section style="background:#3A2718;padding:78px 26px 66px">
+    <div style="max-width:1280px;margin:0 auto">
+      <div style="font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9D8B70;margin-bottom:22px"><span onClick="{{ goHome }}" style="cursor:pointer;color:#E0B155">MEKAR BHUANA</span> / VISIT</div>
+      <h1 style="font:400 clamp(38px,6cqw,78px)/1.04 Marcellus;color:#F7F1E4;margin:0 0 20px">Come and find us</h1>
+      <p style="font:300 clamp(16px,1.5cqw,19px)/1.75 Karla;color:#C4B296;margin:0;max-width:540px;text-wrap:pretty">We're a home as much as a centre, so everything is by appointment — two weeks' notice for anything you want to sit in on.</p>
+    </div>
+  </section>
+  <section style="background:#F5F0E6;padding:80px 26px">
+    <div style="max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:start">
+      <div>
+        <h2 style="font:400 30px/1.2 Marcellus;color:#241810;margin:0 0 26px">Write to us</h2>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <input placeholder="Your name" style="border:1px solid #C9BBA2;background:#FFFDF8;padding:17px 18px;font:400 15px/1.4 Karla;color:#241810;outline:none">
+          <input placeholder="Email address" style="border:1px solid #C9BBA2;background:#FFFDF8;padding:17px 18px;font:400 15px/1.4 Karla;color:#241810;outline:none">
+          <select style="border:1px solid #C9BBA2;background:#FFFDF8;padding:17px 18px;font:400 15px/1.4 Karla;color:#544537;outline:none">
+            <option>What is this about?</option>
+            <option>Lessons or workshops</option>
+            <option>Cultural immersion / study abroad</option>
+            <option>Hiring a troupe or expert</option>
+            <option>Recording</option>
+            <option>Encyclopedia subscription</option>
+            <option>Donations</option>
+          </select>
+          <textarea placeholder="Tell us what you have in mind, and when" rows="6" style="border:1px solid #C9BBA2;background:#FFFDF8;padding:17px 18px;font:400 15px/1.6 Karla;color:#241810;outline:none;resize:vertical"></textarea>
+          <span style="text-align:center;font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:19px;cursor:pointer" style-hover="background:#241810">Send</span>
+          <div style="font:400 11px/1.7 'IBM Plex Mono',monospace;color:#8B7A62">PROTECTED BY RECAPTCHA · WE REPLY WITHIN TWO WORKING DAYS</div>
+        </div>
+      </div>
+      <div>
+        <dc-import name="Plate" label="map — Kesiman Kertalangu, Denpasar" hint-size="100%,240px" style="height:240px"></dc-import>
+        <div style="background:#FFFDF8;border:1px solid #DCCFB6;padding:32px;margin-top:22px">
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:20px">THE CENTRE</div>
+          <div style="font:300 16px/1.85 Karla;color:#241810;margin-bottom:24px">Jl. Gandapura III, no. 501X<br>Kesiman Kertalangu, Denpasar<br>Bali — Indonesia</div>
+          <div style="height:1px;background:#E4D9C2;margin-bottom:24px"></div>
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:14px">WHATSAPP</div>
+          <div style="font:300 16px/1.85 Karla;color:#241810;margin-bottom:24px">+62 81 999 191104<br>+62 81 246 877087</div>
+          <div style="height:1px;background:#E4D9C2;margin-bottom:24px"></div>
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:14px">OPEN</div>
+          <div style="font:300 16px/1.85 Karla;color:#241810">Monday – Friday, 09:00 – 17:00 WITA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isDonate }}">
+<main data-screen-label="Donate">
+  <section style="background:#8E2C22;padding:78px 26px 66px;position:relative;overflow:hidden">
+    <div style="position:absolute;right:-40px;bottom:-60px;font-family:'Noto Serif Balinese',serif;font-size:190px;color:rgba(245,240,230,.08);line-height:1">ᬪᬓ᭄ᬢᬶ</div>
+    <div style="max-width:1280px;margin:0 auto;position:relative">
+      <div style="font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(245,240,230,.65);margin-bottom:22px"><span onClick="{{ goHome }}" style="cursor:pointer;color:#F5F0E6">MEKAR BHUANA</span> / DONATIONS</div>
+      <h1 style="font:400 clamp(38px,6cqw,78px)/1.04 Marcellus;color:#F7F1E4;margin:0 0 20px">Keep the bronze playing</h1>
+      <p style="font:300 clamp(16px,1.5cqw,19px)/1.75 Karla;color:rgba(247,241,228,.85);margin:0;max-width:560px;text-wrap:pretty">Donations reach us through Yayasan Semara Gita Bhuana, the Indonesian non-profit that supports the centre — which also means your gift should be tax deductible.</p>
+    </div>
+  </section>
+  <section style="background:#F5F0E6;padding:80px 26px">
+    <div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;align-items:start">
+      <div style="background:#FFFDF8;border:1px solid #DCCFB6;padding:38px">
+        <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:18px">OPTION ONE</div>
+        <h2 style="font:400 26px/1.25 Marcellus;color:#241810;margin:0 0 10px">Bank transfer</h2>
+        <p style="font:300 14.5px/1.75 Karla;color:#8E2C22;margin:0 0 26px">Please check every line — an incorrect detail means the transfer comes back to you.</p>
+        <div style="display:flex;flex-direction:column;gap:0;font:400 13px/1.6 'IBM Plex Mono',monospace">
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px dotted #D3C4A8"><span style="color:#8B7A62">BANK</span><span style="color:#241810;text-align:right">PT. BANK MANDIRI (PERSERO) TBK.</span></div>
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px dotted #D3C4A8"><span style="color:#8B7A62">ACCOUNT NAME</span><span style="color:#241810;text-align:right">SEMARA GITA BHUANA</span></div>
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px dotted #D3C4A8"><span style="color:#8B7A62">ACCOUNT NO.</span><span style="color:#241810;text-align:right">1450016157980</span></div>
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px dotted #D3C4A8"><span style="color:#8B7A62">SWIFT</span><span style="color:#241810;text-align:right">BMRIIDJA</span></div>
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px dotted #D3C4A8"><span style="color:#8B7A62">BANK CODE</span><span style="color:#241810;text-align:right">008</span></div>
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0"><span style="color:#8B7A62">BRANCH</span><span style="color:#241810;text-align:right">JL. BY PASS NGURAH RAI 104<br>DENPASAR SANUR 80228</span></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="background:#3E2A1C;padding:38px">
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#E0B155;margin-bottom:18px">OPTION TWO</div>
+          <h2 style="font:400 26px/1.25 Marcellus;color:#F2E7D2;margin:0 0 14px">Card or e-wallet</h2>
+          <p style="font:300 15px/1.8 Karla;color:#BCAA8E;margin:0 0 28px">Faster, and it works from anywhere. Choose an amount, or set your own.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px">
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;padding:15px 20px;border:1px solid rgba(224,177,85,.4);color:#E0B155;cursor:pointer" style-hover="background:#E0B155;color:#241810">USD 25</span>
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;padding:15px 20px;border:1px solid rgba(224,177,85,.4);color:#E0B155;cursor:pointer" style-hover="background:#E0B155;color:#241810">USD 60</span>
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;padding:15px 20px;border:1px solid rgba(224,177,85,.4);color:#E0B155;cursor:pointer" style-hover="background:#E0B155;color:#241810">USD 150</span>
+            <span style="font:500 13px/1 'IBM Plex Mono',monospace;padding:15px 20px;border:1px solid rgba(224,177,85,.4);color:#E0B155;cursor:pointer" style-hover="background:#E0B155;color:#241810">OTHER</span>
+          </div>
+          <span style="display:block;text-align:center;font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#241810;background:#E0B155;padding:19px;cursor:pointer" style-hover="background:#F5EDDC">Donate now</span>
+        </div>
+        <div style="border:1px solid #DCCFB6;padding:30px">
+          <div style="font:400 19px/1.3 Marcellus;color:#241810;margin-bottom:12px">Where it goes</div>
+          <p style="font:300 14.5px/1.8 Karla;color:#544537;margin:0">Restoration materials and smithing, instructor fees, documentation trips, and returning instruments to the villages that made them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isJoin }}">
+<main data-screen-label="Join">
+  <section style="background:#F5F0E6;padding:70px 26px 90px">
+    <div style="max-width:1000px;margin:0 auto">
+      <div style="font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:22px"><span onClick="{{ goHome }}" style="cursor:pointer;color:#8E2C22">MEKAR BHUANA</span> / SUBSCRIBE</div>
+      <h1 style="font:400 clamp(32px,4.6cqw,58px)/1.08 Marcellus;color:#241810;margin:0 0 14px">Create your reading account</h1>
+      <p style="font:300 17px/1.8 Karla;color:#544537;margin:0 0 44px;max-width:520px">One account gives you the flipbook, the linked media, and every future revision inside your subscription period.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:44px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <input placeholder="Full name" style="border:1px solid #C9BBA2;background:#FFFDF8;padding:17px 18px;font:400 15px/1.4 Karla;color:#241810;outline:none">
+          <input placeholder="Email address" style="border:1px solid #C9BBA2;background:#FFFDF8;padding:17px 18px;font:400 15px/1.4 Karla;color:#241810;outline:none">
+          <input type="password" placeholder="Choose a password" style="border:1px solid #C9BBA2;background:#FFFDF8;padding:17px 18px;font:400 15px/1.4 Karla;color:#241810;outline:none">
+          <input placeholder="Country" style="border:1px solid #C9BBA2;background:#FFFDF8;padding:17px 18px;font:400 15px/1.4 Karla;color:#241810;outline:none">
+          <label style="display:flex;gap:11px;align-items:flex-start;font:300 13.5px/1.6 Karla;color:#544537;margin-top:6px"><input type="checkbox" style="margin-top:3px"><span>Email me when new ensembles are added to the encyclopedia.</span></label>
+          <span style="text-align:center;font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:19px;cursor:pointer;margin-top:8px" style-hover="background:#241810">Continue to payment</span>
+          <div style="font:300 13.5px/1.6 Karla;color:#6B5B49;text-align:center">Already a member? <span onClick="{{ goLogin }}" style="color:#8E2C22;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Log in</span></div>
+        </div>
+        <div style="background:#FFFDF8;border:1px solid #DCCFB6;padding:32px">
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:20px">YOUR PLAN</div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+            <div style="font:400 22px/1.2 Marcellus;color:#241810">6 months · English</div>
+          </div>
+          <div style="font:400 34px/1 Marcellus;color:#8E2C22;margin-bottom:6px">USD 27.50</div>
+          <div style="font:300 14px/1.6 Karla;color:#8B7A62;text-decoration:line-through;margin-bottom:22px">USD 41.25</div>
+          <div style="height:1px;background:#E4D9C2;margin-bottom:22px"></div>
+          <div style="display:flex;flex-direction:column;gap:12px;font:300 14.5px/1.6 Karla;color:#544537">
+            <div style="display:flex;gap:11px"><span style="color:#B4832B">◆</span>400+ pages, 100+ ensembles</div>
+            <div style="display:flex;gap:11px"><span style="color:#B4832B">◆</span>Video and audio for each entry</div>
+            <div style="display:flex;gap:11px"><span style="color:#B4832B">◆</span>Read on any device</div>
+            <div style="display:flex;gap:11px"><span style="color:#B4832B">◆</span>Cancel any time</div>
+          </div>
+          <div style="margin-top:24px;font:400 11px/1.7 'IBM Plex Mono',monospace;color:#8E2C22">PROMOTIONAL PRICE UNTIL 7 AUGUST 2026</div>
+          <span onClick="{{ goEnc }}" style="display:block;margin-top:18px;font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#6B5B49;cursor:pointer;text-decoration:underline;text-underline-offset:4px">CHANGE PLAN</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isLogin }}">
+<main data-screen-label="Login">
+  <section style="background:#241810;padding:80px 26px 110px;position:relative;overflow:hidden;min-height:620px">
+    <div style="position:absolute;inset:0;background:radial-gradient(90% 80% at 50% 0%,rgba(180,131,43,.18),transparent 65%)"></div>
+    <div style="max-width:470px;margin:0 auto;position:relative">
+      <div style="text-align:center;margin-bottom:38px">
+        <div style="width:56px;height:56px;border:1px solid #B4832B;border-radius:50%;display:grid;place-items:center;margin:0 auto 24px">
+          <span style="font-family:'Noto Serif Balinese',serif;font-size:26px;color:#E0B155;line-height:1">ᬒᬁ</span>
+        </div>
+        <h1 style="font:400 clamp(28px,3.6cqw,42px)/1.1 Marcellus;color:#F7F1E4;margin:0 0 12px">Member login</h1>
+        <p style="font:300 15px/1.7 Karla;color:#A9977C;margin:0">Pick up where you left the flipbook.</p>
+      </div>
+      <div style="background:#F5F0E6;padding:38px;display:flex;flex-direction:column;gap:16px">
+        <div>
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:9px">EMAIL</div>
+          <input placeholder="you@example.com" style="width:100%;border:1px solid #C9BBA2;background:#FFFDF8;padding:16px 18px;font:400 15px/1.4 Karla;color:#241810;outline:none">
+        </div>
+        <div>
+          <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#9A7A3A;margin-bottom:9px">PASSWORD</div>
+          <input type="password" placeholder="••••••••" style="width:100%;border:1px solid #C9BBA2;background:#FFFDF8;padding:16px 18px;font:400 15px/1.4 Karla;color:#241810;outline:none">
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;font:300 13.5px/1.5 Karla;color:#544537;margin-top:4px">
+          <label style="display:flex;gap:9px;align-items:center"><input type="checkbox">Remember me</label>
+          <span style="color:#8E2C22;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Lost your password?</span>
+        </div>
+        <span style="text-align:center;font:600 12px/1 Karla;letter-spacing:.16em;text-transform:uppercase;color:#F5F0E6;background:#8E2C22;padding:19px;cursor:pointer;margin-top:8px" style-hover="background:#241810">Log in</span>
+        <div style="font:300 13.5px/1.6 Karla;color:#6B5B49;text-align:center">Not a member yet? <span onClick="{{ goJoin }}" style="color:#8E2C22;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Subscribe now</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<footer style="background:#2A1B12;color:#E6D9C0;position:relative">
+  <div style="height:12px;background:repeating-linear-gradient(90deg,#1C1310 0 16px,#EDE2CB 16px 32px)"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:70px 26px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:48px">
+    <div>
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:22px">
+        <div style="width:40px;height:40px;border:1px solid #B4832B;border-radius:50%;display:grid;place-items:center">
+          <span style="font-family:'Noto Serif Balinese',serif;font-size:20px;color:#E0B155;line-height:1">ᬒᬁ</span>
+        </div>
+        <div style="font:400 15px/1.3 Marcellus;letter-spacing:.19em;color:#F2E7D2">MEKAR<br>BHUANA</div>
+      </div>
+      <p style="font:400 14px/1.85 Karla;color:#BCAA8E;margin:0 0 20px;max-width:270px">A family-based gamelan and dance centre in Kesiman Kertalangu — teaching, restoring, recording and performing the older music of Bali since 2002.</p>
+      <div style="font:400 11px/1.9 'IBM Plex Mono',monospace;letter-spacing:.06em;color:#9D8B70">
+        JL. GANDAPURA III NO. 501X<br>KESIMAN KERTALANGU, DENPASAR<br>BALI, INDONESIA<br>MON–FRI · 09:00–17:00 WITA
+      </div>
+    </div>
+    <div>
+      <div style="font:500 11px/1 Karla;letter-spacing:.26em;text-transform:uppercase;color:#B4832B;margin-bottom:22px">Explore</div>
+      <div style="display:flex;flex-direction:column;gap:13px;font:400 14px/1.4 Karla">
+        <span onClick="{{ goPrograms }}" style="color:#E6D9C0;cursor:pointer" style-hover="color:#E0B155">Lessons &amp; workshops</span>
+        <span onClick="{{ goHire }}" style="color:#E6D9C0;cursor:pointer" style-hover="color:#E0B155">Hire a troupe</span>
+        <span onClick="{{ goEnc }}" style="color:#E6D9C0;cursor:pointer" style-hover="color:#E0B155">Encyclopedia subscriptions</span>
+        <span onClick="{{ goRead }}" style="color:#E6D9C0;cursor:pointer" style-hover="color:#E0B155">Articles &amp; e-books</span>
+        <span onClick="{{ goLogin }}" style="color:#E6D9C0;cursor:pointer" style-hover="color:#E0B155">Member login</span>
+        <span onClick="{{ goJoin }}" style="color:#E6D9C0;cursor:pointer" style-hover="color:#E0B155">Become a member</span>
+        <span onClick="{{ goDonate }}" style="color:#E6D9C0;cursor:pointer" style-hover="color:#E0B155">Donations</span>
+        <span onClick="{{ goContact }}" style="color:#E6D9C0;cursor:pointer" style-hover="color:#E0B155">Contact</span>
+      </div>
+    </div>
+    <div>
+      <div style="font:500 11px/1 Karla;letter-spacing:.26em;text-transform:uppercase;color:#B4832B;margin-bottom:22px">Reputation</div>
+      <div style="border:1px solid rgba(224,177,85,.35);padding:22px">
+        <div style="font:400 26px/1 Marcellus;color:#F2E7D2">#9</div>
+        <div style="font:400 13px/1.6 Karla;color:#BCAA8E;margin:8px 0 16px">of 154 classes &amp; workshops in Denpasar — Tripadvisor, 112 reviews</div>
+        <div style="display:flex;gap:5px">
+          <div style="width:10px;height:10px;border-radius:50%;background:#7EA35A"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#7EA35A"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#7EA35A"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#7EA35A"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#7EA35A"></div>
+        </div>
+        <div style="font:400 12px/1.7 Karla;font-style:italic;color:#9D8B70;margin-top:16px">“A cultural immersion experience.”<br>“Learn dancing and play music.”</div>
+      </div>
+    </div>
+    <div>
+      <div style="font:500 11px/1 Karla;letter-spacing:.26em;text-transform:uppercase;color:#B4832B;margin-bottom:22px">Connect</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px">
+        <div style="width:38px;height:38px;border:1px solid rgba(224,177,85,.4);display:grid;place-items:center;font:500 10px/1 'IBM Plex Mono',monospace;color:#E0B155;cursor:pointer" style-hover="background:#B4832B;color:#2A1B12">WA</div>
+        <div style="width:38px;height:38px;border:1px solid rgba(224,177,85,.4);display:grid;place-items:center;font:500 10px/1 'IBM Plex Mono',monospace;color:#E0B155;cursor:pointer" style-hover="background:#B4832B;color:#2A1B12">IG</div>
+        <div style="width:38px;height:38px;border:1px solid rgba(224,177,85,.4);display:grid;place-items:center;font:500 10px/1 'IBM Plex Mono',monospace;color:#E0B155;cursor:pointer" style-hover="background:#B4832B;color:#2A1B12">YT</div>
+        <div style="width:38px;height:38px;border:1px solid rgba(224,177,85,.4);display:grid;place-items:center;font:500 10px/1 'IBM Plex Mono',monospace;color:#E0B155;cursor:pointer" style-hover="background:#B4832B;color:#2A1B12">FB</div>
+        <div style="width:38px;height:38px;border:1px solid rgba(224,177,85,.4);display:grid;place-items:center;font:500 10px/1 'IBM Plex Mono',monospace;color:#E0B155;cursor:pointer" style-hover="background:#B4832B;color:#2A1B12">LI</div>
+        <div style="width:38px;height:38px;border:1px solid rgba(224,177,85,.4);display:grid;place-items:center;font:500 10px/1 'IBM Plex Mono',monospace;color:#E0B155;cursor:pointer" style-hover="background:#B4832B;color:#2A1B12">TA</div>
+      </div>
+      <span onClick="{{ goDonate }}" style="display:inline-block;font:600 12px/1 Karla;letter-spacing:.13em;text-transform:uppercase;color:#2A1B12;background:#E0B155;padding:15px 26px;cursor:pointer" style-hover="background:#F2E7D2">Support the centre</span>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(230,217,192,.14);padding:22px 26px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;max-width:1280px;margin:0 auto">
+    <div style="font:400 11px/1.6 'IBM Plex Mono',monospace;letter-spacing:.06em;color:#8B7A62">© 2026 MEKAR BHUANA CENTRE · YAYASAN SEMARA GITA BHUANA</div>
+    <div style="font:400 11px/1.6 'IBM Plex Mono',monospace;letter-spacing:.06em;color:#8B7A62">NO AI TRAINING ON OUR ARCHIVE · TERMS</div>
+  </div>
+</footer>
+
+</div>
+
+<div onClick="{{ toggleAudio }}" style="position:fixed;left:22px;bottom:22px;z-index:120;opacity:{{ pillOpacity }};transition:opacity .5s ease;display:flex;align-items:center;gap:12px;background:rgba(26,19,14,.9);backdrop-filter:blur(12px);border:1px solid rgba(224,177,85,.42);border-radius:999px;padding:9px 18px 9px 12px;cursor:pointer;box-shadow:0 10px 34px rgba(0,0,0,.4)" style-hover="border-color:#E0B155">
+  <div style="display:flex;align-items:flex-end;gap:2.5px;height:17px;width:19px">
+    <div style="flex:1;background:#E0B155;height:100%;transform-origin:bottom;animation:{{ eq1 }}"></div>
+    <div style="flex:1;background:#E0B155;height:100%;transform-origin:bottom;animation:{{ eq2 }}"></div>
+    <div style="flex:1;background:#E0B155;height:100%;transform-origin:bottom;animation:{{ eq3 }}"></div>
+    <div style="flex:1;background:#E0B155;height:100%;transform-origin:bottom;animation:{{ eq4 }}"></div>
+  </div>
+  <div>
+    <div style="font:400 12.5px/1.2 Marcellus;letter-spacing:.07em;color:#F2E7D2">Gending Pengalang</div>
+    <div style="font:400 9px/1.4 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#A08E72;margin-top:2px">{{ playState }}</div>
+  </div>
+</div>
+
+<sc-if value="{{ chromeOn }}" hint-placeholder-val="{{ true }}">
+<div style="position:fixed;right:20px;bottom:20px;z-index:130;background:rgba(18,16,13,.92);backdrop-filter:blur(12px);border:1px solid rgba(224,177,85,.3);padding:13px 14px;display:flex;flex-direction:column;gap:11px;min-width:186px">
+  <div style="font:500 8.5px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#8B7A62">DIRECTION</div>
+  <div style="display:flex;gap:5px">
+    <span onClick="{{ setA }}" style="flex:1;text-align:center;font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;padding:9px 0;cursor:pointer;border:1px solid rgba(224,177,85,.3);color:{{ colA }};background:{{ bgA }}">A</span>
+    <span onClick="{{ setB }}" style="flex:1;text-align:center;font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;padding:9px 0;cursor:pointer;border:1px solid rgba(224,177,85,.3);color:{{ colB }};background:{{ bgB }}">B</span>
+    <span onClick="{{ setC }}" style="flex:1;text-align:center;font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;padding:9px 0;cursor:pointer;border:1px solid rgba(224,177,85,.3);color:{{ colC }};background:{{ bgC }}">C</span>
+  </div>
+  <div style="font:400 8.5px/1.5 'IBM Plex Mono',monospace;color:#6F6151">{{ dirName }}</div>
+  <div style="height:1px;background:rgba(224,177,85,.18)"></div>
+  <div style="font:500 8.5px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#8B7A62">VIEWPORT</div>
+  <div style="display:flex;gap:5px">
+    <span onClick="{{ setDesktop }}" style="flex:1;text-align:center;font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;padding:9px 0;cursor:pointer;border:1px solid rgba(224,177,85,.3);color:{{ colD }};background:{{ bgD }}">DESKTOP</span>
+    <span onClick="{{ setMobile }}" style="flex:1;text-align:center;font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;padding:9px 0;cursor:pointer;border:1px solid rgba(224,177,85,.3);color:{{ colM }};background:{{ bgM }}">MOBILE</span>
+  </div>
+  <span onClick="{{ replay }}" style="text-align:center;font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;padding:10px 0;cursor:pointer;border:1px solid rgba(224,177,85,.3);color:#E0B155" style-hover="background:rgba(224,177,85,.14)">REPLAY ENTRANCE</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ gateOn }}">
+<div style="position:fixed;inset:0;z-index:200;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 40%,#241A12 0%,#12100D 70%);animation:{{ gBg }}"></div>
+
+  <sc-if value="{{ dirA }}">
+    <div style="position:absolute;inset:0;display:flex;pointer-events:none">
+      <div style="flex:1;background:linear-gradient(105deg,#1B140E 0%,#332315 62%,#221810 100%);border-right:1px solid rgba(180,131,43,.55);animation:{{ g1 }};position:relative;overflow:hidden">
+        <div style="position:absolute;left:0;top:9%;bottom:9%;width:min(30%,150px);background:repeating-linear-gradient(0deg,rgba(224,177,85,.085) 0 2px,transparent 2px 26px);clip-path:polygon(0 0,100% 7%,100% 93%,0 100%)"></div>
+        <div style="position:absolute;left:min(31%,158px);top:16%;bottom:16%;width:1px;background:linear-gradient(180deg,transparent,rgba(224,177,85,.35),transparent)"></div>
+        <div style="position:absolute;left:22px;top:50%;transform:translateY(-50%);font-family:'Noto Serif Balinese',serif;font-size:clamp(30px,4vw,50px);color:rgba(224,177,85,.2);writing-mode:vertical-rl">ᬲᬸᬯᬭ</div>
+        <div style="position:absolute;right:0;top:0;bottom:0;width:56%;background:linear-gradient(90deg,transparent,rgba(18,14,10,.9))"></div>
+      </div>
+      <div style="flex:1;background:linear-gradient(255deg,#1B140E 0%,#332315 62%,#221810 100%);border-left:1px solid rgba(180,131,43,.55);animation:{{ g2 }};position:relative;overflow:hidden">
+        <div style="position:absolute;right:0;top:9%;bottom:9%;width:min(30%,150px);background:repeating-linear-gradient(0deg,rgba(224,177,85,.085) 0 2px,transparent 2px 26px);clip-path:polygon(0 7%,100% 0,100% 100%,0 93%)"></div>
+        <div style="position:absolute;right:min(31%,158px);top:16%;bottom:16%;width:1px;background:linear-gradient(180deg,transparent,rgba(224,177,85,.35),transparent)"></div>
+        <div style="position:absolute;right:22px;top:50%;transform:translateY(-50%);font-family:'Noto Serif Balinese',serif;font-size:clamp(30px,4vw,50px);color:rgba(224,177,85,.2);writing-mode:vertical-rl">ᬢᬓ᭄ᬲᬸ</div>
+        <div style="position:absolute;left:0;top:0;bottom:0;width:56%;background:linear-gradient(270deg,transparent,rgba(18,14,10,.9))"></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ dirC }}">
+    <div style="position:absolute;inset:0;pointer-events:none">
+      <div style="position:absolute;left:0;right:0;top:0;height:50%;background:#14100C;animation:{{ g1 }};display:flex;align-items:flex-end">
+        <div style="width:100%;height:26px;background:repeating-linear-gradient(90deg,#EDE2CB 0 26px,#14100C 26px 52px)"></div>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:50%;background:#14100C;animation:{{ g2 }};display:flex;align-items:flex-start">
+        <div style="width:100%;height:26px;background:repeating-linear-gradient(90deg,#14100C 0 26px,#EDE2CB 26px 52px)"></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="position:absolute;inset:0;display:grid;place-items:center;padding:34px;animation:{{ g3 }}">
+    <div style="text-align:center;max-width:660px;position:relative">
+      <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:190%;height:180%;background:radial-gradient(closest-side,rgba(16,12,9,.94) 0%,rgba(16,12,9,.86) 45%,rgba(16,12,9,0) 100%);pointer-events:none"></div>
+
+      <sc-if value="{{ dirB }}">
+        <div style="position:absolute;left:50%;top:50%;width:min(78cqw,560px);height:min(78cqw,560px);transform:translate(-50%,-50%);pointer-events:none">
+          <div style="position:absolute;inset:0;border:1px solid rgba(224,177,85,.28);border-radius:50%;animation:spinSlow 68s linear infinite"></div>
+          <div style="position:absolute;inset:8%;border:1px dashed rgba(224,177,85,.2);border-radius:50%;animation:spinBack 96s linear infinite"></div>
+          <div style="position:absolute;inset:18%;border:1px solid rgba(142,44,34,.42);border-radius:50%"></div>
+          <div style="position:absolute;inset:-4%;border-radius:50%;animation:spinSlow 120s linear infinite;font-family:'Noto Serif Balinese',serif;font-size:22px;color:rgba(224,177,85,.3)">
+            <span style="position:absolute;left:50%;top:0;transform:translateX(-50%)">ᬒᬁ</span>
+            <span style="position:absolute;left:50%;bottom:0;transform:translateX(-50%) rotate(180deg)">ᬩᬮᬶ</span>
+            <span style="position:absolute;left:0;top:50%;transform:translateY(-50%) rotate(-90deg)">ᬕᬫᭂᬮᬦ᭄</span>
+            <span style="position:absolute;right:0;top:50%;transform:translateY(-50%) rotate(90deg)">ᬢᬓ᭄ᬲᬸ</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="position:relative">
+        <div style="font-family:'Noto Serif Balinese',serif;font-size:clamp(30px,6cqw,46px);color:#E0B155;opacity:.85;margin-bottom:26px;line-height:1.9">ᬫᭂᬓᬃ ᬪᬸᬯᬦ</div>
+        <div style="font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.42em;color:#9D8B70;margin-bottom:22px">DENPASAR · BALI · EST. 2002</div>
+        <h1 style="font:400 clamp(38px,8cqw,80px)/1.02 Marcellus;letter-spacing:-.015em;color:#F5EDDC;margin:0 0 26px">Mekar Bhuana</h1>
+        <p style="font:300 clamp(15px,1.6cqw,19px)/1.75 Karla;color:#C4B296;margin:0 auto 40px;max-width:470px">A family compound where bronze that is centuries old is still struck every week. Step through — the gamelan is already playing.</p>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+          <div onClick="{{ enter }}" style="position:relative;cursor:pointer;display:inline-flex;align-items:center;gap:16px;padding:20px 46px;border:1px solid #B4832B;background:rgba(224,177,85,.07);color:#F5EDDC" style-hover="background:#B4832B;color:#1C1310">
+            <span style="font:500 12px/1 Karla;letter-spacing:.34em;text-transform:uppercase">Enter</span>
+            <span style="width:8px;height:8px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg)"></span>
+            <span style="position:absolute;inset:-9px;border:1px solid rgba(224,177,85,.3);animation:breathe 3.4s ease-in-out infinite;pointer-events:none"></span>
+          </div>
+          <span onClick="{{ enterSilent }}" style="font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.18em;color:#7E6E59;cursor:pointer;text-decoration:underline;text-underline-offset:5px" style-hover="color:#C4B296">ENTER IN SILENCE</span>
+          <div style="font:400 10.5px/1.7 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#5F5344;margin-top:10px">SOUND ON · GENDING PENGALANG</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none;overflow:hidden">
+    <div style="position:absolute;left:12%;bottom:0;width:3px;height:3px;border-radius:50%;background:#E0B155;animation:emberDrift 9s linear infinite"></div>
+    <div style="position:absolute;left:31%;bottom:0;width:2px;height:2px;border-radius:50%;background:#E0B155;animation:emberDrift 12s linear 1.4s infinite"></div>
+    <div style="position:absolute;left:52%;bottom:0;width:3px;height:3px;border-radius:50%;background:#D9A441;animation:emberDrift 10.5s linear 3s infinite"></div>
+    <div style="position:absolute;left:71%;bottom:0;width:2px;height:2px;border-radius:50%;background:#E0B155;animation:emberDrift 13s linear .7s infinite"></div>
+    <div style="position:absolute;left:88%;bottom:0;width:3px;height:3px;border-radius:50%;background:#D9A441;animation:emberDrift 11s linear 2.2s infinite"></div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;direction&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'|'C'&quot;,&quot;section&quot;:&quot;Art direction&quot;},&quot;device&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;'desktop'|'mobile'&quot;,&quot;section&quot;:&quot;Art direction&quot;},&quot;showChrome&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
+class Component extends DCLogic {
+  constructor(p){
+    super(p);
+    this.state = {
+      phase: 'gate', dir: p.direction || 'A', page: 'home',
+      device: p.device || 'desktop', playing: false, menuOpen: false,
+      about: 0, plan: 'en'
+    };
+  }
+  componentDidMount(){
+    this._key = (e) => { if(e.key === 'Enter' && this.state.phase === 'gate') this.enter(); };
+    window.addEventListener('keydown', this._key);
+  }
+  componentDidUpdate(prev){
+    if(prev.direction !== this.props.direction && this.props.direction) this.setState({dir: this.props.direction});
+    if(prev.device !== this.props.device && this.props.device) this.setState({device: this.props.device});
+  }
+  componentWillUnmount(){
+    window.removeEventListener('keydown', this._key);
+    clearTimeout(this._t); this.stopAudio();
+  }
+
+  go(page){ this.setState({page, menuOpen:false}); try{ window.scrollTo(0,0); }catch(e){} }
+
+  enter(sound){
+    if(this.state.phase !== 'gate') return;
+    this.setState({phase:'opening'});
+    if(sound !== false) this.startAudio();
+    clearTimeout(this._t);
+    this._t = setTimeout(()=>this.setState({phase:'site'}), 1250);
+  }
+
+  ensureCtx(){
+    if(this.ctx) return this.ctx;
+    const C = window.AudioContext || window.webkitAudioContext;
+    if(!C) return null;
+    const ctx = new C(); this.ctx = ctx;
+    const master = ctx.createGain(); master.gain.value = 0.0001; master.connect(ctx.destination); this.master = master;
+    const conv = ctx.createConvolver();
+    const len = Math.floor(ctx.sampleRate * 2.8), buf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for(let c=0;c<2;c++){ const d = buf.getChannelData(c); for(let i=0;i<len;i++){ d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.7); } }
+    conv.buffer = buf;
+    const wet = ctx.createGain(); wet.gain.value = 0.30; conv.connect(wet); wet.connect(master);
+    const dry = ctx.createGain(); dry.gain.value = 0.9; dry.connect(master);
+    this.bus = ctx.createGain(); this.bus.connect(dry); this.bus.connect(conv);
+    return ctx;
+  }
+  strike(f,t,g,d){
+    const ctx = this.ctx;
+    [[1,1,1],[2.71,0.30,0.55],[5.18,0.10,0.30]].forEach(function(p){
+      const o = ctx.createOscillator(); o.type='sine'; o.frequency.value = f*p[0];
+      const gn = ctx.createGain();
+      gn.gain.setValueAtTime(0.0001,t);
+      gn.gain.linearRampToValueAtTime(g*p[1], t+0.006);
+      gn.gain.exponentialRampToValueAtTime(0.0001, t + d*p[2]);
+      o.connect(gn); gn.connect(this.bus); o.start(t); o.stop(t + d*p[2] + 0.08);
+    }, this);
+  }
+  pair(f,t,g,d){ this.strike(f,t,g,d); this.strike(f*1.021, t+0.007, g*0.88, d); }
+  gong(t,g){
+    const ctx = this.ctx;
+    [[57,1,7.5],[86,0.38,5.5],[119,0.2,4]].forEach(function(p){
+      const o = ctx.createOscillator(); o.type='sine'; o.frequency.value = p[0];
+      const gn = ctx.createGain();
+      gn.gain.setValueAtTime(0.0001,t);
+      gn.gain.linearRampToValueAtTime(g*p[1], t+0.04);
+      gn.gain.exponentialRampToValueAtTime(0.0001, t + p[2]);
+      o.connect(gn); gn.connect(this.bus); o.start(t); o.stop(t + p[2] + 0.1);
+    }, this);
+  }
+  schedule(){
+    const ctx = this.ctx; if(!ctx) return;
+    const beat = 0.60, look = ctx.currentTime + 1.5;
+    const S = [293.7, 320.0, 349.2, 439.0, 478.6];
+    const pokok = [0,1,2,4,3,2,1,0, 2,3,4,3,2,1,0,1];
+    while(this._next < look){
+      const i = this._step % 16, t = this._next;
+      if(i === 0) this.gong(t, 0.55);
+      if(i === 8) this.strike(174, t, 0.14, 2.6);
+      this.pair(S[pokok[i]], t, 0.15, 2.3);
+      this.pair(S[pokok[(i+2)%16]]*2, t + beat*0.5, 0.06, 1.1);
+      if(i % 4 === 2) this.pair(S[pokok[(i+1)%16]]*2, t + beat*0.25, 0.045, 0.8);
+      this._next += beat; this._step++;
+    }
+  }
+  startAudio(){
+    const ctx = this.ensureCtx(); if(!ctx) return;
+    ctx.resume();
+    if(this._timer){ this.setState({playing:true}); return; }
+    this._next = ctx.currentTime + 0.2; this._step = 0;
+    const t = ctx.currentTime;
+    this.master.gain.cancelScheduledValues(t);
+    this.master.gain.setValueAtTime(0.0001, t);
+    this.master.gain.exponentialRampToValueAtTime(0.55, t + 2.4);
+    this.schedule();
+    this._timer = setInterval(()=>this.schedule(), 420);
+    this.setState({playing:true});
+  }
+  stopAudio(){
+    if(this._timer){ clearInterval(this._timer); this._timer = null; }
+    if(this.master && this.ctx){
+      const t = this.ctx.currentTime;
+      this.master.gain.cancelScheduledValues(t);
+      this.master.gain.setValueAtTime(Math.max(this.master.gain.value, 0.0001), t);
+      this.master.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
+    }
+    this.setState({playing:false});
+  }
+
+  renderVals(){
+    const s = this.state, op = s.phase === 'opening', d = s.dir;
+    const ease = ' 1s cubic-bezier(.76,0,.24,1) forwards';
+    let g1 = 'none', g2 = 'none';
+    if(op){
+      if(d === 'A'){ g1 = 'gaL' + ease; g2 = 'gaR' + ease; }
+      else if(d === 'C'){ g1 = 'gcTop' + ease; g2 = 'gcBot' + ease; }
+    }
+    const sel = (on) => on ? '#1C1310' : '#C4B296';
+    const selBg = (on) => on ? '#E0B155' : 'transparent';
+    const eq = (i) => s.playing ? ('eqBar ' + (0.62 + i*0.13) + 's ease-in-out ' + (i*0.09) + 's infinite') : 'none';
+    const names = {A:'CANDI BENTAR — SPLIT GATE', B:'CANANG — CEREMONIAL SEAL', C:'POLENG — THRESHOLD SHUTTER'};
+
+    return {
+      stageMax: s.device === 'mobile' ? '430px' : '100%',
+      isDesktop: s.device !== 'mobile', isMobile: s.device === 'mobile',
+      menuOpen: s.menuOpen, toggleMenu: ()=>this.setState({menuOpen:!s.menuOpen}),
+      chromeOn: this.props.showChrome !== false,
+      gateOn: s.phase !== 'site',
+      dirA: d === 'A', dirB: d === 'B', dirC: d === 'C', dirName: names[d],
+      g1, g2,
+      g3: op ? 'gContent .55s ease forwards' : 'none',
+      gBg: op ? 'gFade .8s .3s ease forwards' : 'none',
+      enter: ()=>this.enter(true), enterSilent: ()=>this.enter(false),
+      replay: ()=>this.setState({phase:'gate'}),
+      setA: ()=>this.setState({dir:'A'}), setB: ()=>this.setState({dir:'B'}), setC: ()=>this.setState({dir:'C'}),
+      colA: sel(d==='A'), bgA: selBg(d==='A'),
+      colB: sel(d==='B'), bgB: selBg(d==='B'),
+      colC: sel(d==='C'), bgC: selBg(d==='C'),
+      setDesktop: ()=>this.setState({device:'desktop'}), setMobile: ()=>this.setState({device:'mobile'}),
+      colD: sel(s.device!=='mobile'), bgD: selBg(s.device!=='mobile'),
+      colM: sel(s.device==='mobile'), bgM: selBg(s.device==='mobile'),
+      toggleAudio: ()=> s.playing ? this.stopAudio() : this.startAudio(),
+      playState: s.playing ? 'NOW PLAYING · TAP TO PAUSE' : 'PAUSED · TAP TO PLAY',
+      pillOpacity: s.phase === 'site' ? '1' : '0',
+      eq1: eq(0), eq2: eq(1), eq3: eq(2), eq4: eq(3),
+      goHome: ()=>this.go('home'), goPrograms: ()=>this.go('programs'), goHire: ()=>this.go('hire'),
+      goRead: ()=>this.go('read'), goEnc: ()=>this.go('enc'), goContact: ()=>this.go('contact'),
+      goDonate: ()=>this.go('donate'), goJoin: ()=>this.go('join'), goLogin: ()=>this.go('login'),
+      isHome: s.page==='home', isPrograms: s.page==='programs', isHire: s.page==='hire',
+      isRead: s.page==='read', isEnc: s.page==='enc', isContact: s.page==='contact',
+      isDonate: s.page==='donate', isJoin: s.page==='join', isLogin: s.page==='login',
+      aboutTab: s.about,
+      tb0: s.about===0 ? '#3E2A1C' : 'transparent', tc0: s.about===0 ? '#F5F0E6' : '#3E2A1C',
+      tb1: s.about===1 ? '#3E2A1C' : 'transparent', tc1: s.about===1 ? '#F5F0E6' : '#3E2A1C',
+      tb2: s.about===2 ? '#3E2A1C' : 'transparent', tc2: s.about===2 ? '#F5F0E6' : '#3E2A1C',
+      pbEn: s.plan==='en' ? '#3E2A1C' : 'transparent', pcEn: s.plan==='en' ? '#F5F0E6' : '#3E2A1C',
+      pbId: s.plan==='id' ? '#3E2A1C' : 'transparent', pcId: s.plan==='id' ? '#F5F0E6' : '#3E2A1C',
+      setAbout0: ()=>this.setState({about:0}), setAbout1: ()=>this.setState({about:1}), setAbout2: ()=>this.setState({about:2}),
+      ab0: s.about===0, ab1: s.about===1, ab2: s.about===2,
+      planEn: s.plan==='en', planId: s.plan==='id',
+      setPlanEn: ()=>this.setState({plan:'en'}), setPlanId: ()=>this.setState({plan:'id'})
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,9 +1,13 @@
 import { getPayload } from 'payload'
 import config from '../../src/payload.config.js'
+import type { User } from '../../src/payload-types.js'
 
-export const testUser = {
+export const testUser: Pick<User, 'email' | 'name' | 'roles'> & { password: string } = {
   email: 'dev@payloadcms.com',
   password: 'test',
+  name: 'Dev User',
+  // The e2e suite drives the admin panel, which only admins may reach.
+  roles: ['admin'],
 }
 
 /**

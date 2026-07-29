@@ -67,8 +67,15 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
+    articles: Article;
+    ebooks: Ebook;
+    programs: Program;
+    ensembles: Ensemble;
     media: Media;
+    plans: Plan;
+    subscriptions: Subscription;
+    enquiries: Enquiry;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -76,8 +83,15 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
+    articles: ArticlesSelect<false> | ArticlesSelect<true>;
+    ebooks: EbooksSelect<false> | EbooksSelect<true>;
+    programs: ProgramsSelect<false> | ProgramsSelect<true>;
+    ensembles: EnsemblesSelect<false> | EnsemblesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    plans: PlansSelect<false> | PlansSelect<true>;
+    subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
+    enquiries: EnquiriesSelect<false> | EnquiriesSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -118,11 +132,360 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Field notes — the “Read” section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles".
+ */
+export interface Article {
+  id: string;
+  title: string;
+  /**
+   * Leave blank to generate from the title.
+   */
+  slug?: string | null;
+  category: 'research' | 'restoration' | 'teaching';
+  /**
+   * Optional suffix shown beside the category, e.g. “Part I”.
+   */
+  partLabel?: string | null;
+  /**
+   * Shown on the Read index and above the paywall. Always public.
+   */
+  excerpt: string;
+  cover?: (string | null) | Media;
+  /**
+   * Placeholder caption used until a photograph is uploaded, e.g. “archival photograph, c.1920”.
+   */
+  coverLabel?: string | null;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Members-only articles show the excerpt, then a subscribe prompt.
+   */
+  access: 'public' | 'members';
+  /**
+   * Pin to the top of the Read index. The newest featured article wins.
+   */
+  featured?: boolean | null;
+  publishedAt?: string | null;
+  author?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  /**
+   * Describe the photograph for readers using a screen reader.
+   */
+  alt: string;
+  /**
+   * Photographer or archive, if one should be named.
+   */
+  credit?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    wide?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * The Encyclopedia and any other long-form work behind the subscription.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ebooks".
+ */
+export interface Ebook {
+  id: string;
+  title: string;
+  /**
+   * Leave blank to generate from the title.
+   */
+  slug?: string | null;
+  edition: 'en' | 'id';
+  summary: string;
+  cover?: (string | null) | Media;
+  /**
+   * Placeholder caption used until a cover image is uploaded.
+   */
+  coverLabel?: string | null;
+  pageCount?: number | null;
+  ensembleCount?: number | null;
+  /**
+   * The free sample chapter. Readable by anyone.
+   */
+  previewContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Flipbook URL. Only ever returned to readers with an active subscription.
+   */
+  readerUrl?: string | null;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Lessons, workshops, cultural immersion and family activities.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "programs".
+ */
+export interface Program {
+  id: string;
+  title: string;
+  /**
+   * Leave blank to generate from the title.
+   */
+  slug?: string | null;
+  /**
+   * Balinese script shown above the heading, e.g. ᬫᬮᬚᬄ.
+   */
+  balineseTitle?: string | null;
+  /**
+   * Short version, used on the home page card.
+   */
+  summary: string;
+  /**
+   * Card footer, e.g. “From 60 min” or “Multi-day”.
+   */
+  durationLabel?: string | null;
+  /**
+   * Full description shown on the Programs page.
+   */
+  body?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Highlighted caveat, e.g. “you need to form your own group”.
+   */
+  note?: string | null;
+  /**
+   * Small boxed labels, e.g. “Gamelan & dance”.
+   */
+  highlights?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  image?: (string | null) | Media;
+  /**
+   * Placeholder caption used until a photograph is uploaded.
+   */
+  imageLabel?: string | null;
+  ctaLabel?: string | null;
+  /**
+   * Lower numbers sort first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * The gamelan sets in the centre’s care — the “Collections” section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ensembles".
+ */
+export interface Ensemble {
+  id: string;
+  name: string;
+  /**
+   * Leave blank to generate from the title.
+   */
+  slug?: string | null;
+  /**
+   * Kicker above the name, e.g. “Restored 2019” or “Seven-tone”.
+   */
+  statusLabel?: string | null;
+  location?: ('bali' | 'aotearoa') | null;
+  description: string;
+  image?: (string | null) | Media;
+  /**
+   * Placeholder caption used until a photograph is uploaded.
+   */
+  imageLabel?: string | null;
+  /**
+   * Show on the home page.
+   */
+  featured?: boolean | null;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Encyclopedia subscription tiers shown on /encyclopedia.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "plans".
+ */
+export interface Plan {
+  id: string;
+  /**
+   * Shown as the term, e.g. “6 months” or “6 bulan”.
+   */
+  name: string;
+  /**
+   * Leave blank to generate from the title.
+   */
+  slug?: string | null;
+  edition: 'en' | 'id';
+  /**
+   * How long access lasts once the subscription is activated.
+   */
+  durationMonths: number;
+  currency: 'USD' | 'IDR';
+  price: number;
+  /**
+   * Struck-through “was” price. Leave blank when not on promotion.
+   */
+  compareAtPrice?: number | null;
+  /**
+   * Shown as “until …” under a promotional price.
+   */
+  promoEndsAt?: string | null;
+  description: string;
+  /**
+   * Corner ribbon, e.g. “Most taken”. Leave blank for none.
+   */
+  badge?: string | null;
+  /**
+   * Draws the red border and the darker Subscribe button.
+   */
+  featured?: boolean | null;
+  /**
+   * Uncheck to retire a tier without deleting it.
+   */
+  active?: boolean | null;
+  /**
+   * Lower numbers sort first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * One row per purchase. Set the status to Active to open a reader’s access; dates fill in from the plan.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscriptions".
+ */
+export interface Subscription {
+  id: string;
+  user: string | User;
+  plan: string | Plan;
+  /**
+   * While payments are handled off-site, set this to Active once the transfer clears.
+   */
+  status: 'pending' | 'active' | 'expired' | 'cancelled';
+  /**
+   * Filled in automatically when the subscription is first activated.
+   */
+  startsAt?: string | null;
+  /**
+   * Derived from the plan length. Override to grant a courtesy extension.
+   */
+  expiresAt?: string | null;
+  /**
+   * Copied from the plan.
+   */
+  edition?: ('en' | 'id') | null;
+  /**
+   * What was actually paid, at the price of the day.
+   */
+  amount?: number | null;
+  currency?: ('USD' | 'IDR') | null;
+  /**
+   * Bank reference or receipt number, so a payment can be traced back.
+   */
+  reference?: string | null;
+  /**
+   * Internal only — never shown to the reader.
+   */
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: string;
+  name: string;
+  country?: string | null;
+  newsletter?: boolean | null;
+  roles?: ('member' | 'admin')[] | null;
+  membershipStatus?: ('none' | 'active' | 'expired') | null;
+  membershipExpiresAt?: string | null;
+  membershipEdition?: ('en' | 'id') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -143,23 +506,23 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Messages from the contact form.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "enquiries".
  */
-export interface Media {
+export interface Enquiry {
   id: string;
-  alt: string;
+  name: string;
+  email: string;
+  topic: 'lessons' | 'immersion' | 'hire' | 'recording' | 'subscription' | 'donations';
+  message: string;
+  /**
+   * Tick once someone has replied.
+   */
+  handled?: boolean | null;
   updatedAt: string;
   createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -186,12 +549,40 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
-        relationTo: 'users';
-        value: string | User;
+        relationTo: 'articles';
+        value: string | Article;
+      } | null)
+    | ({
+        relationTo: 'ebooks';
+        value: string | Ebook;
+      } | null)
+    | ({
+        relationTo: 'programs';
+        value: string | Program;
+      } | null)
+    | ({
+        relationTo: 'ensembles';
+        value: string | Ensemble;
       } | null)
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'plans';
+        value: string | Plan;
+      } | null)
+    | ({
+        relationTo: 'subscriptions';
+        value: string | Subscription;
+      } | null)
+    | ({
+        relationTo: 'enquiries';
+        value: string | Enquiry;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: string | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -237,9 +628,209 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles_select".
+ */
+export interface ArticlesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  category?: T;
+  partLabel?: T;
+  excerpt?: T;
+  cover?: T;
+  coverLabel?: T;
+  body?: T;
+  access?: T;
+  featured?: T;
+  publishedAt?: T;
+  author?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ebooks_select".
+ */
+export interface EbooksSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  edition?: T;
+  summary?: T;
+  cover?: T;
+  coverLabel?: T;
+  pageCount?: T;
+  ensembleCount?: T;
+  previewContent?: T;
+  readerUrl?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "programs_select".
+ */
+export interface ProgramsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  balineseTitle?: T;
+  summary?: T;
+  durationLabel?: T;
+  body?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  note?: T;
+  highlights?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  image?: T;
+  imageLabel?: T;
+  ctaLabel?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ensembles_select".
+ */
+export interface EnsemblesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  statusLabel?: T;
+  location?: T;
+  description?: T;
+  image?: T;
+  imageLabel?: T;
+  featured?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  credit?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        wide?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "plans_select".
+ */
+export interface PlansSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  edition?: T;
+  durationMonths?: T;
+  currency?: T;
+  price?: T;
+  compareAtPrice?: T;
+  promoEndsAt?: T;
+  description?: T;
+  badge?: T;
+  featured?: T;
+  active?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscriptions_select".
+ */
+export interface SubscriptionsSelect<T extends boolean = true> {
+  user?: T;
+  plan?: T;
+  status?: T;
+  startsAt?: T;
+  expiresAt?: T;
+  edition?: T;
+  amount?: T;
+  currency?: T;
+  reference?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "enquiries_select".
+ */
+export interface EnquiriesSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  topic?: T;
+  message?: T;
+  handled?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  country?: T;
+  newsletter?: T;
+  roles?: T;
+  membershipStatus?: T;
+  membershipExpiresAt?: T;
+  membershipEdition?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -256,24 +847,6 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

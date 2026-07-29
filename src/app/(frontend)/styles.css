@@ -1,164 +1,321 @@
-:root {
-  --font-mono: 'Roboto Mono', monospace;
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Mekar Bhuana — design tokens
+   Taken from the "Balinese culture portal" prototype, art direction A.
+   Every value below becomes a Tailwind utility: --color-gold → bg-gold /
+   text-gold / border-gold, --font-display → font-display, and so on.
+   ========================================================================== */
+
+@theme {
+  /* Surfaces */
+  --color-cream: #f5f0e6;
+  --color-cream-deep: #ede4d4;
+  --color-paper: #fffdf8;
+  --color-ink: #1c1310;
+  --color-ink-deep: #12100d;
+
+  /* Browns, light to dark */
+  --color-bark-450: #3e2a1c;
+  --color-bark-500: #3a2718;
+  --color-bark-600: #2a1b12;
+  --color-bark-700: #241810;
+  --color-bark-800: #1b140e;
+  --color-bark-900: #14100c;
+
+  /* Accents */
+  --color-gold: #b4832b;
+  --color-gold-light: #e0b155;
+  --color-gold-pale: #f5eddc;
+  --color-crimson: #8e2c22;
+  --color-sage: #7ea35a;
+
+  /* Text on light */
+  --color-text: #241810;
+  --color-body: #4a3d31;
+  --color-muted: #544537;
+  --color-soft: #6b5b49;
+  --color-brass: #9a7a3a;
+  --color-stone: #7c6b51;
+  --color-shadow: #8b7a62;
+
+  /* Text on dark */
+  --color-parchment: #f7f1e4;
+  --color-sand: #c4b296;
+  --color-dust: #a9977c;
+  --color-clay: #bcaa8e;
+  --color-bone: #f2e7d2;
+  --color-smoke: #9d8b70;
+
+  /* Rules */
+  --color-line: #dccfb6;
+  --color-line-strong: #c9bba2;
+  --color-line-soft: #dfd3bc;
+  --color-line-faint: #e4d9c2;
+
+  /* Type */
+  --font-display: var(--font-marcellus), Georgia, serif;
+  --font-body: var(--font-karla), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-balinese: 'Noto Serif Balinese', serif;
+
+  /* Shell width */
+  --spacing-shell: 1280px;
+
+  /* Animations */
+  --animate-rise-in: riseIn 0.9s ease both;
+  --animate-eq: eqBar 0.9s ease-in-out infinite;
+  --animate-breathe: breathe 3.4s ease-in-out infinite;
+  --animate-ember: emberDrift linear infinite;
+  --animate-gate-slide-l: gateSlideL 1.15s cubic-bezier(0.76, 0, 0.24, 1) both;
+  --animate-gate-slide-r: gateSlideR 1.15s cubic-bezier(0.76, 0, 0.24, 1) both;
+  --animate-gate-fade: gateFade 0.85s ease 0.35s both;
+  --animate-gate-content-out: gateContentOut 0.55s ease both;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 18px;
-  line-height: 32px;
-
-  background: rgb(0, 0, 0);
-  -webkit-font-smoothing: antialiased;
-}
-
-html,
-body,
-#app {
-  height: 100%;
-}
-
-body {
-  font-family: system-ui;
-  font-size: 18px;
-  line-height: 32px;
-
-  margin: 0;
-  color: rgb(1000, 1000, 1000);
-
-  @media (max-width: 1024px) {
-    font-size: 15px;
-    line-height: 24px;
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-h1 {
-  margin: 40px 0;
-  font-size: 64px;
-  line-height: 70px;
-  font-weight: bold;
-
-  @media (max-width: 1024px) {
-    margin: 24px 0;
-    font-size: 42px;
-    line-height: 42px;
+@keyframes eqBar {
+  0%,
+  100% {
+    transform: scaleY(0.25);
   }
-
-  @media (max-width: 768px) {
-    font-size: 38px;
-    line-height: 38px;
-  }
-
-  @media (max-width: 400px) {
-    font-size: 32px;
-    line-height: 32px;
+  50% {
+    transform: scaleY(1);
   }
 }
 
-p {
-  margin: 24px 0;
-
-  @media (max-width: 1024px) {
-    margin: calc(var(--base) * 0.75) 0;
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.06);
   }
 }
 
-a {
-  color: currentColor;
-
-  &:focus {
-    opacity: 0.8;
-    outline: none;
+@keyframes emberDrift {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
   }
-
-  &:active {
+  15% {
     opacity: 0.7;
-    outline: none;
+  }
+  100% {
+    transform: translateY(-320px) scale(0.4);
+    opacity: 0;
   }
 }
 
-svg {
-  vertical-align: middle;
+@keyframes gateSlideL {
+  to {
+    transform: translateX(-101%);
+  }
+}
+@keyframes gateSlideR {
+  to {
+    transform: translateX(101%);
+  }
+}
+@keyframes gateFade {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes gateContentOut {
+  to {
+    opacity: 0;
+    transform: translateY(-18px) scale(1.06);
+  }
 }
 
-.home {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100vh;
-  padding: 45px;
-  max-width: 1024px;
-  margin: 0 auto;
-  overflow: hidden;
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
 
-  @media (max-width: 400px) {
-    padding: 24px;
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-
-    h1 {
-      text-align: center;
-    }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
   }
 
-  .links {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    a {
-      text-decoration: none;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-    }
-
-    .admin {
-      color: rgb(0, 0, 0);
-      background: rgb(1000, 1000, 1000);
-      border: 1px solid rgb(0, 0, 0);
-    }
-
-    .docs {
-      color: rgb(1000, 1000, 1000);
-      background: rgb(0, 0, 0);
-      border: 1px solid rgb(1000, 1000, 1000);
-    }
+  a {
+    color: var(--color-crimson);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-gold);
   }
 
-  .footer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink-deep);
+  }
 
-    @media (max-width: 1024px) {
-      flex-direction: column;
-      gap: 6px;
-    }
+  /* Preflight strips these; the design relies on them everywhere. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
 
-    p {
-      margin: 0;
-    }
+/* --------------------------------------------------------------------------
+   Custom utilities
+   Reserved for what utility classes genuinely cannot express — repeating
+   gradients, clip paths, and the handful of primitives repeated on every page.
+   -------------------------------------------------------------------------- */
 
-    .codeLink {
-      text-decoration: none;
-      padding: 0 0.5rem;
-      background: rgb(60, 60, 60);
-      border-radius: 4px;
-    }
+/* The woven cream/black band. Still used at the foot of the hero and the top of
+   the footer; removed from the header at the client's request. */
+@utility band-weave {
+  height: 9px;
+  background: repeating-linear-gradient(90deg, var(--color-ink) 0 15px, #ede2cb 15px 30px);
+  opacity: 0.85;
+}
+
+@utility band-weave-thick {
+  height: 12px;
+  background: repeating-linear-gradient(90deg, var(--color-ink) 0 16px, #ede2cb 16px 32px);
+}
+
+@utility band-weave-vertical {
+  background: repeating-linear-gradient(
+    180deg,
+    #ede2cb 0 15px,
+    var(--color-bark-700) 15px 30px
+  );
+  opacity: 0.45;
+}
+
+/* Placeholder frame standing in for photography that has not been shot yet. */
+@utility plate-hatch {
+  background: repeating-linear-gradient(135deg, #e7dcc6 0 9px, #ded0b4 9px 18px);
+}
+
+@utility plate-sheen {
+  background: radial-gradient(
+    120% 90% at 30% 20%,
+    rgba(255, 252, 244, 0.55),
+    rgba(255, 252, 244, 0) 70%
+  );
+}
+
+/* Hero side panels — angled cuts plus a fine horizontal weave. */
+@utility hero-panel-weave {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(224, 177, 85, 0.08) 0 2px,
+    transparent 2px 24px
+  );
+}
+
+@utility gate-weave {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(224, 177, 85, 0.085) 0 2px,
+    transparent 2px 26px
+  );
+}
+
+@utility clip-panel-l {
+  clip-path: polygon(0 0, 100% 6%, 100% 94%, 0 100%);
+}
+
+@utility clip-panel-r {
+  clip-path: polygon(0 6%, 100% 0, 100% 100%, 0 94%);
+}
+
+@utility clip-weave-l {
+  clip-path: polygon(0 0, 100% 7%, 100% 93%, 0 100%);
+}
+
+@utility clip-weave-r {
+  clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 93%);
+}
+
+/* --------------------------------------------------------------------------
+   Component primitives
+
+   These five are repeated on nearly every page. Keeping them as classes built
+   from utilities means a button's padding is defined once rather than in forty
+   places; everything else in the codebase is plain utilities in the markup.
+   -------------------------------------------------------------------------- */
+
+@layer components {
+  .btn {
+    @apply inline-block cursor-pointer border border-transparent text-center font-body
+      text-[12px] leading-none font-semibold tracking-[0.16em] uppercase transition-colors
+      px-[34px] py-[19px];
+  }
+  .btn:disabled {
+    @apply cursor-not-allowed opacity-55;
+  }
+
+  .btn-sm {
+    @apply px-[30px] py-[17px] tracking-[0.14em];
+  }
+
+  .btn-gold {
+    @apply bg-gold-light text-ink hover:bg-gold-pale hover:text-ink;
+  }
+  .btn-crimson {
+    @apply bg-crimson text-cream hover:bg-bark-700 hover:text-cream;
+  }
+  .btn-dark {
+    @apply bg-bark-450 text-cream hover:bg-crimson hover:text-cream;
+  }
+  .btn-outline {
+    @apply border-line-strong text-bark-450 hover:border-gold hover:text-crimson;
+  }
+  .btn-outline-gold {
+    @apply border-gold text-bark-450 hover:bg-gold hover:text-bark-700;
+  }
+  .btn-ghost {
+    @apply border-gold-pale/40 text-gold-pale hover:border-gold-light hover:text-gold-light;
+  }
+
+  /* Form control */
+  .field {
+    @apply w-full border border-line-strong bg-paper px-[18px] py-[17px] font-body
+      text-[15px] leading-snug text-text outline-none placeholder:text-[#9a8871]
+      focus:border-gold;
+  }
+  textarea.field {
+    @apply resize-y leading-relaxed;
+  }
+
+  /* Bordered content card */
+  .card {
+    @apply border border-line bg-paper;
+  }
+
+  /* Small caps monospace label used above headings */
+  .kicker {
+    @apply font-mono text-[10px] leading-none tracking-[0.2em] text-brass uppercase;
+  }
+
+  /* Breadcrumb above page titles */
+  .crumb {
+    @apply mb-[22px] font-mono text-[11px] leading-none tracking-[0.2em] text-smoke uppercase;
   }
 }

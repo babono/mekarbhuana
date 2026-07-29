@@ -48,3 +48,7 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Screenshots of the previous site captured with the redesign export (42MB of
+# PNGs). The design source next to them is kept; these are reference only.
+/Website redesign_ Balinese culture portal/uploads/
