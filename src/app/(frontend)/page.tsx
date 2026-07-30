@@ -5,6 +5,7 @@ import { HeroParallax } from '@/components/site/HeroParallax'
 import { Plate } from '@/components/site/Plate'
 import { getEntryPlan, getFeaturedEnsembles, getPrograms } from '@/lib/content'
 import { planComparePrice, planPrice } from '@/lib/format'
+import { photoFor } from '@/lib/photos'
 import type { Media } from '@/payload-types'
 
 // Statically generated; the daily window is a backstop — Payload's hooks purge
@@ -180,6 +181,7 @@ export default async function HomePage() {
                 <Plate
                   label={program.imageLabel ?? program.title}
                   image={program.image as Media | null}
+                  src={photoFor('programs', program.slug)}
                   height={180}
                   flush
                 />
@@ -262,6 +264,7 @@ export default async function HomePage() {
                 <Plate
                   label={ensemble.imageLabel ?? ensemble.name}
                   image={ensemble.image as Media | null}
+                  src={photoFor('ensembles', ensemble.slug)}
                   height={210}
                   flush
                 />

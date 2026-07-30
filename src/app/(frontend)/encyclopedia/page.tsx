@@ -6,6 +6,7 @@ import { EditionPlans } from '@/components/site/EditionPlans'
 import { EncyclopediaCta } from '@/components/site/EncyclopediaCta'
 import { Plate } from '@/components/site/Plate'
 import { getEbooks, getPlans } from '@/lib/content'
+import { photoFor } from '@/lib/photos'
 import type { Ebook, Media, Plan } from '@/payload-types'
 
 // Static; purged by Payload when a plan or e-book is saved. The reader-specific
@@ -59,6 +60,7 @@ export default async function EncyclopediaPage() {
               <Plate
                 label="cover — English edition"
                 image={ebooks.find((b) => b.edition === 'en')?.cover as Media | null}
+                src={photoFor('ebooks', ebooks.find((b) => b.edition === 'en')?.slug)}
                 height={340}
               />
               <div className={coverCaption}>English</div>
@@ -67,6 +69,7 @@ export default async function EncyclopediaPage() {
               <Plate
                 label="sampul — edisi Bahasa Indonesia"
                 image={ebooks.find((b) => b.edition === 'id')?.cover as Media | null}
+                src={photoFor('ebooks', ebooks.find((b) => b.edition === 'id')?.slug)}
                 height={340}
               />
               <div className={coverCaption}>Bahasa</div>

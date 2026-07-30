@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 
 import { ARTICLE_CATEGORIES } from '@/collections/Articles'
 import { Plate } from '@/components/site/Plate'
+import { photoFor } from '@/lib/photos'
 import type { Article, Media } from '@/payload-types'
 
 const chip =
@@ -77,6 +78,7 @@ export function ReadIndex({ articles }: { articles: Article[] }) {
           <Plate
             label={lead.coverLabel ?? lead.title}
             image={lead.cover as Media | null}
+            src={photoFor('articles', lead.slug)}
             height={380}
             flush
             style={{ height: '100%', minHeight: 380 }}
@@ -106,6 +108,7 @@ export function ReadIndex({ articles }: { articles: Article[] }) {
             <Plate
               label={article.coverLabel ?? article.title}
               image={article.cover as Media | null}
+              src={photoFor('articles', article.slug)}
               height={190}
               flush
             />

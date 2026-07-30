@@ -8,6 +8,7 @@ import { Plate } from '@/components/site/Plate'
 import { isEntitled } from '@/access/entitlement'
 import { getPayloadAndUser, readAsUser } from '@/lib/auth'
 import { formatDate } from '@/lib/format'
+import { photoFor } from '@/lib/photos'
 import type { Article, Media, User } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
@@ -86,6 +87,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <Plate
               label={article.coverLabel ?? article.title}
               image={article.cover as Media | null}
+              src={photoFor('articles', article.slug)}
               height={420}
               className="mb-14"
             />

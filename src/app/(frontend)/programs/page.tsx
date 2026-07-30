@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { Plate } from '@/components/site/Plate'
 import { getPrograms } from '@/lib/content'
+import { photoFor } from '@/lib/photos'
 import type { Media } from '@/payload-types'
 
 // Static; purged by Payload when a program is saved.
@@ -60,6 +61,7 @@ export default async function ProgramsPage() {
           <Plate
             label={program.imageLabel ?? program.title}
             image={program.image as Media | null}
+            src={photoFor('programs', program.slug)}
             height={420}
           />
         )

@@ -12,6 +12,7 @@ import type { Payload } from 'payload'
 import { fileURLToPath } from 'url'
 
 import config from '../payload.config'
+import { PHOTOS } from '../lib/photos'
 
 const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../public')
 
@@ -421,55 +422,6 @@ const EBOOKS = [
     ]),
   },
 ]
-
-/**
- * Photographs shipped in /public, matched to the document that should carry them.
- * Keyed by slug so a re-run reattaches the same image without duplicating it.
- */
-const PHOTOS: Record<string, Record<string, { file: string; alt: string }>> = {
-  programs: {
-    lessons: { file: 'img-mb-17.jpeg', alt: 'Hands playing a gangsa with a mallet' },
-    workshops: { file: 'img-mb-20.jpg', alt: 'Students seated at gamelan instruments' },
-    'cultural-immersion': {
-      file: 'img-mb-19.jpg',
-      alt: 'Study-abroad group making offerings together',
-    },
-    'family-activities': {
-      file: 'img-mb-18.webp',
-      alt: 'Family group with dancers in full costume',
-    },
-  },
-  ensembles: {
-    'semara-kirang': { file: 'img-mb-5.jpg', alt: 'Bamboo angklung instruments' },
-    'selonding-set-2': { file: 'img-mb-12.jpg', alt: 'Iron selonding keys resting on stones' },
-    'semara-pagulingan': { file: 'img-mb-13.jpeg', alt: 'A red gamelan set in its store room' },
-  },
-  articles: {
-    'searching-for-sekati': {
-      file: 'img-mb-9.jpeg',
-      alt: 'Instrument keys laid out for measuring',
-    },
-    'lesson-or-workshop': { file: 'img-mb-25.jpg', alt: 'A mixed-age group at bamboo instruments' },
-    'democracy-and-equality-in-balinese-gamelan': {
-      file: 'img-mb-16.jpg',
-      alt: 'A dancer performing in front of the gamelan',
-    },
-    'gambang-banjar-bedhe-tabanan': {
-      file: 'img-mb-15.jpg',
-      alt: 'Bronze keys on their wooden frames',
-    },
-  },
-  ebooks: {
-    'encyclopedia-of-balinese-gamelan-ensembles': {
-      file: 'img-mb-8.jpg',
-      alt: 'Carved gamelan panel and gongs',
-    },
-    'ensiklopedia-ansambel-gamelan-bali': {
-      file: 'img-mb-14.jpeg',
-      alt: 'Young players in costume at the instruments',
-    },
-  },
-}
 
 /** The field each collection stores its photograph in. */
 const PHOTO_FIELD: Record<string, string> = {
