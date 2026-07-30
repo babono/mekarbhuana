@@ -166,7 +166,7 @@ export default async function ProgramsPage() {
                 decades; all of them still play in their own banjar.
               </p>
             </div>
-            <Plate label="instructor teaching a foreign student" height={300} />
+            <Plate label="instructor teaching a foreign student" src="/img-mb-22.jpeg" height={300} />
           </div>
 
           <div className="border border-gold-light/28 bg-bark-600 p-[34px]">

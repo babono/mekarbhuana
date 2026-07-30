@@ -64,14 +64,14 @@ export default function HirePage() {
               Enquire about a booking
             </Link>
           </div>
-          <Plate label="full troupe on stage, festival" height={440} />
+          <Plate label="full troupe on stage, festival" src="/img-mb-11.jpg" height={440} />
         </div>
       </section>
 
       {/* Experts */}
       <section className="bg-cream-deep px-[26px] py-[88px]">
         <div className="mx-auto grid max-w-shell grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-14">
-          <Plate label="expert giving a talk to a seated group" height={380} />
+          <Plate label="expert giving a talk to a seated group" src="/img-mb-7.jpg" height={380} />
           <div>
             <h2 className={heading}>Experts</h2>
             <p className={`${paragraph} mb-[30px]`}>
@@ -104,7 +104,7 @@ export default function HirePage() {
               Get a quote
             </Link>
           </div>
-          <Plate label="live recording session, microphones on kendang" height={400} />
+          <Plate label="live recording session, microphones on kendang" src="/img-mb-3.jpg" height={400} />
         </div>
       </section>
     </main>

@@ -6,12 +6,52 @@
  *
  *   npm run seed
  */
+import path from 'path'
 import { getPayload } from 'payload'
 import type { Payload } from 'payload'
+import { fileURLToPath } from 'url'
 
 import config from '../payload.config'
 
+const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../public')
+
 type Seeded = { collection: string; created: number; updated: number }
+
+/**
+ * Puts a photograph from /public into the Media collection and returns its ID.
+ *
+ * Content images go through Media rather than being hardcoded so staff can swap
+ * them in the admin panel later. Matched on filename, so re-running the seed
+ * reuses the existing document instead of piling up duplicates.
+ */
+const uploadPhoto = async (
+  payload: Payload,
+  file: string,
+  alt: string,
+): Promise<string | undefined> => {
+  const { docs } = await payload.find({
+    collection: 'media',
+    where: { filename: { equals: file } },
+    limit: 1,
+    depth: 0,
+  })
+  if (docs[0]) return String(docs[0].id)
+
+  try {
+    const doc = await payload.create({
+      collection: 'media',
+      data: { alt },
+      filePath: path.join(publicDir, file),
+      disableTransaction: true,
+    })
+    return String(doc.id)
+  } catch (error) {
+    payload.logger.warn(
+      `Could not upload ${file}: ${error instanceof Error ? error.message : String(error)}`,
+    )
+    return undefined
+  }
+}
 
 const upsert = async (
   payload: Payload,
@@ -382,6 +422,90 @@ const EBOOKS = [
   },
 ]
 
+/**
+ * Photographs shipped in /public, matched to the document that should carry them.
+ * Keyed by slug so a re-run reattaches the same image without duplicating it.
+ */
+const PHOTOS: Record<string, Record<string, { file: string; alt: string }>> = {
+  programs: {
+    lessons: { file: 'img-mb-17.jpeg', alt: 'Hands playing a gangsa with a mallet' },
+    workshops: { file: 'img-mb-20.jpg', alt: 'Students seated at gamelan instruments' },
+    'cultural-immersion': {
+      file: 'img-mb-19.jpg',
+      alt: 'Study-abroad group making offerings together',
+    },
+    'family-activities': {
+      file: 'img-mb-18.webp',
+      alt: 'Family group with dancers in full costume',
+    },
+  },
+  ensembles: {
+    'semara-kirang': { file: 'img-mb-5.jpg', alt: 'Bamboo angklung instruments' },
+    'selonding-set-2': { file: 'img-mb-12.jpg', alt: 'Iron selonding keys resting on stones' },
+    'semara-pagulingan': { file: 'img-mb-13.jpeg', alt: 'A red gamelan set in its store room' },
+  },
+  articles: {
+    'searching-for-sekati': {
+      file: 'img-mb-9.jpeg',
+      alt: 'Instrument keys laid out for measuring',
+    },
+    'lesson-or-workshop': { file: 'img-mb-25.jpg', alt: 'A mixed-age group at bamboo instruments' },
+    'democracy-and-equality-in-balinese-gamelan': {
+      file: 'img-mb-16.jpg',
+      alt: 'A dancer performing in front of the gamelan',
+    },
+    'gambang-banjar-bedhe-tabanan': {
+      file: 'img-mb-15.jpg',
+      alt: 'Bronze keys on their wooden frames',
+    },
+  },
+  ebooks: {
+    'encyclopedia-of-balinese-gamelan-ensembles': {
+      file: 'img-mb-8.jpg',
+      alt: 'Carved gamelan panel and gongs',
+    },
+    'ensiklopedia-ansambel-gamelan-bali': {
+      file: 'img-mb-14.jpeg',
+      alt: 'Young players in costume at the instruments',
+    },
+  },
+}
+
+/** The field each collection stores its photograph in. */
+const PHOTO_FIELD: Record<string, string> = {
+  programs: 'image',
+  ensembles: 'image',
+  articles: 'cover',
+  ebooks: 'cover',
+}
+
+/** Attach the photographs, then point each document at its Media row. */
+const attachPhotos = async (payload: Payload): Promise<void> => {
+  for (const [collection, bySlug] of Object.entries(PHOTOS)) {
+    const field = PHOTO_FIELD[collection]
+
+    for (const [slug, photo] of Object.entries(bySlug)) {
+      const mediaId = await uploadPhoto(payload, photo.file, photo.alt)
+      if (!mediaId) continue
+
+      const { docs } = await payload.find({
+        collection: collection as 'programs',
+        where: { slug: { equals: slug } },
+        limit: 1,
+        depth: 0,
+      })
+      if (!docs[0]) continue
+
+      await payload.update({
+        collection: collection as 'programs',
+        id: docs[0].id,
+        data: { [field]: mediaId } as never,
+        disableTransaction: true,
+      })
+    }
+  }
+}
+
 const seed = async () => {
   const payload = await getPayload({ config })
 
@@ -394,6 +518,9 @@ const seed = async () => {
     await upsert(payload, 'articles', 'slug', ARTICLES as Record<string, unknown>[]),
     await upsert(payload, 'ebooks', 'slug', EBOOKS as Record<string, unknown>[]),
   ]
+
+  await attachPhotos(payload)
+  payload.logger.info('photographs attached from /public')
 
   for (const result of results) {
     payload.logger.info(

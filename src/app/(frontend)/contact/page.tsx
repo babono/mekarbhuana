@@ -43,7 +43,7 @@ export default function ContactPage() {
           </div>
 
           <div>
-            <Plate label="map — Kesiman Kertalangu, Denpasar" height={240} />
+            <Plate label="map — Kesiman Kertalangu, Denpasar" src="/img-mb-27.jpg" height={240} />
 
             <div className="card mt-[22px] p-8">
               <div className="kicker mb-5">The centre</div>

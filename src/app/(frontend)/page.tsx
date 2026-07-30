@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { AboutTabs } from '@/components/site/AboutTabs'
+import { HeroParallax } from '@/components/site/HeroParallax'
 import { Plate } from '@/components/site/Plate'
 import { getPayloadClient } from '@/lib/auth'
 import { planComparePrice, planPrice } from '@/lib/format'
@@ -87,11 +88,17 @@ export default async function HomePage() {
     <main>
       {/* ---------------------------------------------------------------- Hero */}
       <section className="relative grid min-h-[680px] place-items-center overflow-hidden bg-bark-700 px-[26px] pt-[90px] pb-[130px]">
-        <Plate label="hero film still — Legong dancer, close crop" fill />
+        <HeroParallax src="/img-hero.jpg" alt="Legong dancer in full headdress" />
         <div className="absolute inset-0 bg-linear-to-b from-[#1c130d]/72 via-[#1c130d]/50 via-40% to-[#1c130d]/92" />
 
-        <div className="hero-panel-weave clip-panel-l absolute inset-y-0 left-0 w-[15%] min-w-[74px] border-r border-gold-light/45 bg-linear-[100deg,#1b140e,#3a2718]" />
-        <div className="hero-panel-weave clip-panel-r absolute inset-y-0 right-0 w-[15%] min-w-[74px] border-l border-gold-light/45 bg-linear-[260deg,#1b140e,#3a2718]" />
+        {/* Carved side panels. The weave sits on a child because it sets the
+            `background` shorthand, which would otherwise wipe out the gradient. */}
+        <div className="clip-panel-l absolute inset-y-0 left-0 w-[15%] min-w-[74px] overflow-hidden border-r border-gold-light/45 bg-linear-[100deg,#1b140e,#3a2718]">
+          <div className="hero-panel-weave absolute inset-0" />
+        </div>
+        <div className="clip-panel-r absolute inset-y-0 right-0 w-[15%] min-w-[74px] overflow-hidden border-l border-gold-light/45 bg-linear-[260deg,#1b140e,#3a2718]">
+          <div className="hero-panel-weave absolute inset-0" />
+        </div>
 
         <div className="animate-rise-in relative max-w-[820px] text-center">
           <div className="mb-[26px] font-mono text-[10px] leading-none font-medium tracking-[0.4em] text-gold-light uppercase">
@@ -152,10 +159,10 @@ export default async function HomePage() {
               <AboutTabs />
             </div>
             <div className="grid grid-cols-2 gap-3.5">
-              <Plate label="temple ceremony at night" height={210} />
-              <Plate label="gamelan gong kebyar, full set" height={210} className="mt-[34px]" />
-              <Plate label="students in the pavilion" height={210} />
-              <Plate label="rehearsal, evening" height={210} className="mt-[34px]" />
+              <Plate label="temple ceremony at night" src="/img-mb-29.jpg" height={210} />
+              <Plate label="gamelan gong kebyar, full set" src="/img-mb-4.jpg" height={210} className="mt-[34px]" />
+              <Plate label="students in the pavilion" src="/img-mb-10.jpg" height={210} />
+              <Plate label="rehearsal, evening" src="/img-mb-6.jpg" height={210} className="mt-[34px]" />
             </div>
           </div>
         </div>
@@ -247,8 +254,8 @@ export default async function HomePage() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3.5">
-            <Plate label="open-air rehearsal ground" height={260} />
-            <Plate label="outdoor gamelan set-up" height={260} />
+            <Plate label="open-air rehearsal ground" src="/img-mb-26.jpg" height={260} />
+            <Plate label="outdoor gamelan set-up" src="/img-mb-2.jpg" height={260} />
           </div>
         </div>
       </section>
@@ -301,8 +308,8 @@ export default async function HomePage() {
         <div className="mx-auto max-w-shell px-[26px]">
           <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-15">
             <div className="flex gap-4">
-              <Plate label="Encyclopedia cover — English" height={360} className="flex-1" />
-              <Plate label="Ensiklopedia cover — Bahasa" height={320} className="mt-10 flex-1" />
+              <Plate label="Encyclopedia cover — English" src="/img-mb-8.jpg" height={360} className="flex-1" />
+              <Plate label="Ensiklopedia cover — Bahasa" src="/img-mb-14.jpeg" height={320} className="mt-10 flex-1" />
             </div>
 
             <div>
