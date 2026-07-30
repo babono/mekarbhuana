@@ -7,7 +7,6 @@ import { Footer } from '@/components/site/Footer'
 import { Gate } from '@/components/site/Gate'
 import { Header } from '@/components/site/Header'
 import { PlayerProvider } from '@/components/site/PlayerProvider'
-import { getMe } from '@/lib/auth'
 
 import './styles.css'
 
@@ -41,8 +40,7 @@ export const metadata: Metadata = {
     'A family-based gamelan and dance centre in Kesiman Kertalangu, Denpasar — teaching, restoring, recording and performing the older music of Bali since 2002.',
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const user = await getMe()
+export default function RootLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <html lang="en" className={`${marcellus.variable} ${karla.variable} ${plexMono.variable}`}>
@@ -68,7 +66,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <PlayerProvider>
           <Gate />
-          <Header user={user} />
+          <Header />
           {children}
           <Footer />
           <AudioPill />

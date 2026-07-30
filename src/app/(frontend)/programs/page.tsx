@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Plate } from '@/components/site/Plate'
-import { getPayloadAndUser, readAsUser } from '@/lib/auth'
-import type { Media, Program } from '@/payload-types'
+import { getPrograms } from '@/lib/content'
+import type { Media } from '@/payload-types'
 
-export const dynamic = 'force-dynamic'
+// Static; purged by Payload when a program is saved.
+export const revalidate = 86400
 
 export const metadata: Metadata = {
   title: 'Learn with us',
@@ -14,17 +15,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ProgramsPage() {
-  const { payload, user } = await getPayloadAndUser()
-
-  const { docs } = await payload.find({
-    collection: 'programs',
-    sort: 'order',
-    limit: 20,
-    depth: 1,
-    ...readAsUser(user),
-  })
-
-  const programs = docs as Program[]
+  const programs = await getPrograms()
 
   return (
     <main>

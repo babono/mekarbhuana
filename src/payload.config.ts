@@ -15,6 +15,7 @@ import { Plans } from './collections/Plans'
 import { Programs } from './collections/Programs'
 import { Subscriptions } from './collections/Subscriptions'
 import { Users } from './collections/Users'
+import { withRevalidation } from './hooks/revalidate'
 import { cloudinaryAdapter } from './storage/cloudinaryAdapter'
 
 const filename = fileURLToPath(import.meta.url)
@@ -37,12 +38,14 @@ export default buildConfig({
     },
   },
   collections: [
-    Articles,
-    Ebooks,
-    Programs,
-    Ensembles,
+    // Content collections purge the cache of the pages that render them, so an
+    // edit in the admin panel shows up on the static site within seconds.
+    withRevalidation(Articles, 'articles', ['/read', '/']),
+    withRevalidation(Ebooks, 'ebooks', ['/encyclopedia']),
+    withRevalidation(Programs, 'programs', ['/programs', '/']),
+    withRevalidation(Ensembles, 'ensembles', ['/']),
     Media,
-    Plans,
+    withRevalidation(Plans, 'plans', ['/encyclopedia', '/']),
     Subscriptions,
     Enquiries,
     Users,

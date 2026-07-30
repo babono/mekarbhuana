@@ -3,11 +3,13 @@ import Link from 'next/link'
 import { AboutTabs } from '@/components/site/AboutTabs'
 import { HeroParallax } from '@/components/site/HeroParallax'
 import { Plate } from '@/components/site/Plate'
-import { getPayloadClient } from '@/lib/auth'
+import { getEntryPlan, getFeaturedEnsembles, getPrograms } from '@/lib/content'
 import { planComparePrice, planPrice } from '@/lib/format'
-import type { Ensemble, Media, Plan, Program } from '@/payload-types'
+import type { Media } from '@/payload-types'
 
-export const dynamic = 'force-dynamic'
+// Statically generated; the daily window is a backstop — Payload's hooks purge
+// this page the moment a program, ensemble or plan is saved.
+export const revalidate = 86400
 
 const STATS = [
   { value: '27', label: 'Gamelan sets in our care' },
@@ -62,43 +64,19 @@ const sectionHeading = 'font-display text-[clamp(30px,4vw,52px)] leading-[1.12] 
 const eyebrow = 'font-mono text-[11px] leading-none font-medium tracking-[0.3em] uppercase'
 
 export default async function HomePage() {
-  const payload = await getPayloadClient()
-
-  const [programs, ensembles, plans] = await Promise.all([
-    payload.find({ collection: 'programs', sort: 'order', limit: 4, depth: 1 }),
-    payload.find({
-      collection: 'ensembles',
-      where: { featured: { equals: true } },
-      sort: 'order',
-      limit: 3,
-      depth: 1,
-    }),
-    payload.find({
-      collection: 'plans',
-      where: { active: { equals: true }, edition: { equals: 'en' } },
-      sort: 'durationMonths',
-      limit: 1,
-      depth: 0,
-    }),
+  const [programs, ensembles, entryPlan] = await Promise.all([
+    getPrograms(),
+    getFeaturedEnsembles(),
+    getEntryPlan(),
   ])
-
-  const entryPlan = (plans.docs as Plan[])[0] ?? null
 
   return (
     <main>
       {/* ---------------------------------------------------------------- Hero */}
-      <section className="relative grid min-h-[680px] place-items-center overflow-hidden bg-bark-700 px-[26px] pt-[90px] pb-[130px]">
+      <section className="relative grid min-h-screen place-items-center overflow-hidden bg-bark-700 px-[26px] pt-[140px] pb-[130px]">
         <HeroParallax src="/img-hero.jpg" alt="Legong dancer in full headdress" />
         <div className="absolute inset-0 bg-linear-to-b from-[#1c130d]/72 via-[#1c130d]/50 via-40% to-[#1c130d]/92" />
 
-        {/* Carved side panels. The weave sits on a child because it sets the
-            `background` shorthand, which would otherwise wipe out the gradient. */}
-        <div className="clip-panel-l absolute inset-y-0 left-0 w-[15%] min-w-[74px] overflow-hidden border-r border-gold-light/45 bg-linear-[100deg,#1b140e,#3a2718]">
-          <div className="hero-panel-weave absolute inset-0" />
-        </div>
-        <div className="clip-panel-r absolute inset-y-0 right-0 w-[15%] min-w-[74px] overflow-hidden border-l border-gold-light/45 bg-linear-[260deg,#1b140e,#3a2718]">
-          <div className="hero-panel-weave absolute inset-0" />
-        </div>
 
         <div className="animate-rise-in relative max-w-[820px] text-center">
           <div className="mb-[26px] font-mono text-[10px] leading-none font-medium tracking-[0.4em] text-gold-light uppercase">
@@ -193,7 +171,7 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(196px,1fr))] gap-[18px]">
-            {(programs.docs as Program[]).map((program) => (
+            {programs.map((program) => (
               <Link
                 key={program.id}
                 href="/programs"
@@ -279,7 +257,7 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(270px,1fr))] gap-[22px]">
-            {(ensembles.docs as Ensemble[]).map((ensemble) => (
+            {ensembles.map((ensemble) => (
               <article key={ensemble.id} className="card">
                 <Plate
                   label={ensemble.imageLabel ?? ensemble.name}
