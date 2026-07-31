@@ -7,6 +7,7 @@ import { Footer } from '@/components/site/Footer'
 import { Gate } from '@/components/site/Gate'
 import { Header } from '@/components/site/Header'
 import { PlayerProvider } from '@/components/site/PlayerProvider'
+import { WhatsAppWidget } from '@/components/site/WhatsAppWidget'
 
 import './styles.css'
 
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <Footer />
           <AudioPill />
+          <WhatsAppWidget />
         </PlayerProvider>
       </body>
     </html>

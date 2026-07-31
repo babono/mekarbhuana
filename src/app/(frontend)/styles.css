@@ -71,6 +71,26 @@
   --animate-gate-slide-r: gateSlideR 1.15s cubic-bezier(0.76, 0, 0.24, 1) both;
   --animate-gate-fade: gateFade 0.85s ease 0.35s both;
   --animate-gate-content-out: gateContentOut 0.55s ease both;
+  --animate-pop-in: popIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The WhatsApp panel is the only thing that animates on open; a visitor who has
+   asked for less motion should still get it, just without the movement. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pop-in {
+    animation: none;
+  }
 }
 
 @keyframes riseIn {
