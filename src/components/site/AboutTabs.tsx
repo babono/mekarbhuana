@@ -60,7 +60,7 @@ export function AboutTabs() {
 
       <div className="flex flex-col gap-5">
         {panel.paragraphs.map((text) => (
-          <p key={text.slice(0, 40)} className="font-body text-[17px] leading-[1.85] font-light text-pretty text-body">
+          <p key={text.slice(0, 40)} className="font-body text-[17px] leading-[1.85] font-normal text-pretty text-body">
             {text}
           </p>
         ))}

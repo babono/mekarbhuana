@@ -58,7 +58,7 @@ export function LoginForm() {
 
       <SubmitButton />
 
-      <div className="text-center font-body text-[13.5px] leading-relaxed font-light text-soft">
+      <div className="text-center font-body text-[13.5px] leading-relaxed font-normal text-soft">
         Not a member yet? <Link href="/join">Subscribe now</Link>
       </div>
     </form>

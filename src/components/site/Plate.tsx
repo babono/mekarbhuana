@@ -69,7 +69,7 @@ export function Plate({
       ) : (
         <>
           <div className="plate-sheen pointer-events-none absolute inset-0" aria-hidden="true" />
-          <span className="relative max-w-full border border-line-strong bg-cream px-[9px] py-[5px] font-mono text-[10px] leading-snug tracking-[0.1em] text-stone uppercase">
+          <span className="relative max-w-full border border-line-strong bg-cream px-[9px] py-[5px] font-label text-[10px] leading-snug tracking-[0.1em] text-stone uppercase">
             {label}
           </span>
         </>

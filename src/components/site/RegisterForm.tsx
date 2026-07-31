@@ -47,14 +47,14 @@ export function RegisterForm({ planId }: { planId?: string }) {
       />
       <input name="country" className="field" placeholder="Country" autoComplete="country-name" />
 
-      <label className="mt-1.5 flex items-start gap-[11px] font-body text-[13.5px] leading-relaxed font-light text-muted">
+      <label className="mt-1.5 flex items-start gap-[11px] font-body text-[13.5px] leading-relaxed font-normal text-muted">
         <input type="checkbox" name="newsletter" className="mt-[3px]" />
         <span>Email me when new ensembles are added to the encyclopedia.</span>
       </label>
 
       <SubmitButton hasPlan={Boolean(planId)} />
 
-      <div className="text-center font-body text-[13.5px] leading-relaxed font-light text-soft">
+      <div className="text-center font-body text-[13.5px] leading-relaxed font-normal text-soft">
         Already a member? <Link href="/login">Log in</Link>
       </div>
     </form>

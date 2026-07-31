@@ -85,7 +85,7 @@ export function Header() {
               MEKAR BHUANA
             </div>
             <div
-              className={`mt-1 font-mono text-[8.5px] leading-snug tracking-[0.19em] uppercase transition-colors ${
+              className={`mt-1 font-label text-[8.5px] leading-snug tracking-[0.19em] uppercase transition-colors ${
                 clear ? 'text-gold-light' : 'text-brass'
               }`}
             >

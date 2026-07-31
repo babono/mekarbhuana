@@ -63,7 +63,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
 
       <SubmitButton />
 
-      <div className="font-mono text-[11px] leading-[1.7] text-shadow uppercase">
+      <div className="font-label text-[11px] leading-[1.7] text-shadow uppercase">
         We reply within two working days
       </div>
     </form>

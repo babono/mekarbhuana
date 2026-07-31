@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { IBM_Plex_Mono, Karla, Marcellus } from 'next/font/google'
+import { Fraunces, Spectral } from 'next/font/google'
 import React from 'react'
 
 import { AudioPill } from '@/components/site/AudioPill'
@@ -10,24 +10,32 @@ import { PlayerProvider } from '@/components/site/PlayerProvider'
 
 import './styles.css'
 
-const marcellus = Marcellus({
-  weight: '400',
+/**
+ * Headings and labels both. Requested as a variable font so the optical-size
+ * axis is available: `opsz` is what lets one family carry a 90px hero title and
+ * a 10px eyebrow without the small setting going spindly.
+ *
+ * SOFT and WONK are Fraunces' own axes and are not served unless asked for by
+ * name — SOFT rounds the terminals, WONK swaps in the splayed, calligraphic
+ * alternates. Both are set per-role in styles.css.
+ */
+const fraunces = Fraunces({
   subsets: ['latin'],
-  variable: '--font-marcellus',
+  axes: ['SOFT', 'WONK', 'opsz'],
+  variable: '--font-fraunces',
   display: 'swap',
 })
 
-const karla = Karla({
-  weight: ['300', '400', '500', '600', '700'],
+/**
+ * Body copy. Drawn for long-form reading on screen, which the articles and the
+ * encyclopedia need. Only the weights the design actually uses are requested;
+ * italics are included because Payload rich text emits <em>.
+ */
+const spectral = Spectral({
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
   subsets: ['latin'],
-  variable: '--font-karla',
-  display: 'swap',
-})
-
-const plexMono = IBM_Plex_Mono({
-  weight: ['400', '500'],
-  subsets: ['latin'],
-  variable: '--font-plex-mono',
+  variable: '--font-spectral',
   display: 'swap',
 })
 
@@ -43,7 +51,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
   return (
-    <html lang="en" className={`${marcellus.variable} ${karla.variable} ${plexMono.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${spectral.variable}`}>
       <head>
         {/* Balinese script is used decoratively throughout; next/font has no
             Latin-subset equivalent, so it is loaded directly. */}

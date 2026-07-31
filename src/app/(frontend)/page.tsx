@@ -62,7 +62,7 @@ const PRESERVATION = [
 ]
 
 const sectionHeading = 'font-display text-[clamp(30px,4vw,52px)] leading-[1.12] text-balance'
-const eyebrow = 'font-mono text-[11px] leading-none font-medium tracking-[0.3em] uppercase'
+const eyebrow = 'font-label text-[11px] leading-none font-medium tracking-[0.3em] uppercase'
 
 export default async function HomePage() {
   const [programs, ensembles, entryPlan] = await Promise.all([
@@ -80,7 +80,7 @@ export default async function HomePage() {
 
 
         <div className="animate-rise-in relative max-w-[820px] text-center">
-          <div className="mb-[26px] font-mono text-[10px] leading-none font-medium tracking-[0.4em] text-gold-light uppercase">
+          <div className="mb-[26px] font-label text-[10px] leading-none font-medium tracking-[0.4em] text-gold-light uppercase">
             Family-based gamelan &amp; dance centre
           </div>
           <h1 className="m-0 mb-[26px] font-display text-[clamp(40px,7.4vw,92px)] leading-[1.02] tracking-[-0.02em] text-balance text-parchment">
@@ -88,7 +88,7 @@ export default async function HomePage() {
             <br />
             remembers Bali
           </h1>
-          <p className="mx-auto mb-10 max-w-[540px] font-body text-[clamp(16px,1.55vw,20px)] leading-[1.75] font-light text-pretty text-[#d3c3a8]">
+          <p className="mx-auto mb-10 max-w-[540px] font-body text-[clamp(16px,1.55vw,20px)] leading-[1.75] font-normal text-pretty text-[#d3c3a8]">
             Twenty-seven gamelan sets live in our family compound in Kesiman. Some of them were
             nearly lost. All of them are still played.
           </p>
@@ -113,7 +113,7 @@ export default async function HomePage() {
               <div className="font-display text-[clamp(28px,3.2vw,40px)] leading-none text-crimson">
                 {stat.value}
               </div>
-              <div className="mt-2 font-mono text-xs leading-relaxed tracking-[0.1em] text-stone uppercase">
+              <div className="mt-2 font-label text-xs leading-relaxed tracking-[0.1em] text-stone uppercase">
                 {stat.label}
               </div>
             </div>
@@ -164,7 +164,7 @@ export default async function HomePage() {
 
           <div className="mb-14 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-end gap-12">
             <h2 className={`${sectionHeading} m-0 text-parchment`}>Come and put your hands on it</h2>
-            <p className="m-0 max-w-[460px] font-body text-base leading-[1.8] font-light text-sand">
+            <p className="m-0 max-w-[460px] font-body text-base leading-[1.8] font-normal text-sand">
               Every session is led by working musicians and dancers, with an English-speaking
               ethnomusicologist to explain what you&rsquo;re hearing. Book at least two weeks ahead —
               we&rsquo;re a home, not a venue.
@@ -194,10 +194,10 @@ export default async function HomePage() {
                   <h3 className="mt-2 mb-3 font-display text-[21px] leading-tight text-bone">
                     {program.title}
                   </h3>
-                  <p className="mb-[18px] font-body text-sm leading-[1.7] font-light text-dust">
+                  <p className="mb-[18px] font-body text-sm leading-[1.7] font-normal text-dust">
                     {program.summary}
                   </p>
-                  <span className="font-mono text-[11px] leading-none font-medium tracking-[0.16em] text-gold-light uppercase">
+                  <span className="font-label text-[11px] leading-none font-medium tracking-[0.16em] text-gold-light uppercase">
                     {program.durationLabel ?? 'Read more'} →
                   </span>
                 </div>
@@ -215,11 +215,11 @@ export default async function HomePage() {
             <h2 className={`${sectionHeading} mt-[22px] mb-5 text-text`}>
               Open-air, half garden, entirely lived in
             </h2>
-            <p className="mb-[26px] max-w-[440px] font-body text-[16.5px] leading-[1.8] font-light text-pretty text-[#3a2a14]">
+            <p className="mb-[26px] max-w-[440px] font-body text-[16.5px] leading-[1.8] font-normal text-pretty text-[#3a2a14]">
               A pavilion, a walled garden, a studio and an outdoor rehearsal ground — attached to our
               house. Frangipani drops onto the gongs. The neighbours know the repertoire.
             </p>
-            <div className="flex flex-col gap-[11px] font-mono text-[13px] leading-relaxed tracking-[0.06em] text-[#452d0e] uppercase">
+            <div className="flex flex-col gap-[11px] font-label text-[13px] leading-relaxed tracking-[0.06em] text-[#452d0e] uppercase">
               {[
                 'Open-air rehearsal grounds',
                 'Outdoor gamelan set-up',
@@ -252,7 +252,7 @@ export default async function HomePage() {
             <h2 className={`${sectionHeading} m-0 text-text`}>
               Twenty-seven sets, each with a reason to exist
             </h2>
-            <p className="m-0 max-w-[460px] font-body text-base leading-[1.8] font-light text-pretty text-body">
+            <p className="m-0 max-w-[460px] font-body text-base leading-[1.8] font-normal text-pretty text-body">
               Twenty-two in Bali, five in Aotearoa. Several were rebuilt from a handful of surviving
               keys; one is the only ensemble of its kind outside Indonesia.
             </p>
@@ -273,7 +273,7 @@ export default async function HomePage() {
                   <h3 className="my-3 font-display text-[22px] leading-tight text-text">
                     {ensemble.name}
                   </h3>
-                  <p className="m-0 font-body text-[14.5px] leading-[1.75] font-light text-muted">
+                  <p className="m-0 font-body text-[14.5px] leading-[1.75] font-normal text-muted">
                     {ensemble.description}
                   </p>
                 </div>
@@ -298,7 +298,7 @@ export default async function HomePage() {
               <h2 className={`${sectionHeading} mt-[22px] mb-5 text-parchment`}>
                 Every Balinese gamelan we could find, written down
               </h2>
-              <p className="mb-[26px] max-w-[470px] font-body text-[16.5px] leading-[1.8] font-light text-pretty text-sand">
+              <p className="mb-[26px] max-w-[470px] font-body text-[16.5px] leading-[1.8] font-normal text-pretty text-sand">
                 Four hundred pages. More than a hundred ensembles — ancient to contemporary, popular
                 to extinct — each with links to video and audio, read as a flipbook in English or
                 Bahasa Indonesia.
@@ -314,7 +314,7 @@ export default async function HomePage() {
                     <strong className="block font-display text-[30px] leading-none font-normal text-gold-light">
                       {value}
                     </strong>
-                    <span className="mt-[7px] block font-mono text-[11px] leading-relaxed tracking-[0.1em] text-shadow uppercase">
+                    <span className="mt-[7px] block font-label text-[11px] leading-relaxed tracking-[0.1em] text-shadow uppercase">
                       {label}
                     </span>
                   </div>
@@ -361,10 +361,10 @@ export default async function HomePage() {
                 {card.icon}
               </div>
               <div className="mb-3.5 font-display text-2xl leading-tight text-text">{card.title}</div>
-              <p className="mb-[22px] flex-1 font-body text-[15px] leading-[1.75] font-light text-muted">
+              <p className="mb-[22px] flex-1 font-body text-[15px] leading-[1.75] font-normal text-muted">
                 {card.body}
               </p>
-              <span className="font-mono text-[11px] leading-none font-medium tracking-[0.16em] text-crimson uppercase">
+              <span className="font-label text-[11px] leading-none font-medium tracking-[0.16em] text-crimson uppercase">
                 {card.cta}
               </span>
             </Link>
@@ -393,20 +393,20 @@ export default async function HomePage() {
                   className={`border-t-[3px] bg-cream p-[34px] ${borderClass}`}
                 >
                   <div
-                    className={`mb-[18px] font-mono text-[10px] leading-none font-medium tracking-[0.2em] uppercase ${textClass}`}
+                    className={`mb-[18px] font-label text-[10px] leading-none font-medium tracking-[0.2em] uppercase ${textClass}`}
                   >
                     {item.kicker}
                   </div>
                   <div className="mb-3.5 font-display text-[22px] leading-tight text-text">
                     {item.title}
                   </div>
-                  <p className="m-0 font-body text-[15px] leading-[1.75] font-light text-muted">
+                  <p className="m-0 font-body text-[15px] leading-[1.75] font-normal text-muted">
                     {item.body}
                   </p>
                   {item.kicker === 'Archive' && (
                     <Link
                       href="/read"
-                      className="mt-5 inline-block font-mono text-[11px] leading-none font-medium tracking-[0.16em] text-crimson uppercase"
+                      className="mt-5 inline-block font-label text-[11px] leading-none font-medium tracking-[0.16em] text-crimson uppercase"
                     >
                       Read the field notes →
                     </Link>
@@ -421,7 +421,7 @@ export default async function HomePage() {
               <div className="mb-2 font-display text-2xl leading-snug text-bone">
                 Restoration is paid for by people, not grants
               </div>
-              <div className="max-w-[460px] font-body text-[15px] leading-[1.7] font-light text-clay">
+              <div className="max-w-[460px] font-body text-[15px] leading-[1.7] font-normal text-clay">
                 Donations go through Yayasan Semara Gita Bhuana and should be tax deductible.
               </div>
             </div>

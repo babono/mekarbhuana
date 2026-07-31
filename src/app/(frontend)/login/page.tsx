@@ -27,7 +27,7 @@ export default async function LoginPage() {
             <h1 className="m-0 mb-3 font-display text-[clamp(28px,3.6vw,42px)] leading-tight text-parchment">
               Member login
             </h1>
-            <p className="m-0 font-body text-[15px] leading-[1.7] font-light text-dust">
+            <p className="m-0 font-body text-[15px] leading-[1.7] font-normal text-dust">
               Pick up where you left the flipbook.
             </p>
           </div>

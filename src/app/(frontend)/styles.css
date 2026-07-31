@@ -53,10 +53,10 @@
   --color-line-soft: #dfd3bc;
   --color-line-faint: #e4d9c2;
 
-  /* Type */
-  --font-display: var(--font-marcellus), Georgia, serif;
-  --font-body: var(--font-karla), system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  /* Type — Fraunces for display and labels, Spectral for reading. */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-spectral), Georgia, serif;
+  --font-label: var(--font-fraunces), Georgia, serif;
   --font-balinese: 'Noto Serif Balinese', serif;
 
   /* Shell width */
@@ -176,6 +176,31 @@
   h2,
   h3 {
     text-wrap: balance;
+  }
+
+  /* One family, two voices.
+
+     WONK swaps in Fraunces' splayed, calligraphic alternates — the right kind
+     of flourish on a 90px title, visual noise on a 10px label. SOFT rounds the
+     terminals; a little warms the headings, less keeps the labels crisp.
+
+     `opsz` is deliberately NOT pinned here. Leaving it out lets the browser's
+     default `font-optical-sizing: auto` track the rendered size, which is what
+     thickens the strokes on small labels and refines them on large titles —
+     the job small-caps glyphs would otherwise do. Naming `opsz` in
+     font-variation-settings would override that and freeze it. */
+  .font-display {
+    font-variation-settings:
+      'SOFT' 20,
+      'WONK' 1;
+  }
+
+  .font-label,
+  .kicker,
+  .crumb {
+    font-variation-settings:
+      'SOFT' 8,
+      'WONK' 0;
   }
 }
 
@@ -309,13 +334,13 @@
     @apply border border-line bg-paper;
   }
 
-  /* Small caps monospace label used above headings */
+  /* Spaced caps in Fraunces, set above headings */
   .kicker {
-    @apply font-mono text-[10px] leading-none tracking-[0.2em] text-brass uppercase;
+    @apply font-label text-[10px] leading-none tracking-[0.2em] text-brass uppercase;
   }
 
   /* Breadcrumb above page titles */
   .crumb {
-    @apply mb-[22px] font-mono text-[11px] leading-none tracking-[0.2em] text-smoke uppercase;
+    @apply mb-[22px] font-label text-[11px] leading-none tracking-[0.2em] text-smoke uppercase;
   }
 }

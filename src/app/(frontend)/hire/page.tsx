@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 const heading = 'mb-5 font-display text-[clamp(28px,3.6vw,46px)] leading-[1.14] text-balance text-text'
-const paragraph = 'font-body text-[16.5px] leading-[1.85] font-light text-pretty text-body'
+const paragraph = 'font-body text-[16.5px] leading-[1.85] font-normal text-pretty text-body'
 
 export default function HirePage() {
   return (
@@ -26,7 +26,7 @@ export default function HirePage() {
           <h1 className="m-0 mb-5 font-display text-[clamp(38px,6vw,78px)] leading-[1.04] text-balance text-parchment">
             Hire
           </h1>
-          <p className="m-0 max-w-[540px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-light text-pretty text-sand">
+          <p className="m-0 max-w-[540px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-normal text-pretty text-sand">
             Troupes, experts and recording — classical and archaic Balinese repertoire, played live.
           </p>
         </div>
@@ -44,10 +44,10 @@ export default function HirePage() {
             </p>
 
             <div className="my-[26px] border-l-[3px] border-crimson bg-cream-deep px-[26px] py-6">
-              <div className="mb-3.5 font-mono text-[11px] leading-none font-medium tracking-[0.2em] text-crimson uppercase">
+              <div className="mb-3.5 font-label text-[11px] leading-none font-medium tracking-[0.2em] text-crimson uppercase">
                 Before you write to us
               </div>
-              <p className="m-0 font-body text-[15px] leading-[1.8] font-light text-body">
+              <p className="m-0 font-body text-[15px] leading-[1.8] font-normal text-body">
                 We don&rsquo;t do modern gamelan, Bali fusion, or dancers performing to recorded
                 music — the last of which is against Indonesian regulation anyway. Dance is always
                 with a full orchestra, and our prices reflect that.

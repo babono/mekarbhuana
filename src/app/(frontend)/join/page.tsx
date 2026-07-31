@@ -64,7 +64,7 @@ export default async function JoinPage({
           <h1 className="m-0 mb-3.5 font-display text-[clamp(32px,4.6vw,58px)] leading-[1.08] text-balance text-text">
             Create your reading account
           </h1>
-          <p className="m-0 mb-11 max-w-[520px] font-body text-[17px] leading-[1.8] font-light text-muted">
+          <p className="m-0 mb-11 max-w-[520px] font-body text-[17px] leading-[1.8] font-normal text-muted">
             One account gives you the flipbook, the linked media, and every future revision inside
             your subscription period.
           </p>
@@ -84,13 +84,13 @@ export default async function JoinPage({
                     {planPrice(plan)}
                   </div>
                   {wasPrice && (
-                    <div className="mb-[22px] font-body text-sm leading-relaxed font-light text-shadow line-through">
+                    <div className="mb-[22px] font-body text-sm leading-relaxed font-normal text-shadow line-through">
                       {wasPrice}
                     </div>
                   )}
                 </>
               ) : (
-                <p className="m-0 mb-[22px] font-body text-[15px] leading-[1.8] font-light text-muted">
+                <p className="m-0 mb-[22px] font-body text-[15px] leading-[1.8] font-normal text-muted">
                   No plan chosen yet — create your account now and pick one afterwards, or browse the
                   tiers first.
                 </p>
@@ -98,7 +98,7 @@ export default async function JoinPage({
 
               <div className="mb-[22px] h-px bg-line-faint" />
 
-              <div className="flex flex-col gap-3 font-body text-[14.5px] leading-relaxed font-light text-muted">
+              <div className="flex flex-col gap-3 font-body text-[14.5px] leading-relaxed font-normal text-muted">
                 {PERKS.map((perk) => (
                   <div key={perk} className="flex gap-[11px]">
                     <span className="text-gold">◆</span>
@@ -108,19 +108,19 @@ export default async function JoinPage({
               </div>
 
               {promo && (
-                <div className="my-5 font-mono text-[11px] leading-relaxed text-crimson uppercase">
+                <div className="my-5 font-label text-[11px] leading-relaxed text-crimson uppercase">
                   {promo}
                 </div>
               )}
 
               <Link
                 href="/encyclopedia"
-                className="mt-[18px] block font-mono text-[11px] leading-none font-medium tracking-[0.14em] text-soft uppercase underline underline-offset-4"
+                className="mt-[18px] block font-label text-[11px] leading-none font-medium tracking-[0.14em] text-soft uppercase underline underline-offset-4"
               >
                 {plan ? 'Change plan' : 'See the plans'}
               </Link>
 
-              <p className="mt-[22px] mb-0 font-mono text-[11px] leading-[1.7] text-shadow uppercase">
+              <p className="mt-[22px] mb-0 font-label text-[11px] leading-[1.7] text-shadow uppercase">
                 Payment is arranged by email or bank transfer — we open your access as soon as it
                 clears.
               </p>

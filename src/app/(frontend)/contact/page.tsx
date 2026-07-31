@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'We’re a home as much as a centre, so everything is by appointment — two weeks’ notice for anything you want to sit in on.',
 }
 
-const detail = 'mb-6 font-body text-base leading-[1.85] font-light text-text not-italic'
+const detail = 'mb-6 font-body text-base leading-[1.85] font-normal text-text not-italic'
 
 export default function ContactPage() {
   return (
@@ -26,7 +26,7 @@ export default function ContactPage() {
           <h1 className="m-0 mb-5 font-display text-[clamp(38px,6vw,78px)] leading-[1.04] text-balance text-parchment">
             Come and find us
           </h1>
-          <p className="m-0 max-w-[540px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-light text-pretty text-sand">
+          <p className="m-0 max-w-[540px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-normal text-pretty text-sand">
             We&rsquo;re a home as much as a centre, so everything is by appointment — two
             weeks&rsquo; notice for anything you want to sit in on.
           </p>
@@ -67,7 +67,7 @@ export default function ContactPage() {
               <div className="mb-6 h-px bg-line-faint" />
 
               <div className="kicker mb-3.5">Open</div>
-              <div className="font-body text-base leading-[1.85] font-light text-text">
+              <div className="font-body text-base leading-[1.85] font-normal text-text">
                 Monday – Friday, 09:00 – 17:00 WITA
               </div>
             </div>

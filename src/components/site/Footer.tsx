@@ -39,7 +39,7 @@ export function Footer() {
             recording and performing the older music of Bali since 2002.
           </p>
 
-          <div className="font-mono text-[11px] leading-[1.9] tracking-[0.06em] text-smoke uppercase">
+          <div className="font-label text-[11px] leading-[1.9] tracking-[0.06em] text-smoke uppercase">
             Jl. Gandapura III no. 501X
             <br />
             Kesiman Kertalangu, Denpasar
@@ -88,7 +88,7 @@ export function Footer() {
               <a
                 key={label}
                 href="/contact"
-                className="grid size-[38px] place-items-center border border-gold-light/40 font-mono text-[10px] leading-none text-gold-light hover:bg-gold hover:text-bark-600"
+                className="grid size-[38px] place-items-center border border-gold-light/40 font-label text-[10px] leading-none text-gold-light hover:bg-gold hover:text-bark-600"
               >
                 {label}
               </a>
@@ -100,7 +100,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-shell flex-wrap justify-between gap-3.5 border-t border-[#e6d9c0]/14 px-[26px] py-[22px] font-mono text-[11px] leading-relaxed tracking-[0.06em] text-shadow uppercase">
+      <div className="mx-auto flex max-w-shell flex-wrap justify-between gap-3.5 border-t border-[#e6d9c0]/14 px-[26px] py-[22px] font-label text-[11px] leading-relaxed tracking-[0.06em] text-shadow uppercase">
         <div>© {new Date().getFullYear()} Mekar Bhuana Centre · Yayasan Semara Gita Bhuana</div>
         <div>No AI training on our archive · Terms</div>
       </div>

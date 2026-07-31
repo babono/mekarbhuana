@@ -9,7 +9,7 @@ import { photoFor } from '@/lib/photos'
 import type { Article, Media } from '@/payload-types'
 
 const chip =
-  'border px-5 py-3 font-mono text-[11px] leading-none font-medium tracking-[0.14em] uppercase transition-colors'
+  'border px-5 py-3 font-label text-[11px] leading-none font-medium tracking-[0.14em] uppercase transition-colors'
 const chipIdle = 'border-line-strong text-soft hover:border-gold hover:text-crimson'
 const chipActive = 'border-bark-450 bg-bark-450 text-bone'
 
@@ -64,7 +64,7 @@ export function ReadIndex({ articles }: { articles: Article[] }) {
       </div>
 
       {visible.length === 0 && (
-        <p className="font-body text-[17px] leading-[1.8] font-light text-muted">
+        <p className="font-body text-[17px] leading-[1.8] font-normal text-muted">
           Nothing published here yet.{' '}
           {activeCategory && <Link href="/read">See all field notes</Link>}
         </p>
@@ -88,10 +88,10 @@ export function ReadIndex({ articles }: { articles: Article[] }) {
             <h2 className="m-0 mb-4 font-display text-[clamp(24px,2.8vw,36px)] leading-tight text-balance text-text">
               {lead.title}
             </h2>
-            <p className="m-0 mb-[22px] font-body text-[15.5px] leading-[1.8] font-light text-muted">
+            <p className="m-0 mb-[22px] font-body text-[15.5px] leading-[1.8] font-normal text-muted">
               {lead.excerpt}
             </p>
-            <span className="font-mono text-[11px] leading-none font-medium tracking-[0.16em] text-crimson uppercase">
+            <span className="font-label text-[11px] leading-none font-medium tracking-[0.16em] text-crimson uppercase">
               Read the article →
             </span>
           </div>
@@ -120,7 +120,7 @@ export function ReadIndex({ articles }: { articles: Article[] }) {
               <h3 className="m-0 mb-3.5 font-display text-[21px] leading-tight text-text">
                 {article.title}
               </h3>
-              <p className="m-0 font-body text-[14.5px] leading-[1.75] font-light text-muted">
+              <p className="m-0 font-body text-[14.5px] leading-[1.75] font-normal text-muted">
                 {article.excerpt}
               </p>
             </div>

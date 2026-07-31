@@ -118,13 +118,13 @@ export function Gate() {
 
           <div className="relative">
             <Logo height={104} className="mx-auto mb-[26px]" />
-            <div className="mb-[22px] font-mono text-[10px] leading-none font-medium tracking-[0.42em] text-smoke uppercase">
+            <div className="mb-[22px] font-label text-[10px] leading-none font-medium tracking-[0.42em] text-smoke uppercase">
               Denpasar · Bali · Est. 2002
             </div>
             <h1 className="m-0 mb-[26px] font-display text-[clamp(38px,8vw,80px)] leading-[1.02] tracking-[-0.015em] text-gold-pale">
               Mekar Bhuana
             </h1>
-            <p className="mx-auto mb-10 max-w-[470px] font-body text-[clamp(15px,1.6vw,19px)] leading-[1.75] font-light text-pretty text-sand">
+            <p className="mx-auto mb-10 max-w-[470px] font-body text-[clamp(15px,1.6vw,19px)] leading-[1.75] font-normal text-pretty text-sand">
               A family compound where bronze that is centuries old is still struck every week. Step
               through — the gamelan is already playing.
             </p>
@@ -151,12 +151,12 @@ export function Gate() {
               <button
                 type="button"
                 onClick={() => enter(false)}
-                className="cursor-pointer border-none bg-transparent p-0 font-mono text-[11px] leading-none tracking-[0.18em] text-[#7e6e59] uppercase underline underline-offset-[5px] hover:text-sand"
+                className="cursor-pointer border-none bg-transparent p-0 font-label text-[11px] leading-none tracking-[0.18em] text-[#7e6e59] uppercase underline underline-offset-[5px] hover:text-sand"
               >
                 Enter in silence
               </button>
 
-              <div className="mt-2.5 font-mono text-[10.5px] leading-[1.7] tracking-[0.1em] text-[#5f5344] uppercase">
+              <div className="mt-2.5 font-label text-[10.5px] leading-[1.7] tracking-[0.1em] text-[#5f5344] uppercase">
                 Sound on · This Is Mekar Bhuana
               </div>
             </div>

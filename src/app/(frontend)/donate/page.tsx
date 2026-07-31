@@ -28,7 +28,7 @@ export default function DonatePage() {
         </div>
 
         <div className="relative mx-auto max-w-shell">
-          <div className="mb-[22px] font-mono text-[11px] leading-none tracking-[0.2em] text-cream/65 uppercase">
+          <div className="mb-[22px] font-label text-[11px] leading-none tracking-[0.2em] text-cream/65 uppercase">
             <Link href="/" className="text-cream">
               Mekar Bhuana
             </Link>{' '}
@@ -37,7 +37,7 @@ export default function DonatePage() {
           <h1 className="m-0 mb-5 font-display text-[clamp(38px,6vw,78px)] leading-[1.04] text-balance text-parchment">
             Keep the bronze playing
           </h1>
-          <p className="m-0 max-w-[560px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-light text-pretty text-parchment/85">
+          <p className="m-0 max-w-[560px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-normal text-pretty text-parchment/85">
             Donations reach us through Yayasan Semara Gita Bhuana, the Indonesian non-profit that
             supports the centre — which also means your gift should be tax deductible.
           </p>
@@ -51,7 +51,7 @@ export default function DonatePage() {
             <h2 className="m-0 mb-2.5 font-display text-[26px] leading-tight text-text">
               Bank transfer
             </h2>
-            <p className="m-0 mb-[26px] font-body text-[14.5px] leading-[1.75] font-light text-crimson">
+            <p className="m-0 mb-[26px] font-body text-[14.5px] leading-[1.75] font-normal text-crimson">
               Please check every line — an incorrect detail means the transfer comes back to you.
             </p>
 
@@ -59,7 +59,7 @@ export default function DonatePage() {
               {BANK_DETAILS.map(([label, value]) => (
                 <div
                   key={label}
-                  className="flex justify-between gap-4 border-b border-dotted border-[#d3c4a8] py-3.5 font-mono text-[13px] leading-relaxed last:border-b-0"
+                  className="flex justify-between gap-4 border-b border-dotted border-[#d3c4a8] py-3.5 font-label text-[13px] leading-relaxed last:border-b-0"
                 >
                   <dt className="m-0 text-shadow uppercase">{label}</dt>
                   <dd className="m-0 text-right text-text">{value}</dd>
@@ -70,13 +70,13 @@ export default function DonatePage() {
 
           <div className="flex flex-col gap-[22px]">
             <div className="bg-bark-450 p-[38px]">
-              <div className="mb-[18px] font-mono text-[10px] leading-none font-medium tracking-[0.2em] text-gold-light uppercase">
+              <div className="mb-[18px] font-label text-[10px] leading-none font-medium tracking-[0.2em] text-gold-light uppercase">
                 Option two
               </div>
               <h2 className="m-0 mb-3.5 font-display text-[26px] leading-tight text-bone">
                 Card or e-wallet
               </h2>
-              <p className="m-0 mb-7 font-body text-[15px] leading-[1.8] font-light text-clay">
+              <p className="m-0 mb-7 font-body text-[15px] leading-[1.8] font-normal text-clay">
                 Faster, and it works from anywhere. Write to us and we will send a payment link for
                 the amount you choose.
               </p>
@@ -89,7 +89,7 @@ export default function DonatePage() {
               <div className="mb-3 font-display text-[19px] leading-snug text-text">
                 Where it goes
               </div>
-              <p className="m-0 font-body text-[14.5px] leading-[1.8] font-light text-muted">
+              <p className="m-0 font-body text-[14.5px] leading-[1.8] font-normal text-muted">
                 Restoration materials and smithing, instructor fees, documentation trips, and
                 returning instruments to the villages that made them.
               </p>

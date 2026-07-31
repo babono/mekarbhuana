@@ -23,13 +23,13 @@ const STATUS_LABEL: Record<string, string> = {
 
 const statusPill = (status: string) => {
   const base =
-    'inline-block border border-current px-3 py-2 font-mono text-[10px] leading-none font-medium tracking-[0.16em] uppercase'
+    'inline-block border border-current px-3 py-2 font-label text-[10px] leading-none font-medium tracking-[0.16em] uppercase'
   if (status === 'active') return `${base} text-[#40602a]`
   if (status === 'pending') return `${base} text-brass`
   return `${base} text-crimson`
 }
 
-const dataRow = 'flex justify-between gap-4 border-b border-dotted border-[#d3c4a8] py-3.5 font-mono text-[13px] leading-relaxed last:border-b-0'
+const dataRow = 'flex justify-between gap-4 border-b border-dotted border-[#d3c4a8] py-3.5 font-label text-[13px] leading-relaxed last:border-b-0'
 
 export default async function AccountPage({
   searchParams,
@@ -71,7 +71,7 @@ export default async function AccountPage({
           <h1 className="m-0 mb-5 font-display text-[clamp(38px,6vw,78px)] leading-[1.04] text-balance text-parchment">
             {user.name}
           </h1>
-          <p className="m-0 max-w-[540px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-light text-pretty text-sand">
+          <p className="m-0 max-w-[540px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-normal text-pretty text-sand">
             {entitled
               ? 'Your subscription is open — the flipbook is yours to read.'
               : 'Your reading account is set up. Access opens as soon as a subscription is activated.'}
@@ -152,7 +152,7 @@ export default async function AccountPage({
               <div className="kicker mb-5">Subscriptions</div>
 
               {subscriptions.length === 0 ? (
-                <p className="m-0 font-body text-[15px] leading-[1.8] font-light text-muted">
+                <p className="m-0 font-body text-[15px] leading-[1.8] font-normal text-muted">
                   Nothing here yet. <Link href="/encyclopedia">Choose a plan</Link> to start reading.
                 </p>
               ) : (
@@ -181,7 +181,7 @@ export default async function AccountPage({
                 </dl>
               )}
 
-              <p className="mt-[26px] mb-0 font-mono text-[11px] leading-[1.7] text-shadow uppercase">
+              <p className="mt-[26px] mb-0 font-label text-[11px] leading-[1.7] text-shadow uppercase">
                 Payments are arranged directly with the centre — write to us if anything looks wrong.
               </p>
             </div>

@@ -78,7 +78,7 @@ export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
       </div>
 
       {active.length === 0 ? (
-        <p className="font-body text-[17px] leading-[1.8] font-light text-muted">
+        <p className="font-body text-[17px] leading-[1.8] font-normal text-muted">
           No plans are listed for this edition yet.
         </p>
       ) : (
@@ -94,15 +94,15 @@ export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
                 }`}
               >
                 {plan.badge && (
-                  <div className="absolute -top-px -right-px bg-crimson px-3 py-2 font-mono text-[9.5px] leading-none font-medium tracking-[0.16em] text-cream uppercase">
+                  <div className="absolute -top-px -right-px bg-crimson px-3 py-2 font-label text-[9.5px] leading-none font-medium tracking-[0.16em] text-cream uppercase">
                     {plan.badge}
                   </div>
                 )}
-                <div className="font-mono text-[10px] leading-none font-medium tracking-[0.2em] text-brass uppercase">
+                <div className="font-label text-[10px] leading-none font-medium tracking-[0.2em] text-brass uppercase">
                   {plan.name}
                 </div>
                 {wasPrice && (
-                  <div className="mt-5 mb-1.5 font-body text-[15px] leading-none font-light text-[#9a8871] line-through">
+                  <div className="mt-5 mb-1.5 font-body text-[15px] leading-none font-normal text-[#9a8871] line-through">
                     {wasPrice}
                   </div>
                 )}
@@ -113,11 +113,11 @@ export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
                 >
                   {planPrice(plan)}
                 </div>
-                <p className="mt-5 flex-1 font-body text-[14.5px] leading-[1.75] font-light text-muted">
+                <p className="mt-5 flex-1 font-body text-[14.5px] leading-[1.75] font-normal text-muted">
                   {plan.description}
                 </p>
                 {promo && (
-                  <div className="my-5 font-mono text-[11px] leading-relaxed text-crimson uppercase">
+                  <div className="my-5 font-label text-[11px] leading-relaxed text-crimson uppercase">
                     {promo}
                   </div>
                 )}
@@ -137,7 +137,7 @@ export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
         {copy.perks.map((perk) => (
           <div key={perk.title}>
             <div className="mb-2.5 font-display text-lg leading-snug text-text">{perk.title}</div>
-            <p className="m-0 font-body text-[14.5px] leading-[1.75] font-light text-muted">
+            <p className="m-0 font-body text-[14.5px] leading-[1.75] font-normal text-muted">
               {perk.body}
             </p>
           </div>
