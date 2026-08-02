@@ -5,12 +5,33 @@ import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import HTMLFlipBook from 'react-pageflip'
 
-/** Rendered page width in CSS pixels; the height follows the PDF's own aspect. */
+/** Rendered page width in CSS pixels. Height comes from the PDF's own aspect. */
 const PAGE_WIDTH = 460
-const PAGE_HEIGHT = 640
 
 /** How many pages either side of the spread to rasterise ahead of the reader. */
 const LOOKAHEAD = 3
+
+/** Schemes we are willing to follow out of a PDF. Anything else is dropped. */
+const SAFE_SCHEMES = ['http:', 'https:', 'mailto:']
+
+/**
+ * A clickable region lifted out of the PDF, measured as a percentage of the
+ * page box so it keeps its place at any rendered size.
+ */
+type LinkBox = {
+  left: number
+  top: number
+  width: number
+  height: number
+  url?: string
+  target?: number
+}
+
+type PageFlipApi = {
+  flipNext: () => void
+  flipPrev: () => void
+  flip: (page: number) => void
+}
 
 type Props = {
   /** The gated endpoint. Serves the full book or the preview slice, per reader. */
@@ -38,11 +59,18 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
   const [current, setCurrent] = useState(0)
   const [error, setError] = useState<string | null>(null)
 
+  /** 0–1 while the document downloads; drives the opening progress bar. */
+  const [progress, setProgress] = useState(0)
+  /** Page height as a multiple of its width, taken from the document itself. */
+  const [aspect, setAspect] = useState(1.4)
+  /** Pages whose canvas has finished drawing, so the placeholder can lift. */
+  const [ready, setReady] = useState<ReadonlySet<number>>(new Set())
+  /** Link regions per page, extracted alongside the raster. */
+  const [links, setLinks] = useState<ReadonlyMap<number, LinkBox[]>>(new Map())
+
   const canvases = useRef(new Map<number, HTMLCanvasElement>())
-  const drawn = useRef(new Set<number>())
-  const book = useRef<{ pageFlip: () => { flipNext: () => void; flipPrev: () => void } } | null>(
-    null,
-  )
+  const drawing = useRef(new Set<number>())
+  const book = useRef<{ pageFlip: () => PageFlipApi } | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -55,9 +83,21 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
       pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
 
       task = pdfjs.getDocument({ url: src, withCredentials: true })
+      task.onProgress = ({ loaded, total }: { loaded: number; total: number }) => {
+        if (!cancelled && total > 0) setProgress(Math.min(loaded / total, 1))
+      }
+
       try {
         const loaded = await task.promise
         if (cancelled) return
+
+        // Size the book to the document rather than guessing, so pages are not
+        // stretched to fit a hardcoded box.
+        const first = await loaded.getPage(1)
+        const view = first.getViewport({ scale: 1 })
+        if (cancelled) return
+
+        setAspect(view.height / view.width)
         setDoc(loaded)
         setPageCount(loaded.numPages)
       } catch {
@@ -73,11 +113,26 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
     }
   }, [src])
 
+  /** Resolve a PDF destination to a zero-based page index. */
+  const destinationPage = useCallback(
+    async (document: PDFDocumentProxy, dest: unknown): Promise<number | undefined> => {
+      try {
+        const resolved = typeof dest === 'string' ? await document.getDestination(dest) : dest
+        const ref = Array.isArray(resolved) ? resolved[0] : null
+        if (!ref) return undefined
+        return await document.getPageIndex(ref as Parameters<typeof document.getPageIndex>[0])
+      } catch {
+        return undefined
+      }
+    },
+    [],
+  )
+
   const draw = useCallback(
     async (index: number) => {
       const canvas = canvases.current.get(index)
-      if (!doc || !canvas || drawn.current.has(index)) return
-      drawn.current.add(index)
+      if (!doc || !canvas || drawing.current.has(index)) return
+      drawing.current.add(index)
 
       try {
         const page = await doc.getPage(index + 1)
@@ -88,14 +143,52 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
 
         canvas.width = viewport.width
         canvas.height = viewport.height
-
         await page.render({ canvas, viewport }).promise
+
+        // Links are measured against the unscaled page and stored as
+        // percentages, so the overlay tracks whatever size the book is drawn at.
+        const annotations = await page.getAnnotations({ intent: 'display' })
+        const boxes: LinkBox[] = []
+
+        for (const annotation of annotations) {
+          if (annotation.subtype !== 'Link') continue
+
+          // pdfjs 6 dropped convertToViewportRectangle; converting the two
+          // corners does the same job and still respects page rotation.
+          const [x1, y1] = base.convertToViewportPoint(annotation.rect[0], annotation.rect[1])
+          const [x2, y2] = base.convertToViewportPoint(annotation.rect[2], annotation.rect[3])
+          const box = {
+            left: (Math.min(x1, x2) / base.width) * 100,
+            top: (Math.min(y1, y2) / base.height) * 100,
+            width: (Math.abs(x2 - x1) / base.width) * 100,
+            height: (Math.abs(y2 - y1) / base.height) * 100,
+          }
+
+          if (annotation.url) {
+            // A PDF is untrusted content: only follow schemes that cannot run code.
+            try {
+              if (SAFE_SCHEMES.includes(new URL(annotation.url).protocol)) {
+                boxes.push({ ...box, url: annotation.url })
+              }
+            } catch {
+              // Unparseable href — drop it.
+            }
+          } else if (annotation.dest) {
+            const target = await destinationPage(doc, annotation.dest)
+            if (target !== undefined) boxes.push({ ...box, target })
+          }
+        }
+
+        setReady((previous) => new Set(previous).add(index))
+        if (boxes.length > 0) {
+          setLinks((previous) => new Map(previous).set(index, boxes))
+        }
       } catch {
         // A page that fails to draw stays blank rather than taking down the book.
-        drawn.current.delete(index)
+        drawing.current.delete(index)
       }
     },
-    [doc],
+    [doc, destinationPage],
   )
 
   useEffect(() => {
@@ -123,10 +216,27 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
   }
 
   if (!doc) {
+    const percent = Math.round(progress * 100)
     return (
-      <div className="flex min-h-[520px] items-center justify-center">
+      <div className="flex min-h-[520px] flex-col items-center justify-center gap-4">
         <span className="font-label text-[10px] leading-none tracking-[0.24em] text-dust uppercase">
-          Opening {title}…
+          Opening {title}
+        </span>
+        <div
+          className="h-[3px] w-[220px] overflow-hidden bg-bark-600"
+          role="progressbar"
+          aria-valuenow={percent}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label="Loading the encyclopedia"
+        >
+          <div
+            className="h-full bg-gold-light transition-[width] duration-200 ease-out"
+            style={{ width: `${Math.max(percent, 4)}%` }}
+          />
+        </div>
+        <span className="font-label text-[9px] leading-none tracking-[0.2em] text-shadow uppercase">
+          {percent}%
         </span>
       </div>
     )
@@ -141,12 +251,12 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
         className="encyclopedia-book"
         style={{}}
         width={PAGE_WIDTH}
-        height={PAGE_HEIGHT}
+        height={Math.round(PAGE_WIDTH * aspect)}
         size="stretch"
         minWidth={280}
         maxWidth={640}
-        minHeight={380}
-        maxHeight={900}
+        minHeight={Math.round(280 * aspect)}
+        maxHeight={Math.round(640 * aspect)}
         startPage={0}
         drawShadow
         flippingTime={800}
@@ -156,7 +266,9 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
         maxShadowOpacity={0.5}
         showCover
         mobileScrollSupport
-        clickEventForward={false}
+        // Lets a click on an <a> or <button> do its own thing instead of
+        // turning the page — this is what makes the PDF's links reachable.
+        clickEventForward
         useMouseEvents
         swipeDistance={30}
         showPageCorners
@@ -164,7 +276,7 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
         onFlip={(event: { data: number }) => setCurrent(event.data)}
       >
         {Array.from({ length: pageCount }, (_, index) => (
-          <div key={index} className="bg-paper">
+          <div key={index} className="relative bg-paper">
             <canvas
               ref={(element) => {
                 // Braces matter: a ref callback that returns a value is treated
@@ -174,6 +286,46 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
               }}
               className="block h-full w-full"
             />
+
+            {!ready.has(index) && (
+              <div className="absolute inset-0 grid place-items-center bg-paper">
+                <span
+                  className="size-6 animate-spin rounded-full border-2 border-line-strong border-t-gold"
+                  aria-hidden="true"
+                />
+                <span className="sr-only">Rendering page {index + 1}</span>
+              </div>
+            )}
+
+            {(links.get(index) ?? []).map((box, i) => {
+              const position = {
+                left: `${box.left}%`,
+                top: `${box.top}%`,
+                width: `${box.width}%`,
+                height: `${box.height}%`,
+              }
+
+              return box.url ? (
+                <a
+                  key={i}
+                  href={box.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute rounded-[2px] transition-colors hover:bg-gold/20"
+                  style={position}
+                  title={box.url}
+                />
+              ) : (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => book.current?.pageFlip()?.flip(box.target as number)}
+                  className="absolute cursor-pointer rounded-[2px] border-0 bg-transparent p-0 transition-colors hover:bg-gold/20"
+                  style={position}
+                  aria-label={`Go to page ${(box.target ?? 0) + 1}`}
+                />
+              )
+            })}
           </div>
         ))}
       </HTMLFlipBook>

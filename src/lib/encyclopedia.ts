@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-import { PDFDocument } from 'pdf-lib'
+import { PDFDict, PDFDocument, PDFName, type PDFPage } from 'pdf-lib'
 
 export type Edition = 'en' | 'id'
 
@@ -42,6 +42,36 @@ export const editionPath = (edition: Edition): string =>
 const previewCache = new Map<string, Uint8Array>()
 
 /**
+ * Drop links that jump to somewhere else in the book, keeping external ones.
+ *
+ * Copying a subset of pages leaves the table of contents pointing at chapters
+ * that were not copied. Those destinations do not simply break — they collapse
+ * to the first page, so every entry in the preview's contents would quietly
+ * send the reader back to the cover. Removing them is honest; an entry that
+ * cannot go anywhere should not look clickable.
+ *
+ * External links (`/A` with `/S /URI`) are untouched: they still resolve.
+ */
+const stripInternalLinks = (document: PDFDocument, page: PDFPage): void => {
+  const annotations = page.node.Annots()
+  if (!annotations) return
+
+  const kept = annotations.asArray().filter((entry) => {
+    const annotation = document.context.lookupMaybe(entry, PDFDict)
+    if (!annotation) return true
+    if (annotation.get(PDFName.of('Subtype'))?.toString() !== '/Link') return true
+
+    // A bare /Dest is always an in-document jump.
+    if (annotation.has(PDFName.of('Dest'))) return false
+
+    const action = document.context.lookupMaybe(annotation.get(PDFName.of('A')), PDFDict)
+    return action?.get(PDFName.of('S'))?.toString() === '/URI'
+  })
+
+  page.node.set(PDFName.of('Annots'), document.context.obj(kept))
+}
+
+/**
  * The first `pages` pages of an edition, as a standalone PDF.
  *
  * The slice happens on the server so that an unentitled reader never receives
@@ -63,7 +93,10 @@ export const previewBytes = async (edition: Edition, pages: number): Promise<Uin
     source,
     Array.from({ length: count }, (_, index) => index),
   )
-  copied.forEach((page) => preview.addPage(page))
+  copied.forEach((page) => {
+    stripInternalLinks(preview, page)
+    preview.addPage(page)
+  })
 
   const bytes = await preview.save()
   previewCache.set(key, bytes)
