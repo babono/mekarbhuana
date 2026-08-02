@@ -52,3 +52,6 @@ node_modules/
 # Screenshots of the previous site captured with the redesign export (42MB of
 # PNGs). The design source next to them is kept; these are reference only.
 /Website redesign_ Balinese culture portal/uploads/
+
+# Copied from pdfjs-dist on install/build by src/scripts/copyPdfWorker.mjs
+/public/pdf.worker.min.mjs

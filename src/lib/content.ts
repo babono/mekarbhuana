@@ -115,6 +115,7 @@ export const getEbooks = unstable_cache(
         coverLabel: true,
         pageCount: true,
         ensembleCount: true,
+        previewPages: true,
       },
     })
     return docs as Ebook[]

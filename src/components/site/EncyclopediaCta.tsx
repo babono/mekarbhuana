@@ -49,9 +49,9 @@ export function EncyclopediaCta() {
     <>
       <div className="flex flex-wrap gap-3">
         {entitled ? (
-          <a href={state.readerUrl} className="btn btn-gold">
+          <Link href={`/encyclopedia/read?edition=${edition}`} className="btn btn-gold">
             Start reading
-          </a>
+          </Link>
         ) : (
           <Link
             href={state.status === 'member' ? '/join' : '/login'}
@@ -60,8 +60,10 @@ export function EncyclopediaCta() {
             {state.status === 'member' ? 'Choose a plan' : 'Login and start reading'}
           </Link>
         )}
-        <Link href="#preview" className="btn btn-ghost">
-          Preview a chapter
+        {/* Open to everyone: the reader itself serves a short preview slice to
+            anyone without a subscription, so this needs no entitlement check. */}
+        <Link href={`/encyclopedia/read?edition=${edition}`} className="btn btn-ghost">
+          Preview the flipbook
         </Link>
       </div>
 

@@ -7,6 +7,12 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  // The master PDFs are read from disk at request time and live outside both
+  // `public/` and the module graph, so nothing would otherwise tell Next's
+  // output tracer to ship them to the serverless bundle.
+  outputFileTracingIncludes: {
+    '/encyclopedia/file/[edition]': ['./private/**'],
+  },
   images: {
     localPatterns: [
       {

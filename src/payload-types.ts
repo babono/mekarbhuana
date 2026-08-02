@@ -280,6 +280,10 @@ export interface Ebook {
     [k: string]: unknown;
   } | null;
   /**
+   * How many pages a reader without an active subscription can open in the flipbook.
+   */
+  previewPages?: number | null;
+  /**
    * Flipbook URL. Only ever returned to readers with an active subscription.
    */
   readerUrl?: string | null;
@@ -661,6 +665,7 @@ export interface EbooksSelect<T extends boolean = true> {
   pageCount?: T;
   ensembleCount?: T;
   previewContent?: T;
+  previewPages?: T;
   readerUrl?: T;
   publishedAt?: T;
   updatedAt?: T;

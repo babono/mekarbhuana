@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { isAdmin, publishedOrAdmin } from '@/access'
+import { isAdmin, isAdminField, publishedOrAdmin } from '@/access'
 import { isEntitledField } from '@/access/entitlement'
 import { slugField } from '@/fields/slug'
 
@@ -52,6 +52,20 @@ export const Ebooks: CollectionConfig = {
       name: 'previewContent',
       type: 'richText',
       admin: { description: 'The free sample chapter. Readable by anyone.' },
+    },
+    {
+      name: 'previewPages',
+      type: 'number',
+      defaultValue: 12,
+      min: 1,
+      // Not secret — the reader is told how long the preview is — but it decides
+      // how much of the PDF the server will hand to someone without a
+      // subscription, so only staff may change it.
+      access: { create: isAdminField, update: isAdminField },
+      admin: {
+        description:
+          'How many pages a reader without an active subscription can open in the flipbook.',
+      },
     },
     {
       name: 'readerUrl',
