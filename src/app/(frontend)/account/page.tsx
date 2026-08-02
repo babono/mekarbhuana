@@ -56,7 +56,6 @@ export default async function AccountPage({
   const subscriptions = subscriptionsResult.docs as Subscription[]
   const ebooks = ebooksResult.docs as Ebook[]
   const entitled = isEntitled(user)
-  const readable = ebooks.filter((book) => book.readerUrl)
 
   return (
     <main>
@@ -129,12 +128,15 @@ export default async function AccountPage({
               </dl>
 
               <div className="mt-[34px] flex flex-wrap gap-3">
-                {entitled && readable.length > 0 ? (
-                  readable.map((book) => (
-                    <a key={book.id} href={book.readerUrl!} className="btn btn-sm btn-crimson">
-                      Read {book.edition === 'en' ? 'English' : 'Bahasa'}
-                    </a>
-                  ))
+                {entitled ? (
+                  <>
+                    <Link href="/encyclopedia/read?edition=en" className="btn btn-sm btn-crimson">
+                      Read English Edition
+                    </Link>
+                    <Link href="/encyclopedia/read?edition=id" className="btn btn-sm btn-crimson">
+                      Read Edisi Bahasa
+                    </Link>
+                  </>
                 ) : (
                   <Link href="/encyclopedia" className="btn btn-sm btn-crimson">
                     See the plans

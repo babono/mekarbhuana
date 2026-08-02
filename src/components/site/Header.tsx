@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 
 import { HeaderAuth } from './HeaderAuth'
 import { Logo } from './Logo'
+import { useMe } from './useMe'
 
 const NAV = [
   { href: '/', label: 'About' },
@@ -31,6 +32,7 @@ export function Header() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { entitled } = useMe()
 
   const overlay = OVERLAY_ROUTES.includes(pathname)
   // Transparent only while over the hero — once the page moves, the bar solidifies.
@@ -126,10 +128,10 @@ export function Header() {
               }`}
             />
             <Link
-              href="/encyclopedia"
+              href={entitled ? '/encyclopedia/read' : '/encyclopedia'}
               className="border border-crimson bg-crimson px-[22px] py-[13px] font-body text-[12px] leading-none font-semibold tracking-[0.13em] whitespace-nowrap text-cream uppercase transition-colors hover:border-gold hover:bg-gold hover:text-ink"
             >
-              Subscribe to read
+              {entitled ? 'Read Encyclopedia' : 'Subscribe to read'}
             </Link>
           </div>
         </div>
@@ -169,8 +171,11 @@ export function Header() {
             </Link>
           ))}
           <HeaderAuth className="py-[15px] font-display text-xl leading-none text-[#f0e4cc]" />
-          <Link href="/encyclopedia" className="btn btn-crimson mt-4 block w-full">
-            Subscribe to read
+          <Link
+            href={entitled ? '/encyclopedia/read' : '/encyclopedia'}
+            className="btn btn-crimson mt-4 block w-full"
+          >
+            {entitled ? 'Read Encyclopedia' : 'Subscribe to read'}
           </Link>
         </div>
       )}

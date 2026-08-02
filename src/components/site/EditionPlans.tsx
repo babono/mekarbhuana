@@ -6,10 +6,12 @@ import { formatPromoEnd, planComparePrice, planPrice } from '@/lib/format'
 import type { Plan } from '@/payload-types'
 
 import { useEdition } from './useEdition'
+import { useMe } from './useMe'
 
 const COPY = {
   en: {
     subscribe: 'Subscribe',
+    readNow: 'Read now',
     perks: [
       {
         title: 'Read as a flipbook',
@@ -27,6 +29,7 @@ const COPY = {
   },
   id: {
     subscribe: 'Berlangganan',
+    readNow: 'Buka Reader',
     perks: [
       {
         title: 'Dibaca sebagai flipbook',
@@ -55,6 +58,7 @@ const tab = 'px-7 py-[15px] font-body text-[12px] leading-none font-medium track
  */
 export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
   const edition = useEdition()
+  const { entitled } = useMe()
   const copy = COPY[edition]
   const active = plans[edition]
 
@@ -122,10 +126,10 @@ export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
                   </div>
                 )}
                 <Link
-                  href={`/join?plan=${plan.id}`}
+                  href={entitled ? `/encyclopedia/read?edition=${edition}` : `/join?plan=${plan.id}`}
                   className={`btn btn-sm mt-6 ${plan.featured ? 'btn-crimson' : 'btn-dark'}`}
                 >
-                  {copy.subscribe}
+                  {entitled ? copy.readNow : copy.subscribe}
                 </Link>
               </div>
             )
