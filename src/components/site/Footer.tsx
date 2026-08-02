@@ -80,33 +80,45 @@ export function Footer() {
 
         <div>
           <div className={headingClass}>Reputation</div>
-          <div className="border border-gold-light/35 p-[22px]">
-            {/* Kept in its own colours on a light chip rather than masked to
-                the panel: the mark is a black wordmark beside a green owl, so
-                tinting it flattens the owl into a plain disc — and it is a
-                trademark, which should not be recoloured to suit a palette. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo-trip-advisor.svg"
-              alt="Tripadvisor"
-              width={132}
-              height={28}
-              className="mb-4 block h-[28px] w-auto rounded-[3px] bg-paper px-2.5 py-1.5"
-            />
-            <strong className="font-display text-[26px] leading-none font-normal text-bone">#9</strong>
-            <p className="mt-2 mb-4 font-body text-[13px] leading-relaxed text-clay">
-              of 154 classes &amp; workshops in Denpasar — Tripadvisor, 112 reviews
-            </p>
-            <div className="flex gap-[5px]">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <i key={i} className="block size-2.5 rounded-full bg-sage" />
-              ))}
-            </div>
-            <div className="mt-4 font-body text-xs leading-[1.7] text-smoke italic">
-              “A cultural immersion experience.”
-              <br />
-              “Learn dancing and play music.”
-            </div>
+          <div className="rounded-xl border-2 border-[#00AA6C] bg-white p-5 text-[#002B11] shadow-sm transition-all hover:shadow-md font-sans">
+            <a
+              href="https://www.tripadvisor.com/Attraction_Review-g297694-d3793345-Reviews-Mekar_Bhuana_Centre-Denpasar_Bali.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block text-[#002B11]"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo-trip-advisor.svg"
+                alt="Tripadvisor"
+                width={140}
+                height={30}
+                className="mb-3.5 block h-[26px] w-auto"
+              />
+              <div className="flex items-baseline gap-1.5">
+                <strong className="font-sans text-2xl font-bold tracking-tight text-[#002B11]">
+                  #9
+                </strong>
+                <span className="font-sans text-xs font-medium text-gray-700">
+                  of 154 classes &amp; workshops in Denpasar
+                </span>
+              </div>
+              <div className="mt-2.5 flex items-center gap-2">
+                <div className="flex gap-1" aria-label="5 out of 5 rating bubbles">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <span key={i} className="block size-3 rounded-full bg-[#00AA6C]" />
+                  ))}
+                </div>
+                <span className="font-sans text-xs font-semibold text-[#00AA6C] group-hover:underline">
+                  112 reviews
+                </span>
+              </div>
+              <div className="mt-3.5 border-t border-gray-100 pt-3 font-sans text-xs leading-relaxed text-gray-600 italic">
+                “A cultural immersion experience.”
+                <br />
+                “Learn dancing and play music.”
+              </div>
+            </a>
           </div>
         </div>
 
