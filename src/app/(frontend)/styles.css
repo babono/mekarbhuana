@@ -252,6 +252,20 @@
   opacity: 0.45;
 }
 
+/* Paints an SVG in the current text colour.
+   The brand icons carry no `fill`, so drawn normally they come out black and
+   vanish into the dark footer. Masking uses only their shape, which means one
+   colour rule covers every icon and hover states work like any other text. */
+@utility mask-icon {
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  background-color: currentColor;
+}
+
 /* Placeholder frame standing in for photography that has not been shot yet. */
 @utility plate-hatch {
   background: repeating-linear-gradient(135deg, #e7dcc6 0 9px, #ded0b4 9px 18px);

@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { WHATSAPP_PLAIN_URL } from '@/lib/whatsapp'
+
 import { Logo } from './Logo'
 
 const EXPLORE = [
@@ -13,7 +15,22 @@ const EXPLORE = [
   { href: '/contact', label: 'Contact' },
 ]
 
-const SOCIAL = ['WA', 'IG', 'YT', 'FB', 'LI', 'TA']
+const SOCIAL = [
+  { label: 'WhatsApp', href: WHATSAPP_PLAIN_URL, icon: '/ic-wa.svg' },
+  { label: 'Instagram', href: 'https://www.instagram.com/mekarbhuana_centre/', icon: '/ic-ig.svg' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@MekarBhuana', icon: '/ic-youtube.svg' },
+  { label: 'Facebook', href: 'https://www.facebook.com/MekarBhuanaCentre/', icon: '/ic-fb.svg' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mekarbhuana/', icon: '/ic-linkedin.svg' },
+  { label: 'X', href: 'https://twitter.com/MekarBhuana', icon: '/ic-x.svg' },
+  {
+    label: 'Spotify',
+    href: 'https://open.spotify.com/artist/6uThi6E9IkxVMbhQjd8nZx',
+    icon: '/ic-spotify.svg',
+  },
+]
+
+/** Masked rather than drawn, so it reads on the dark panel. See `mask-icon`. */
+const maskStyle = (icon: string) => ({ maskImage: `url('${icon}')`, WebkitMaskImage: `url('${icon}')` })
 
 const headingClass =
   'mb-[22px] font-body text-[11px] leading-none font-medium tracking-[0.26em] text-gold uppercase'
@@ -64,6 +81,18 @@ export function Footer() {
         <div>
           <div className={headingClass}>Reputation</div>
           <div className="border border-gold-light/35 p-[22px]">
+            {/* Kept in its own colours on a light chip rather than masked to
+                the panel: the mark is a black wordmark beside a green owl, so
+                tinting it flattens the owl into a plain disc — and it is a
+                trademark, which should not be recoloured to suit a palette. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-trip-advisor.svg"
+              alt="Tripadvisor"
+              width={132}
+              height={28}
+              className="mb-4 block h-[28px] w-auto rounded-[3px] bg-paper px-2.5 py-1.5"
+            />
             <strong className="font-display text-[26px] leading-none font-normal text-bone">#9</strong>
             <p className="mt-2 mb-4 font-body text-[13px] leading-relaxed text-clay">
               of 154 classes &amp; workshops in Denpasar — Tripadvisor, 112 reviews
@@ -83,14 +112,19 @@ export function Footer() {
 
         <div>
           <div className={headingClass}>Connect</div>
-          <div className="mb-[26px] flex flex-wrap gap-2">
-            {SOCIAL.map((label) => (
+          {/* Fixed four across rather than left to wrap: seven icons in this
+              column break 6 + 1, which reads as an accident. */}
+          <div className="mb-[26px] grid w-fit grid-cols-4 gap-2">
+            {SOCIAL.map((item) => (
               <a
-                key={label}
-                href="/contact"
-                className="grid size-[38px] place-items-center border border-gold-light/40 font-label text-[10px] leading-none text-gold-light hover:bg-gold hover:text-bark-600"
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.label}
+                className="grid size-[38px] place-items-center border border-gold-light/40 text-gold-light transition-colors hover:bg-gold hover:text-bark-600"
               >
-                {label}
+                <span className="mask-icon size-[17px]" style={maskStyle(item.icon)} />
               </a>
             ))}
           </div>

@@ -12,6 +12,12 @@ export const WHATSAPP_NUMBER = '6281246877087'
 export const WHATSAPP_DISPLAY = '+62 81 246 877087'
 
 /**
+ * Click-to-chat with nothing pre-filled, for the social icon in the footer.
+ * Built from the same number so there is still only one place to change it.
+ */
+export const WHATSAPP_PLAIN_URL = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text&type=phone_number&app_absent=0`
+
+/**
  * A click-to-chat link that opens WhatsApp with `message` already typed in.
  *
  * Nothing is sent by following this link: WhatsApp only pre-fills the compose
