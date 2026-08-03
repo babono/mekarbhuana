@@ -337,6 +337,16 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
    * book quietly finds nothing to build from. Any parent re-render landing in
    * that window leaves 422 loose divs and no flipbook at all.
    */
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && ['s', 'S', 'p', 'P'].includes(e.key)) {
+        e.preventDefault()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   const leaves = useMemo(
     () => Array.from({ length: pageCount }, (_, index) => <FlipPage key={index} index={index} />),
     [pageCount],
@@ -381,7 +391,10 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
 
   return (
     <ReaderContext.Provider value={context}>
-      <div className="flex flex-col items-center">
+      <div
+        className="flex flex-col items-center select-none"
+        onContextMenu={(e) => e.preventDefault()}
+      >
         <HTMLFlipBook
           ref={book}
           className="encyclopedia-book"
