@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export type MeUser = {
@@ -21,6 +22,7 @@ export function isUserEntitled(user: MeUser): boolean {
 }
 
 export function useMe() {
+  const pathname = usePathname()
   const [user, setUser] = useState<MeUser>(null)
   const [loading, setLoading] = useState(true)
 
@@ -39,7 +41,7 @@ export function useMe() {
       })
 
     return () => controller.abort()
-  }, [])
+  }, [pathname])
 
   return { user, entitled: isUserEntitled(user), loading }
 }

@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -97,6 +98,7 @@ export async function registerAction(_prev: FormState, formData: FormData): Prom
     return { error: message }
   }
 
+  revalidatePath('/', 'layout')
   redirect('/account?welcome=1')
 }
 
@@ -124,12 +126,14 @@ export async function loginAction(_prev: FormState, formData: FormData): Promise
     return { error: 'That email address and password did not match.' }
   }
 
+  revalidatePath('/', 'layout')
   redirect('/account')
 }
 
 export async function logoutAction(): Promise<void> {
   const store = await cookies()
   store.delete(AUTH_COOKIE)
+  revalidatePath('/', 'layout')
   redirect('/')
 }
 
