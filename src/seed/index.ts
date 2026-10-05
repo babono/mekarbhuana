@@ -29,14 +29,14 @@ const uploadPhoto = async (
   payload: Payload,
   file: string,
   alt: string,
-): Promise<string | undefined> => {
+): Promise<number | string | undefined> => {
   const { docs } = await payload.find({
     collection: 'media',
     where: { filename: { equals: file } },
     limit: 1,
     depth: 0,
   })
-  if (docs[0]) return String(docs[0].id)
+  if (docs[0]) return docs[0].id
 
   try {
     const doc = await payload.create({
@@ -45,7 +45,7 @@ const uploadPhoto = async (
       filePath: path.join(publicDir, file),
       disableTransaction: true,
     })
-    return String(doc.id)
+    return doc.id
   } catch (error) {
     payload.logger.warn(
       `Could not upload ${file}: ${error instanceof Error ? error.message : String(error)}`,
@@ -71,9 +71,8 @@ const upsert = async (
       depth: 0,
     })
 
-    // Versioned collections write the document and its version in one transaction,
-    // which Atlas shared tiers routinely abort as a write conflict. Seeding is
-    // idempotent, so it does not need the atomicity.
+    // Seeding is idempotent, so it does not need a transaction around each write,
+    // and skipping them keeps a large seed from holding pooled connections open.
     if (docs[0]) {
       await payload.update({
         collection,
@@ -461,8 +460,8 @@ const attachPhotos = async (payload: Payload): Promise<void> => {
 const seed = async () => {
   const payload = await getPayload({ config })
 
-  // Sequential on purpose: the versioned collections take a transaction per write,
-  // and running these concurrently makes MongoDB abort them as write conflicts.
+  // Sequential, so a failure points at one collection; photos are attached
+  // afterwards because they update the documents created here.
   const results: Seeded[] = [
     await upsert(payload, 'programs', 'slug', PROGRAMS),
     await upsert(payload, 'ensembles', 'slug', ENSEMBLES),
@@ -482,7 +481,7 @@ const seed = async () => {
 
   const admins = await payload.find({
     collection: 'users',
-    where: { roles: { contains: 'admin' } },
+    where: { roles: { in: ['admin'] } },
     limit: 1,
     depth: 0,
   })
