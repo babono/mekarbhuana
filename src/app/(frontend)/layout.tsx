@@ -4,7 +4,6 @@ import React from 'react'
 
 import { AudioPill } from '@/components/site/AudioPill'
 import { Footer } from '@/components/site/Footer'
-import { Gate } from '@/components/site/Gate'
 import { Header } from '@/components/site/Header'
 import { PlayerProvider } from '@/components/site/PlayerProvider'
 import { WhatsAppWidget } from '@/components/site/WhatsAppWidget'
@@ -62,19 +61,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Noto+Serif+Balinese&display=swap"
           rel="stylesheet"
         />
-        {/*
-          The gate can only be dismissed with JavaScript, so never show it without.
-          Written through dangerouslySetInnerHTML because a plain string child of
-          <noscript> is escaped on the server but not on the client, which React
-          reports as a hydration mismatch. The content is a fixed literal.
-        */}
-        <noscript
-          dangerouslySetInnerHTML={{ __html: '<style>.gate{display:none}</style>' }}
-        />
       </head>
       <body>
         <PlayerProvider>
-          <Gate />
           <Header />
           {children}
           <Footer />

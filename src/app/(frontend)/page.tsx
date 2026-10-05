@@ -76,7 +76,7 @@ export default async function HomePage() {
       {/* ---------------------------------------------------------------- Hero */}
       <section className="relative grid min-h-screen place-items-center overflow-hidden bg-bark-700 px-[26px] pt-[140px] pb-[130px]">
         <HeroParallax src="/img-hero.jpg" alt="Legong dancer in full headdress" />
-        <div className="absolute inset-0 bg-linear-to-b from-[#1c130d]/72 via-[#1c130d]/50 via-40% to-[#1c130d]/92" />
+        <div className="absolute inset-0 bg-linear-to-b from-bark-700/72 via-bark-700/50 via-40% to-bark-700/92" />
 
 
         <div className="animate-rise-in relative max-w-[820px] text-center">
@@ -88,7 +88,7 @@ export default async function HomePage() {
             <br />
             remembers Bali
           </h1>
-          <p className="mx-auto mb-10 max-w-[540px] font-body text-[clamp(16px,1.55vw,20px)] leading-[1.75] font-normal text-pretty text-[#d3c3a8]">
+          <p className="mx-auto mb-10 max-w-[540px] font-body text-[clamp(16px,1.55vw,20px)] leading-[1.75] font-normal text-pretty text-sand">
             Twenty-seven gamelan sets live in our family compound in Kesiman. Some of them were
             nearly lost. All of them are still played.
           </p>
@@ -126,11 +126,11 @@ export default async function HomePage() {
         <div className="mx-auto max-w-shell px-[26px]">
           <div className="mb-11 flex items-center gap-4">
             <span className={`${eyebrow} text-brass`}>01 — Who we are</span>
-            <div className="h-px flex-1 bg-[#d8cbb2]" />
+            <div className="h-px flex-1 bg-line" />
             <div className="size-2 rotate-45 bg-gold" />
             <div className="size-3 rotate-45 border border-gold" />
             <div className="size-2 rotate-45 bg-gold" />
-            <div className="h-px flex-1 bg-[#d8cbb2]" />
+            <div className="h-px flex-1 bg-line" />
           </div>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-start gap-14">
@@ -211,15 +211,15 @@ export default async function HomePage() {
       <section className="relative bg-gold">
         <div className="mx-auto grid max-w-shell grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-13 px-[26px] py-[88px]">
           <div>
-            <span className={`${eyebrow} text-[#452d0e]`}>03 — The compound</span>
+            <span className={`${eyebrow} text-bark-700`}>03 — The compound</span>
             <h2 className={`${sectionHeading} mt-[22px] mb-5 text-text`}>
               Open-air, half garden, entirely lived in
             </h2>
-            <p className="mb-[26px] max-w-[440px] font-body text-[16.5px] leading-[1.8] font-normal text-pretty text-[#3a2a14]">
+            <p className="mb-[26px] max-w-[440px] font-body text-[16.5px] leading-[1.8] font-normal text-pretty text-text">
               A pavilion, a walled garden, a studio and an outdoor rehearsal ground — attached to our
               house. Frangipani drops onto the gongs. The neighbours know the repertoire.
             </p>
-            <div className="flex flex-col gap-[11px] font-label text-[13px] leading-relaxed tracking-[0.06em] text-[#452d0e] uppercase">
+            <div className="flex flex-col gap-[11px] font-label text-[13px] leading-relaxed tracking-[0.06em] text-bark-700 uppercase">
               {[
                 'Open-air rehearsal grounds',
                 'Outdoor gamelan set-up',
@@ -245,7 +245,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-shell px-[26px]">
           <div className="mb-[34px] flex items-center gap-4">
             <span className={`${eyebrow} text-brass`}>04 — Collections</span>
-            <div className="h-px flex-1 bg-[#d8cbb2]" />
+            <div className="h-px flex-1 bg-line" />
           </div>
 
           <div className="mb-12 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-end gap-12">
@@ -377,7 +377,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-shell px-[26px]">
           <div className="mb-[34px] flex items-center gap-4">
             <span className={`${eyebrow} text-brass`}>06 — Preservation</span>
-            <div className="h-px flex-1 bg-[#d3c4a8]" />
+            <div className="h-px flex-1 bg-line" />
           </div>
 
           <h2 className={`${sectionHeading} mt-0 mb-[46px] max-w-[680px] text-text`}>

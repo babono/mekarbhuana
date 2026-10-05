@@ -106,7 +106,7 @@ export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
                   {plan.name}
                 </div>
                 {wasPrice && (
-                  <div className="mt-5 mb-1.5 font-body text-[15px] leading-none font-normal text-[#9a8871] line-through">
+                  <div className="mt-5 mb-1.5 font-body text-[15px] leading-none font-normal text-shadow line-through">
                     {wasPrice}
                   </div>
                 )}

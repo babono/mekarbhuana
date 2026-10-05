@@ -12,7 +12,7 @@ export function AudioPill() {
   const { playing, toggle, expanded, setExpanded } = usePlayer()
 
   return (
-    <div className="fixed bottom-[22px] left-[22px] z-120 flex items-center rounded-full border border-gold-light/42 bg-[#1a130e]/90 p-1.5 text-left shadow-[0_10px_34px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-colors hover:border-gold-light">
+    <div className="fixed bottom-[22px] left-[22px] z-120 flex items-center rounded-full border border-gold-light/42 bg-bark-800/90 p-1.5 text-left shadow-[0_10px_34px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-colors hover:border-gold-light">
       <button
         type="button"
         className="flex cursor-pointer items-center gap-3 pl-1.5 pr-2 py-[5px] text-inherit"
@@ -34,7 +34,7 @@ export function AudioPill() {
           <span className="block font-display text-[12.5px] leading-tight tracking-[0.07em] whitespace-nowrap text-bone">
             This Is Mekar Bhuana
           </span>
-          <span className="mt-0.5 block font-label text-[9px] leading-snug tracking-[0.14em] text-[#a08e72] uppercase">
+          <span className="mt-0.5 block font-label text-[9px] leading-snug tracking-[0.14em] text-dust uppercase">
             {playing ? 'Now playing' : 'Paused'}
           </span>
         </span>

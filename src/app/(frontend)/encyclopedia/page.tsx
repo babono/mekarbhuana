@@ -92,7 +92,7 @@ export default async function EncyclopediaPage() {
             <span className="font-label text-[11px] leading-none font-medium tracking-[0.3em] text-brass uppercase">
               Preview
             </span>
-            <div className="h-px flex-1 bg-[#d3c4a8]" />
+            <div className="h-px flex-1 bg-line" />
           </div>
 
           {ebooks.length === 0 ? (

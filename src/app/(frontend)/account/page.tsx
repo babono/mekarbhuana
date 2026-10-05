@@ -29,7 +29,7 @@ const statusPill = (status: string) => {
   return `${base} text-crimson`
 }
 
-const dataRow = 'flex justify-between gap-4 border-b border-dotted border-[#d3c4a8] py-3.5 font-label text-[13px] leading-relaxed last:border-b-0'
+const dataRow = 'flex justify-between gap-4 border-b border-dotted border-line py-3.5 font-label text-[13px] leading-relaxed last:border-b-0'
 
 export default async function AccountPage({
   searchParams,

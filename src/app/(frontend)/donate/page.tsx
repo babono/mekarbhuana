@@ -59,7 +59,7 @@ export default function DonatePage() {
               {BANK_DETAILS.map(([label, value]) => (
                 <div
                   key={label}
-                  className="flex justify-between gap-4 border-b border-dotted border-[#d3c4a8] py-3.5 font-label text-[13px] leading-relaxed last:border-b-0"
+                  className="flex justify-between gap-4 border-b border-dotted border-line py-3.5 font-label text-[13px] leading-relaxed last:border-b-0"
                 >
                   <dt className="m-0 text-shadow uppercase">{label}</dt>
                   <dd className="m-0 text-right text-text">{value}</dd>

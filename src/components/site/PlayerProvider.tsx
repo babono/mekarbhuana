@@ -58,7 +58,7 @@ export const usePlayer = (): PlayerContextValue => {
 /**
  * Owns the Spotify embed for the whole site.
  *
- * The iframe is mounted once, up front, so that the gate's "Enter" click can call
+ * The iframe is mounted once, up front, so that a click on the audio pill can call
  * `play()` inside the same user gesture — browsers block audio that starts any
  * other way, and a player created on demand would arrive too late to count.
  */

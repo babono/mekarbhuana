@@ -37,7 +37,7 @@ const headingClass =
 
 export function Footer() {
   return (
-    <footer className="relative bg-bark-600 text-[#e6d9c0]">
+    <footer className="relative bg-bark-600 text-bone">
       <div className="band-weave-thick" />
 
       <div className="mx-auto grid max-w-shell grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-12 px-[26px] pt-[70px] pb-10">
@@ -71,7 +71,7 @@ export function Footer() {
           <div className={headingClass}>Explore</div>
           <div className="flex flex-col gap-[13px] font-body text-sm leading-snug">
             {EXPLORE.map((item) => (
-              <Link key={item.href} href={item.href} className="text-[#e6d9c0] hover:text-gold-light">
+              <Link key={item.href} href={item.href} className="text-bone hover:text-gold-light">
                 {item.label}
               </Link>
             ))}
@@ -146,7 +146,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-shell flex-wrap justify-between gap-3.5 border-t border-[#e6d9c0]/14 px-[26px] py-[22px] font-label text-[11px] leading-relaxed tracking-[0.06em] text-shadow uppercase">
+      <div className="mx-auto flex max-w-shell flex-wrap justify-between gap-3.5 border-t border-bone/14 px-[26px] py-[22px] font-label text-[11px] leading-relaxed tracking-[0.06em] text-shadow uppercase">
         <div>© {new Date().getFullYear()} Mekar Bhuana Centre · Yayasan Semara Gita Bhuana</div>
         <div>No AI training on our archive · Terms</div>
       </div>

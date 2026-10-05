@@ -165,12 +165,12 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="border-b border-[#f0e4cc]/16 py-[15px] font-display text-xl leading-none text-[#f0e4cc]"
+              className="border-b border-bone/16 py-[15px] font-display text-xl leading-none text-bone"
             >
               {item.label === 'Visit' ? 'Visit & contact' : item.label}
             </Link>
           ))}
-          <HeaderAuth className="py-[15px] font-display text-xl leading-none text-[#f0e4cc]" />
+          <HeaderAuth className="py-[15px] font-display text-xl leading-none text-bone" />
           <Link
             href={entitled ? '/encyclopedia/read' : '/encyclopedia'}
             className="btn btn-crimson mt-4 block w-full"
