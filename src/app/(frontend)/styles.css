@@ -8,50 +8,55 @@
    ========================================================================== */
 
 @theme {
+  /* Palette taken from balimusicanddance.com (its Elementor global colours).
+     Values marked "derived" have no direct counterpart there and are tints or
+     shades of a reference colour, used only where the design needs a step
+     between two of them. */
+
   /* Surfaces */
-  --color-cream: #f5f0e6;
-  --color-cream-deep: #ede4d4;
-  --color-paper: #fffdf8;
-  --color-ink: #1c1310;
-  --color-ink-deep: #12100d;
+  --color-cream: #efe7dd; /* reference page background */
+  --color-cream-deep: #e6dacb; /* derived */
+  --color-paper: #ffffff;
+  --color-ink: #222222;
+  --color-ink-deep: #1a1a1a; /* derived */
 
   /* Browns, light to dark */
-  --color-bark-450: #3e2a1c;
-  --color-bark-500: #3a2718;
-  --color-bark-600: #2a1b12;
-  --color-bark-700: #241810;
-  --color-bark-800: #1b140e;
-  --color-bark-900: #14100c;
+  --color-bark-450: #764b36; /* reference secondary */
+  --color-bark-500: #533526;
+  --color-bark-600: #43291d; /* derived */
+  --color-bark-700: #332017; /* reference text */
+  --color-bark-800: #2a1a12; /* derived */
+  --color-bark-900: #20140d; /* derived */
 
   /* Accents */
-  --color-gold: #b4832b;
-  --color-gold-light: #e0b155;
-  --color-gold-pale: #f5eddc;
-  --color-crimson: #8e2c22;
-  --color-sage: #7ea35a;
+  --color-gold: #c88a36; /* reference accent */
+  --color-gold-light: #e2c296;
+  --color-gold-pale: #efe7dd;
+  --color-crimson: #764b36; /* the reference has no red — its secondary brown takes the role */
+  --color-sage: #7ea35a; /* status colour only, not brand */
 
   /* Text on light */
-  --color-text: #241810;
-  --color-body: #4a3d31;
-  --color-muted: #544537;
-  --color-soft: #6b5b49;
-  --color-brass: #9a7a3a;
-  --color-stone: #7c6b51;
-  --color-shadow: #8b7a62;
+  --color-text: #332017;
+  --color-body: #533526;
+  --color-muted: #5e4535; /* derived */
+  --color-soft: #6b6b6b;
+  --color-brass: #9c6d2b;
+  --color-stone: #7a6150; /* derived */
+  --color-shadow: #9a8573; /* derived */
 
   /* Text on dark */
-  --color-parchment: #f7f1e4;
-  --color-sand: #c4b296;
-  --color-dust: #a9977c;
-  --color-clay: #bcaa8e;
-  --color-bone: #f2e7d2;
-  --color-smoke: #9d8b70;
+  --color-parchment: #efe7dd;
+  --color-sand: #d8c5ab; /* derived */
+  --color-dust: #b9a48d; /* derived */
+  --color-clay: #cdb99f; /* derived */
+  --color-bone: #efe7dd;
+  --color-smoke: #a8937d; /* derived */
 
   /* Rules */
-  --color-line: #dccfb6;
-  --color-line-strong: #c9bba2;
-  --color-line-soft: #dfd3bc;
-  --color-line-faint: #e4d9c2;
+  --color-line: #cac3bb; /* reference border */
+  --color-line-strong: #bab1a7; /* derived */
+  --color-line-soft: #d6cec4; /* derived */
+  --color-line-faint: #e0d8cd; /* derived */
 
   /* Type — Fraunces for display and labels, Spectral for reading. */
   --font-display: var(--font-fraunces), Georgia, serif;
@@ -65,12 +70,6 @@
   /* Animations */
   --animate-rise-in: riseIn 0.9s ease both;
   --animate-eq: eqBar 0.9s ease-in-out infinite;
-  --animate-breathe: breathe 3.4s ease-in-out infinite;
-  --animate-ember: emberDrift linear infinite;
-  --animate-gate-slide-l: gateSlideL 1.15s cubic-bezier(0.76, 0, 0.24, 1) both;
-  --animate-gate-slide-r: gateSlideR 1.15s cubic-bezier(0.76, 0, 0.24, 1) both;
-  --animate-gate-fade: gateFade 0.85s ease 0.35s both;
-  --animate-gate-content-out: gateContentOut 0.55s ease both;
   --animate-pop-in: popIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -111,54 +110,6 @@
   }
   50% {
     transform: scaleY(1);
-  }
-}
-
-@keyframes breathe {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.06);
-  }
-}
-
-@keyframes emberDrift {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateY(-320px) scale(0.4);
-    opacity: 0;
-  }
-}
-
-@keyframes gateSlideL {
-  to {
-    transform: translateX(-101%);
-  }
-}
-@keyframes gateSlideR {
-  to {
-    transform: translateX(101%);
-  }
-}
-@keyframes gateFade {
-  to {
-    opacity: 0;
-  }
-}
-@keyframes gateContentOut {
-  to {
-    opacity: 0;
-    transform: translateY(-18px) scale(1.06);
   }
 }
 
@@ -234,19 +185,19 @@
    the footer; removed from the header at the client's request. */
 @utility band-weave {
   height: 9px;
-  background: repeating-linear-gradient(90deg, var(--color-ink) 0 15px, #ede2cb 15px 30px);
+  background: repeating-linear-gradient(90deg, var(--color-ink) 0 15px, var(--color-cream) 15px 30px);
   opacity: 0.85;
 }
 
 @utility band-weave-thick {
   height: 12px;
-  background: repeating-linear-gradient(90deg, var(--color-ink) 0 16px, #ede2cb 16px 32px);
+  background: repeating-linear-gradient(90deg, var(--color-ink) 0 16px, var(--color-cream) 16px 32px);
 }
 
 @utility band-weave-vertical {
   background: repeating-linear-gradient(
     180deg,
-    #ede2cb 0 15px,
+    var(--color-cream) 0 15px,
     var(--color-bark-700) 15px 30px
   );
   opacity: 0.45;
@@ -268,7 +219,7 @@
 
 /* Placeholder frame standing in for photography that has not been shot yet. */
 @utility plate-hatch {
-  background: repeating-linear-gradient(135deg, #e7dcc6 0 9px, #ded0b4 9px 18px);
+  background: repeating-linear-gradient(135deg, #e6dacb 0 9px, #ddd0bf 9px 18px);
 }
 
 @utility plate-sheen {
@@ -283,16 +234,8 @@
 @utility hero-panel-weave {
   background: repeating-linear-gradient(
     0deg,
-    rgba(224, 177, 85, 0.08) 0 2px,
+    rgba(226, 194, 150, 0.08) 0 2px,
     transparent 2px 24px
-  );
-}
-
-@utility gate-weave {
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(224, 177, 85, 0.085) 0 2px,
-    transparent 2px 26px
   );
 }
 
@@ -302,14 +245,6 @@
 
 @utility clip-panel-r {
   clip-path: polygon(0 6%, 100% 0, 100% 100%, 0 94%);
-}
-
-@utility clip-weave-l {
-  clip-path: polygon(0 0, 100% 7%, 100% 93%, 0 100%);
-}
-
-@utility clip-weave-r {
-  clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 93%);
 }
 
 /* --------------------------------------------------------------------------
@@ -356,7 +291,7 @@
   /* Form control */
   .field {
     @apply w-full border border-line-strong bg-paper px-[18px] py-[17px] font-body
-      text-[15px] leading-snug text-text outline-none placeholder:text-[#9a8871]
+      text-[15px] leading-snug text-text outline-none placeholder:text-shadow
       focus:border-gold;
   }
   textarea.field {

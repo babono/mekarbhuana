@@ -1,4 +1,4 @@
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { postgresAdapter } from '@payloadcms/db-postgres'
 import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
@@ -55,8 +55,15 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URL || '',
+  // Neon. The schema changes only through the files in ./migrations, locally too:
+  // dev `push` marks the database in a way that stalls `payload migrate` on deploy.
+  // After editing a collection: `npm run migrate:create`, then `npm run payload migrate`.
+  db: postgresAdapter({
+    // On Vercel the Neon integration supplies NEON_DATABASE_URL (pooled), and per
+    // preview branch when branching is on; locally .env.local sets DATABASE_URL.
+    pool: { connectionString: process.env.NEON_DATABASE_URL || process.env.DATABASE_URL || '' },
+    push: false,
+    migrationDir: path.resolve(dirname, 'migrations'),
   }),
   sharp,
   plugins: [

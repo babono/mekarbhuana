@@ -4,7 +4,7 @@ import { v2 as cloudinary } from 'cloudinary'
 /**
  * Stores uploads in Cloudinary instead of on the local filesystem.
  *
- * Only the filename and metadata land in MongoDB — the bytes live in Cloudinary
+ * Only the filename and metadata land in the database — the bytes live in Cloudinary
  * and are served straight from its CDN. That is what makes the app deployable to
  * Vercel, whose filesystem is ephemeral: anything written to disk disappears on
  * the next cold start, leaving database rows pointing at files that no longer exist.

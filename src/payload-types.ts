@@ -98,7 +98,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {};
@@ -138,7 +138,7 @@ export interface UserAuthOperations {
  * via the `definition` "articles".
  */
 export interface Article {
-  id: string;
+  id: number;
   title: string;
   /**
    * Leave blank to generate from the title.
@@ -153,7 +153,7 @@ export interface Article {
    * Shown on the Read index and above the paywall. Always public.
    */
   excerpt: string;
-  cover?: (string | null) | Media;
+  cover?: (number | null) | Media;
   /**
    * Placeholder caption used until a photograph is uploaded, e.g. “archival photograph, c.1920”.
    */
@@ -192,7 +192,7 @@ export interface Article {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   /**
    * Describe the photograph for readers using a screen reader.
    */
@@ -246,7 +246,7 @@ export interface Media {
  * via the `definition` "ebooks".
  */
 export interface Ebook {
-  id: string;
+  id: number;
   title: string;
   /**
    * Leave blank to generate from the title.
@@ -254,7 +254,7 @@ export interface Ebook {
   slug?: string | null;
   edition: 'en' | 'id';
   summary: string;
-  cover?: (string | null) | Media;
+  cover?: (number | null) | Media;
   /**
    * Placeholder caption used until a cover image is uploaded.
    */
@@ -299,7 +299,7 @@ export interface Ebook {
  * via the `definition` "programs".
  */
 export interface Program {
-  id: string;
+  id: number;
   title: string;
   /**
    * Leave blank to generate from the title.
@@ -339,7 +339,7 @@ export interface Program {
         id?: string | null;
       }[]
     | null;
-  image?: (string | null) | Media;
+  image?: (number | null) | Media;
   /**
    * Placeholder caption used until a photograph is uploaded.
    */
@@ -359,7 +359,7 @@ export interface Program {
  * via the `definition` "ensembles".
  */
 export interface Ensemble {
-  id: string;
+  id: number;
   name: string;
   /**
    * Leave blank to generate from the title.
@@ -371,7 +371,7 @@ export interface Ensemble {
   statusLabel?: string | null;
   location?: ('bali' | 'aotearoa') | null;
   description: string;
-  image?: (string | null) | Media;
+  image?: (number | null) | Media;
   /**
    * Placeholder caption used until a photograph is uploaded.
    */
@@ -391,7 +391,7 @@ export interface Ensemble {
  * via the `definition` "plans".
  */
 export interface Plan {
-  id: string;
+  id: number;
   /**
    * Shown as the term, e.g. “6 months” or “6 bulan”.
    */
@@ -442,9 +442,9 @@ export interface Plan {
  * via the `definition` "subscriptions".
  */
 export interface Subscription {
-  id: string;
-  user: string | User;
-  plan: string | Plan;
+  id: number;
+  user: number | User;
+  plan: number | Plan;
   /**
    * While payments are handled off-site, set this to Active once the transfer clears.
    */
@@ -482,7 +482,7 @@ export interface Subscription {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   name: string;
   country?: string | null;
   newsletter?: boolean | null;
@@ -516,7 +516,7 @@ export interface User {
  * via the `definition` "enquiries".
  */
 export interface Enquiry {
-  id: string;
+  id: number;
   name: string;
   email: string;
   topic: 'lessons' | 'immersion' | 'hire' | 'recording' | 'subscription' | 'donations';
@@ -533,7 +533,7 @@ export interface Enquiry {
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -550,48 +550,48 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'articles';
-        value: string | Article;
+        value: number | Article;
       } | null)
     | ({
         relationTo: 'ebooks';
-        value: string | Ebook;
+        value: number | Ebook;
       } | null)
     | ({
         relationTo: 'programs';
-        value: string | Program;
+        value: number | Program;
       } | null)
     | ({
         relationTo: 'ensembles';
-        value: string | Ensemble;
+        value: number | Ensemble;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
       } | null)
     | ({
         relationTo: 'plans';
-        value: string | Plan;
+        value: number | Plan;
       } | null)
     | ({
         relationTo: 'subscriptions';
-        value: string | Subscription;
+        value: number | Subscription;
       } | null)
     | ({
         relationTo: 'enquiries';
-        value: string | Enquiry;
+        value: number | Enquiry;
       } | null)
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -601,10 +601,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -624,7 +624,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;

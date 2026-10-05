@@ -176,7 +176,7 @@ export function WhatsAppWidget() {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-label={open ? 'Close the WhatsApp panel' : 'Enquire on WhatsApp'}
-        className="flex cursor-pointer items-center gap-2.5 rounded-full border border-gold-light/42 bg-[#1a130e]/90 py-1.5 pr-[18px] pl-1.5 text-left shadow-[0_10px_34px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-colors hover:border-gold-light max-[560px]:gap-0 max-[560px]:pr-1.5"
+        className="flex cursor-pointer items-center gap-2.5 rounded-full border border-gold-light/42 bg-bark-800/90 py-1.5 pr-[18px] pl-1.5 text-left shadow-[0_10px_34px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-colors hover:border-gold-light max-[560px]:gap-0 max-[560px]:pr-1.5"
       >
         <span className="grid size-[34px] flex-none place-items-center rounded-full bg-[#25d366] text-[#0b3d24]">
           <WhatsAppGlyph className="size-5" />
@@ -185,7 +185,7 @@ export function WhatsAppWidget() {
           <span className="block font-display text-[12.5px] leading-tight tracking-[0.07em] whitespace-nowrap text-bone">
             Chat with us
           </span>
-          <span className="mt-0.5 block font-label text-[9px] leading-snug tracking-[0.14em] text-[#a08e72] uppercase">
+          <span className="mt-0.5 block font-label text-[9px] leading-snug tracking-[0.14em] text-dust uppercase">
             WhatsApp
           </span>
         </span>

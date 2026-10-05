@@ -4,11 +4,14 @@ import type { Plan, Subscription } from '@/payload-types'
 
 import { asUser, isAdmin } from '@/access'
 
-const relId = (value: unknown): string | null => {
-  if (!value) return null
-  if (typeof value === 'string') return value
+type ID = number | string
+
+/** A relationship arrives as a bare ID at depth 0 and as a document above it. */
+const relId = (value: unknown): ID | null => {
+  if (value == null || value === '') return null
+  if (typeof value === 'number' || typeof value === 'string') return value
   if (typeof value === 'object' && 'id' in (value as Record<string, unknown>)) {
-    return String((value as { id: string | number }).id)
+    return (value as { id: ID }).id
   }
   return null
 }
@@ -26,7 +29,7 @@ const addMonths = (from: Date, months: number): Date => {
  * Deriving this rather than setting it inline keeps the two in step no matter how
  * the change arrived — admin edit, activation, expiry, or a deleted row.
  */
-export const syncMembership = async (userId: string, req: PayloadRequest): Promise<void> => {
+export const syncMembership = async (userId: ID, req: PayloadRequest): Promise<void> => {
   const { docs } = await req.payload.find({
     collection: 'subscriptions',
     where: { user: { equals: userId } },

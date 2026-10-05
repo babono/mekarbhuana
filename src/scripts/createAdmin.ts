@@ -11,7 +11,9 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 
-const [email, password] = process.argv.slice(2)
+// `payload run` hands arguments through an option parser that turns an
+// all-digit value into a number, which the password hashing then rejects.
+const [email, password] = process.argv.slice(2).map((arg) => (arg == null ? arg : String(arg)))
 
 if (!email || !password) {
   console.error("Usage: npm run create-admin -- you@example.com 'your-password'")
