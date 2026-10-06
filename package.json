@@ -41,7 +41,8 @@
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-pageflip": "^2.0.3",
-    "sharp": "0.34.2"
+    "sharp": "0.34.2",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@playwright/test": "1.58.2",
@@ -50,6 +51,7 @@
     "@types/node": "22.19.9",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "@types/three": "^0.186.0",
     "@vitejs/plugin-react": "4.5.2",
     "eslint": "^9.16.0",
     "eslint-config-next": "16.2.6",
