@@ -76,6 +76,13 @@ type ImportMember = {
   subscription: ImportSubscription | null
 }
 
+/**
+ * Payload returns document ids in whatever type the database adapter uses —
+ * integers on Postgres, ObjectId strings on Mongo. Carrying them untouched
+ * keeps this script working on either.
+ */
+type DocId = string | number
+
 type ImportFile = {
   generatedAt: string
   source: string
@@ -130,8 +137,8 @@ const EDITION_LABEL = { en: 'English', id: 'Bahasa Indonesia' } as const
  */
 const resolvePlan = async (
   p: ImportPlan,
-  cache: Map<string, string>,
-): Promise<string | null> => {
+  cache: Map<string, DocId>,
+): Promise<DocId | null> => {
   if (cache.has(p.key)) return cache.get(p.key)!
 
   const { docs } = await payload.find({
@@ -147,7 +154,7 @@ const resolvePlan = async (
   })
 
   if (docs[0]) {
-    const id = String(docs[0].id)
+    const id = docs[0].id
     cache.set(p.key, id)
     log.info(`  plan ${p.key.padEnd(7)} → existing "${(docs[0] as { name: string }).name}"`)
     return id
@@ -175,13 +182,13 @@ const resolvePlan = async (
     },
   })
 
-  const id = String(created.id)
+  const id = created.id
   cache.set(p.key, id)
   log.info(`  plan ${p.key.padEnd(7)} → created placeholder "${p.label}" (inactive)`)
   return id
 }
 
-const planCache = new Map<string, string>()
+const planCache = new Map<string, DocId>()
 log.info('\nPlans:')
 for (const p of data.plans) await resolvePlan(p, planCache)
 
@@ -199,24 +206,24 @@ const stats = {
 
 const failures: { email: string; error: string }[] = []
 
-const findUserId = async (email: string): Promise<string | null> => {
+const findUserId = async (email: string): Promise<DocId | null> => {
   const { docs } = await payload.find({
     collection: 'users',
     where: { email: { equals: email } },
     limit: 1,
     depth: 0,
   })
-  return docs[0] ? String(docs[0].id) : null
+  return docs[0] ? docs[0].id : null
 }
 
-const findSubscriptionId = async (reference: string): Promise<string | null> => {
+const findSubscriptionId = async (reference: string): Promise<DocId | null> => {
   const { docs } = await payload.find({
     collection: 'subscriptions',
     where: { reference: { equals: reference } },
     limit: 1,
     depth: 0,
   })
-  return docs[0] ? String(docs[0].id) : null
+  return docs[0] ? docs[0].id : null
 }
 
 log.info('\nMembers:')
@@ -250,7 +257,7 @@ for (const m of data.members) {
         collection: 'users',
         data: { ...userData, email: m.email, password: randomUUID() },
       })
-      userId = String(created.id)
+      userId = created.id
       stats.usersCreated++
     }
 
@@ -263,8 +270,10 @@ for (const m of data.members) {
     }
 
     const subData = {
-      user: userId,
-      plan: planId,
+      // Cast rather than coerce: these came straight out of Payload and go
+      // straight back in, but the generated types are adapter-specific.
+      user: userId as number,
+      plan: planId as number,
       status: m.subscription.status,
       startsAt: m.subscription.startsAt,
       // Set explicitly so the beforeChange hook leaves it alone: this is the

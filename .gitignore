@@ -55,3 +55,8 @@ node_modules/
 
 # Copied from pdfjs-dist on install/build by src/scripts/copyPdfWorker.mjs
 /public/pdf.worker.min.mjs
+.env.vercel
+
+# Local-only env copies and pulls
+.env.local.bak
+.env.vercel
