@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
+import { PayButton } from '@/components/site/PayButton'
 import { RegisterForm } from '@/components/site/RegisterForm'
 import { getPayloadAndUser, readAsUser } from '@/lib/auth'
 import { formatPromoEnd, planComparePrice, planPrice } from '@/lib/format'
@@ -30,8 +31,8 @@ export default async function JoinPage({
   const { plan: planId } = await searchParams
   const { payload, user } = await getPayloadAndUser()
 
-  // Someone already signed in does not need the registration form.
-  if (user) redirect('/account')
+  // Someone already signed in only needs the form when they came to buy a plan.
+  if (user && !planId) redirect('/account')
 
   let plan: Plan | null = null
   if (planId) {
@@ -47,6 +48,7 @@ export default async function JoinPage({
       plan = null
     }
   }
+  if (user && !plan) redirect('/account')
 
   const wasPrice = plan ? planComparePrice(plan) : null
   const promo = plan ? formatPromoEnd(plan.promoEndsAt) : null
@@ -62,7 +64,7 @@ export default async function JoinPage({
             / Subscribe
           </div>
           <h1 className="m-0 mb-3.5 font-display text-[clamp(32px,4.6vw,58px)] leading-[1.08] text-balance text-text">
-            Create your reading account
+            {user ? 'Complete your subscription' : 'Create your reading account'}
           </h1>
           <p className="m-0 mb-11 max-w-[520px] font-body text-[17px] leading-[1.8] font-normal text-muted">
             One account gives you the flipbook, the linked media, and every future revision inside
@@ -70,7 +72,20 @@ export default async function JoinPage({
           </p>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-start gap-11">
-            <RegisterForm planId={plan?.id ? String(plan.id) : undefined} />
+            {user && plan ? (
+              <div className="flex flex-col gap-4">
+                <p className="m-0 font-body text-[15px] leading-[1.8] font-normal text-muted">
+                  Signed in as <span className="text-text">{user.email}</span>. Your access opens as
+                  soon as Midtrans confirms the payment
+                  {user.membershipExpiresAt && new Date(user.membershipExpiresAt) > new Date()
+                    ? ' — the new term starts when your current one ends.'
+                    : '.'}
+                </p>
+                <PayButton planId={String(plan.id)} />
+              </div>
+            ) : (
+              <RegisterForm planId={plan?.id ? String(plan.id) : undefined} />
+            )}
 
             <aside className="card p-8">
               <div className="kicker mb-5">Your plan</div>
@@ -91,8 +106,8 @@ export default async function JoinPage({
                 </>
               ) : (
                 <p className="m-0 mb-[22px] font-body text-[15px] leading-[1.8] font-normal text-muted">
-                  No plan chosen yet — create your account now and pick one afterwards, or browse the
-                  tiers first.
+                  No plan chosen yet — create your account now and pick one afterwards, or browse
+                  the tiers first.
                 </p>
               )}
 
@@ -121,8 +136,8 @@ export default async function JoinPage({
               </Link>
 
               <p className="mt-[22px] mb-0 font-label text-[11px] leading-[1.7] text-shadow uppercase">
-                Payment is arranged by email or bank transfer — we open your access as soon as it
-                clears.
+                Secure payment by Midtrans — card, bank transfer or e-wallet. Access opens the
+                moment it is confirmed.
               </p>
             </aside>
           </div>

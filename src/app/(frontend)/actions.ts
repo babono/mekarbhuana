@@ -1,11 +1,12 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { ENQUIRY_TOPICS } from '@/collections/Enquiries'
-import { getPayloadClient } from '@/lib/auth'
+import { getPayloadAndUser, getPayloadClient } from '@/lib/auth'
+import { paymentUrlFor, pendingSubscriptionFor } from '@/lib/checkout'
 import { upgradeLegacyPassword } from '@/lib/legacyPassword'
 
 export type FormState = { error?: string; success?: string }
@@ -23,6 +24,14 @@ const setAuthCookie = async (token: string, expiresAt: number) => {
     path: '/',
     expires: new Date(expiresAt * 1000),
   })
+}
+
+/** This deployment's own address, for the URLs Midtrans sends readers and notifications back to. */
+const siteOrigin = async (): Promise<string> => {
+  const h = await headers()
+  const host = h.get('x-forwarded-host') ?? h.get('host')
+  const proto = h.get('x-forwarded-proto') ?? (host?.startsWith('localhost') ? 'http' : 'https')
+  return `${proto}://${host}`
 }
 
 /**
@@ -58,6 +67,8 @@ export async function registerAction(_prev: FormState, formData: FormData): Prom
     return { error: 'There is already an account with that email address. Try logging in.' }
   }
 
+  let next = '/account?welcome=1'
+
   try {
     const user = await payload.create({
       collection: 'users',
@@ -72,35 +83,61 @@ export async function registerAction(_prev: FormState, formData: FormData): Prom
       },
     })
 
-    // Record the intent to subscribe so staff can match it against a payment.
-    // Nothing is charged here — activation is manual until a gateway is wired up.
-    if (planId) {
-      const plan = await payload.findByID({ collection: 'plans', id: planId, depth: 0 })
-      await payload.create({
-        collection: 'subscriptions',
-        data: {
-          user: user.id,
-          plan: plan.id,
-          status: 'pending',
-          amount: plan.price,
-          currency: plan.currency,
-        },
-      })
-    }
-
     const result = await payload.login({
       collection: 'users',
       data: { email, password },
     })
 
     if (result.token && result.exp) await setAuthCookie(result.token, result.exp)
+
+    if (planId) {
+      // The account exists either way; if Midtrans is unreachable the reader can
+      // pay from their account page instead of starting over.
+      try {
+        const sub = await pendingSubscriptionFor(payload, user, planId)
+        next = await paymentUrlFor(payload, sub, user, await siteOrigin())
+      } catch (error) {
+        payload.logger.error({ err: error }, `Could not open payment for ${email}`)
+        next = '/account?welcome=1&payment=unavailable'
+      }
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Something went wrong.'
     return { error: message }
   }
 
   revalidatePath('/', 'layout')
-  redirect('/account?welcome=1')
+  redirect(next)
+}
+
+/**
+ * Send a signed-in reader to pay — for a newly chosen plan, or to finish an
+ * order already on their account.
+ */
+export async function checkoutAction(formData: FormData): Promise<void> {
+  const planId = str(formData, 'plan')
+  const subscriptionId = str(formData, 'subscription')
+
+  const { payload, user } = await getPayloadAndUser()
+  if (!user) redirect(planId ? `/join?plan=${encodeURIComponent(planId)}` : '/login')
+
+  let next: string
+  try {
+    let sub
+    if (subscriptionId) {
+      sub = await payload.findByID({ collection: 'subscriptions', id: subscriptionId, depth: 0 })
+      const owner = typeof sub.user === 'object' ? sub.user.id : sub.user
+      if (owner !== user.id) throw new Error('not yours')
+    } else {
+      sub = await pendingSubscriptionFor(payload, user, planId)
+    }
+    next = await paymentUrlFor(payload, sub, user, await siteOrigin())
+  } catch (error) {
+    payload.logger.error({ err: error }, `Could not open payment for ${user.email}`)
+    next = '/account?payment=unavailable'
+  }
+
+  redirect(next)
 }
 
 export async function loginAction(_prev: FormState, formData: FormData): Promise<FormState> {

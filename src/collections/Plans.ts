@@ -48,7 +48,7 @@ export const Plans: CollectionConfig = {
       name: 'currency',
       type: 'select',
       required: true,
-      defaultValue: 'USD',
+      defaultValue: 'IDR',
       options: [
         { label: 'USD', value: 'USD' },
         { label: 'IDR', value: 'IDR' },
