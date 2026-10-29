@@ -1,7 +1,7 @@
 import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/auth'
-import type { Article, Ebook, Ensemble, Plan, Program } from '@/payload-types'
+import type { Article, Ebook, Ensemble, Page, Plan, Program } from '@/payload-types'
 
 /**
  * Cache tags, one per collection. Payload's hooks purge these on save, so a
@@ -12,6 +12,7 @@ export const TAGS = {
   articles: 'articles',
   ebooks: 'ebooks',
   ensembles: 'ensembles',
+  pages: 'pages',
   plans: 'plans',
   programs: 'programs',
 } as const
@@ -154,4 +155,20 @@ export const getArticles = unstable_cache(
   },
   ['articles'],
   { tags: [TAGS.articles] },
+)
+
+/** A standalone page — terms, help and the like — by its address. */
+export const getPage = unstable_cache(
+  async (slug: string): Promise<Page | null> => {
+    const payload = await getPayloadClient()
+    const { docs } = await payload.find({
+      collection: 'pages',
+      where: { slug: { equals: slug } },
+      limit: 1,
+      depth: 0,
+    })
+    return (docs[0] as Page) ?? null
+  },
+  ['page'],
+  { tags: [TAGS.pages] },
 )

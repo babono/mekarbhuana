@@ -54,6 +54,9 @@ export function LoginForm() {
           autoComplete="current-password"
           required
         />
+        <div className="mt-2.5 text-right font-body text-[13px] leading-relaxed font-normal">
+          <Link href="/forgot-password">Forgot your password?</Link>
+        </div>
       </div>
 
       <SubmitButton />

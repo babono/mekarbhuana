@@ -62,9 +62,14 @@ const dataRow =
 export default async function AccountPage({
   searchParams,
 }: {
-  searchParams: Promise<{ welcome?: string; payment?: string; order_id?: string }>
+  searchParams: Promise<{
+    welcome?: string
+    payment?: string
+    order_id?: string
+    password?: string
+  }>
 }) {
-  const { welcome, payment, order_id: orderId } = await searchParams
+  const { welcome, payment, order_id: orderId, password } = await searchParams
   const { payload, user } = await getPayloadAndUser()
 
   if (!user) redirect('/login')
@@ -106,7 +111,11 @@ export default async function AccountPage({
   const subscriptions = (subscriptionsResult.docs as Subscription[]).filter(
     (sub) => sub.status !== 'cancelled' || sub.startsAt,
   )
-  const notice = payment ? PAYMENT_NOTICE[payment] : undefined
+  const notice = payment
+    ? PAYMENT_NOTICE[payment]
+    : password === 'reset'
+      ? ({ tone: 'good', text: 'Your new password is saved and you are logged in.' } as const)
+      : undefined
   const ebooks = ebooksResult.docs as Ebook[]
   const entitled = isEntitled(user)
 

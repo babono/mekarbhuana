@@ -73,6 +73,7 @@ export interface Config {
     ensembles: Ensemble;
     media: Media;
     plans: Plan;
+    pages: Page;
     subscriptions: Subscription;
     enquiries: Enquiry;
     users: User;
@@ -89,6 +90,7 @@ export interface Config {
     ensembles: EnsemblesSelect<false> | EnsemblesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     plans: PlansSelect<false> | PlansSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
     enquiries: EnquiriesSelect<false> | EnquiriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -436,6 +438,41 @@ export interface Plan {
   createdAt: string;
 }
 /**
+ * Terms, help and other standalone pages. Each one appears at the address in its slug, e.g. /terms-conditions.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * Leave blank to generate from the title.
+   */
+  slug?: string | null;
+  /**
+   * One or two sentences under the title. Also used by search engines.
+   */
+  intro?: string | null;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * One row per purchase. Midtrans payments activate themselves; for anything paid another way, set the status to Active and the dates fill in from the plan.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -594,6 +631,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'plans';
         value: number | Plan;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: number | Page;
       } | null)
     | ({
         relationTo: 'subscriptions';
@@ -809,6 +850,18 @@ export interface PlansSelect<T extends boolean = true> {
   featured?: T;
   active?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  intro?: T;
+  body?: T;
   updatedAt?: T;
   createdAt?: T;
 }
