@@ -6,7 +6,14 @@ export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
     useAsTitle: 'email',
-    defaultColumns: ['email', 'name', 'membershipStatus', 'membershipExpiresAt', 'createdAt'],
+    defaultColumns: [
+      'email',
+      'name',
+      'membershipStatus',
+      'membershipExpiresAt',
+      'legacyNeedsReview',
+      'createdAt',
+    ],
     group: 'Members',
   },
   auth: {
@@ -92,6 +99,43 @@ export const Users: CollectionConfig = {
           ],
           access: { create: isAdminField, update: isAdminField },
           admin: { readOnly: true },
+        },
+      ],
+    },
+    {
+      type: 'collapsible',
+      label: 'Imported from the old site',
+      admin: {
+        condition: (data) => Boolean(data?.legacyMemberId),
+        description:
+          'Only present on accounts carried over from WordPress. Nothing here affects access — it exists so a migrated record can be traced back, and so the first sign-in can accept the password the reader already had.',
+      },
+      fields: [
+        {
+          name: 'legacyMemberId',
+          type: 'number',
+          index: true,
+          access: { create: isAdminField, update: isAdminField, read: isAdminField },
+          admin: { readOnly: true, description: 'member_id in the old wp_swpm_members_tbl.' },
+        },
+        {
+          name: 'legacyPasswordHash',
+          type: 'text',
+          // Never leaves the server: a member can read their own user document,
+          // and this must not travel with it.
+          access: { create: isAdminField, update: isAdminField, read: () => false },
+          admin: { hidden: true },
+        },
+        {
+          name: 'legacyNeedsReview',
+          type: 'checkbox',
+          label: 'Staff / agency / test account — review before keeping',
+          defaultValue: false,
+          access: { create: isAdminField, update: isAdminField },
+          admin: {
+            description:
+              'Set during the import for addresses belonging to Mekar Bhuana, its agencies, or testing. Filter on this to clear them out, then untick what should stay.',
+          },
         },
       ],
     },

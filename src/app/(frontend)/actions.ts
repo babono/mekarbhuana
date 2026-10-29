@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 
 import { ENQUIRY_TOPICS } from '@/collections/Enquiries'
 import { getPayloadClient } from '@/lib/auth'
+import { upgradeLegacyPassword } from '@/lib/legacyPassword'
 
 export type FormState = { error?: string; success?: string }
 
@@ -113,10 +114,20 @@ export async function loginAction(_prev: FormState, formData: FormData): Promise
   const payload = await getPayloadClient()
 
   try {
-    const result = await payload.login({
-      collection: 'users',
-      data: { email, password },
-    })
+    let result
+
+    try {
+      result = await payload.login({ collection: 'users', data: { email, password } })
+    } catch (rejected) {
+      // Readers carried over from WordPress have a random password here and
+      // their real one only as an old hash, so a first sign-in always lands
+      // in this branch. If the password checks out against that hash the
+      // account is upgraded in place and the login retried; if not, the
+      // original rejection stands.
+      if (!(await upgradeLegacyPassword(payload, email, password))) throw rejected
+      result = await payload.login({ collection: 'users', data: { email, password } })
+    }
+
     if (!result.token || !result.exp) {
       return { error: 'That email address and password did not match.' }
     }
