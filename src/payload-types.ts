@@ -436,7 +436,7 @@ export interface Plan {
   createdAt: string;
 }
 /**
- * One row per purchase. Set the status to Active to open a reader’s access; dates fill in from the plan.
+ * One row per purchase. Midtrans payments activate themselves; for anything paid another way, set the status to Active and the dates fill in from the plan.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "subscriptions".
@@ -446,7 +446,7 @@ export interface Subscription {
   user: number | User;
   plan: number | Plan;
   /**
-   * While payments are handled off-site, set this to Active once the transfer clears.
+   * Set by Midtrans for online payments. For a transfer or cash, set this to Active once it clears.
    */
   status: 'pending' | 'active' | 'expired' | 'cancelled';
   /**
@@ -470,6 +470,16 @@ export interface Subscription {
    * Bank reference or receipt number, so a payment can be traced back.
    */
   reference?: string | null;
+  /**
+   * The latest payment attempt — search for it in the Midtrans dashboard.
+   */
+  paymentOrderId?: string | null;
+  /**
+   * As Midtrans reports it, e.g. bank_transfer, gopay.
+   */
+  paymentMethod?: string | null;
+  paymentUrl?: string | null;
+  paymentUrlExpiresAt?: string | null;
   /**
    * Internal only — never shown to the reader.
    */
@@ -816,6 +826,10 @@ export interface SubscriptionsSelect<T extends boolean = true> {
   amount?: T;
   currency?: T;
   reference?: T;
+  paymentOrderId?: T;
+  paymentMethod?: T;
+  paymentUrl?: T;
+  paymentUrlExpiresAt?: T;
   notes?: T;
   updatedAt?: T;
   createdAt?: T;

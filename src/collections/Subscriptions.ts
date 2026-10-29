@@ -3,6 +3,8 @@ import type { CollectionConfig, PayloadRequest } from 'payload'
 import type { Plan, Subscription } from '@/payload-types'
 
 import { asUser, isAdmin } from '@/access'
+import { reconcileOrder } from '@/lib/checkout'
+import { isValidSignature } from '@/lib/midtrans'
 
 type ID = number | string
 
@@ -41,8 +43,7 @@ export const syncMembership = async (userId: ID, req: PayloadRequest): Promise<v
 
   const now = Date.now()
   const live = (docs as Subscription[]).filter(
-    (sub) =>
-      sub.status === 'active' && sub.expiresAt && new Date(sub.expiresAt).getTime() > now,
+    (sub) => sub.status === 'active' && sub.expiresAt && new Date(sub.expiresAt).getTime() > now,
   )
 
   // The furthest-out active subscription defines the window; stacked terms extend it.
@@ -85,7 +86,7 @@ export const Subscriptions: CollectionConfig = {
     defaultColumns: ['reference', 'user', 'plan', 'status', 'expiresAt'],
     group: 'Members',
     description:
-      'One row per purchase. Set the status to Active to open a reader’s access; dates fill in from the plan.',
+      'One row per purchase. Midtrans payments activate themselves; for anything paid another way, set the status to Active and the dates fill in from the plan.',
   },
   access: {
     // Readers may see their own history; only staff may create or change one.
@@ -127,7 +128,7 @@ export const Subscriptions: CollectionConfig = {
       index: true,
       admin: {
         description:
-          'While payments are handled off-site, set this to Active once the transfer clears.',
+          'Set by Midtrans for online payments. For a transfer or cash, set this to Active once it clears.',
       },
     },
     {
@@ -183,9 +184,62 @@ export const Subscriptions: CollectionConfig = {
       },
     },
     {
+      type: 'collapsible',
+      label: 'Midtrans payment',
+      admin: {
+        initCollapsed: true,
+        condition: (data) => Boolean(data?.paymentOrderId),
+      },
+      fields: [
+        {
+          name: 'paymentOrderId',
+          type: 'text',
+          index: true,
+          admin: {
+            readOnly: true,
+            description: 'The latest payment attempt — search for it in the Midtrans dashboard.',
+          },
+        },
+        {
+          name: 'paymentMethod',
+          type: 'text',
+          admin: {
+            readOnly: true,
+            description: 'As Midtrans reports it, e.g. bank_transfer, gopay.',
+          },
+        },
+        // Where the reader goes to finish paying; reused until it lapses.
+        { name: 'paymentUrl', type: 'text', admin: { hidden: true } },
+        { name: 'paymentUrlExpiresAt', type: 'date', admin: { hidden: true } },
+      ],
+    },
+    {
       name: 'notes',
       type: 'textarea',
       admin: { description: 'Internal only — never shown to the reader.' },
+    },
+  ],
+  endpoints: [
+    {
+      // Midtrans calls this whenever an order changes state. The body is only a
+      // prompt: once the signature checks out, the order's real status is fetched
+      // from Midtrans and that is what gets applied.
+      path: '/midtrans-notification',
+      method: 'post',
+      handler: async (req) => {
+        const body = (await req.json?.().catch(() => null)) as Record<string, string> | null
+        if (!body || !isValidSignature(body)) {
+          return Response.json({ error: 'invalid signature' }, { status: 401 })
+        }
+        try {
+          await reconcileOrder(req.payload, body.order_id)
+        } catch (error) {
+          req.payload.logger.error({ err: error }, `Midtrans notification ${body.order_id}`)
+          // A non-2xx answer makes Midtrans retry later.
+          return Response.json({ error: 'not applied' }, { status: 500 })
+        }
+        return Response.json({ ok: true })
+      },
     },
   ],
   hooks: {

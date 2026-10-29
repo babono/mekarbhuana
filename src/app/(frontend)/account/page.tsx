@@ -4,7 +4,9 @@ import { redirect } from 'next/navigation'
 
 import { isEntitled } from '@/access/entitlement'
 import { logoutAction } from '@/app/(frontend)/actions'
+import { PayButton } from '@/components/site/PayButton'
 import { getPayloadAndUser, readAsUser } from '@/lib/auth'
+import { reconcileOrder } from '@/lib/checkout'
 import { formatDate, formatPrice } from '@/lib/format'
 import type { Ebook, Plan, Subscription } from '@/payload-types'
 
@@ -29,17 +31,64 @@ const statusPill = (status: string) => {
   return `${base} text-crimson`
 }
 
-const dataRow = 'flex justify-between gap-4 border-b border-dotted border-line py-3.5 font-label text-[13px] leading-relaxed last:border-b-0'
+const PAYMENT_NOTICE: Record<string, { tone: 'good' | 'wait' | 'bad'; text: string }> = {
+  paid: {
+    tone: 'good',
+    text: 'Payment received — your subscription is open. Enjoy the encyclopedia.',
+  },
+  pending: {
+    tone: 'wait',
+    text: 'We are waiting for your payment to clear. If you chose a bank transfer, follow the instructions from Midtrans — your access opens as soon as it arrives.',
+  },
+  failed: {
+    tone: 'bad',
+    text: 'That payment did not go through, and you have not been charged. You can try again below.',
+  },
+  unavailable: {
+    tone: 'bad',
+    text: 'We could not open the payment page just now. Please try again in a moment, or write to us.',
+  },
+}
+
+const NOTICE_TONE = {
+  good: 'border-sage bg-[#eef3e8] text-[#40602a]',
+  wait: 'border-brass bg-[#f6f0e2] text-text',
+  bad: 'border-crimson bg-[#fbeceb] text-crimson',
+} as const
+
+const dataRow =
+  'flex justify-between gap-4 border-b border-dotted border-line py-3.5 font-label text-[13px] leading-relaxed last:border-b-0'
 
 export default async function AccountPage({
   searchParams,
 }: {
-  searchParams: Promise<{ welcome?: string }>
+  searchParams: Promise<{ welcome?: string; payment?: string; order_id?: string }>
 }) {
-  const { welcome } = await searchParams
+  const { welcome, payment, order_id: orderId } = await searchParams
   const { payload, user } = await getPayloadAndUser()
 
   if (!user) redirect('/login')
+
+  // Midtrans sends the reader back here with the order in the query string.
+  // Its real status is fetched rather than read from the URL, which settles the
+  // order at once instead of waiting on the notification — then the URL is
+  // cleaned so a refresh does not repeat the lookup.
+  if (orderId) {
+    let outcome = 'pending'
+    try {
+      const result = await reconcileOrder(payload, orderId)
+      const owner =
+        result &&
+        (typeof result.subscription.user === 'object'
+          ? result.subscription.user.id
+          : result.subscription.user)
+      if (result && owner === user.id)
+        outcome = result.outcome === 'reversed' ? 'failed' : result.outcome
+    } catch (error) {
+      payload.logger.error({ err: error }, `Reconciling ${orderId} on return`)
+    }
+    redirect(`/account?payment=${outcome}`)
+  }
 
   const [subscriptionsResult, ebooksResult] = await Promise.all([
     payload.find({
@@ -53,7 +102,11 @@ export default async function AccountPage({
     payload.find({ collection: 'ebooks', depth: 0, limit: 10, ...readAsUser(user) }),
   ])
 
-  const subscriptions = subscriptionsResult.docs as Subscription[]
+  // Abandoned attempts that never opened access are noise in a reader's history.
+  const subscriptions = (subscriptionsResult.docs as Subscription[]).filter(
+    (sub) => sub.status !== 'cancelled' || sub.startsAt,
+  )
+  const notice = payment ? PAYMENT_NOTICE[payment] : undefined
   const ebooks = ebooksResult.docs as Ebook[]
   const entitled = isEntitled(user)
 
@@ -80,9 +133,16 @@ export default async function AccountPage({
 
       <section className="bg-cream py-20">
         <div className="mx-auto max-w-shell px-[26px]">
-          {welcome && (
+          {welcome && !notice && (
             <div className="mb-[34px] border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-sm leading-relaxed text-[#40602a]">
-              Welcome to Mekar Bhuana. We&rsquo;ll be in touch about payment shortly.
+              Welcome to Mekar Bhuana.
+            </div>
+          )}
+          {notice && (
+            <div
+              className={`mb-[34px] border-l-[3px] px-4 py-3.5 font-body text-sm leading-relaxed ${NOTICE_TONE[notice.tone]}`}
+            >
+              {notice.text}
             </div>
           )}
 
@@ -155,7 +215,8 @@ export default async function AccountPage({
 
               {subscriptions.length === 0 ? (
                 <p className="m-0 font-body text-[15px] leading-[1.8] font-normal text-muted">
-                  Nothing here yet. <Link href="/encyclopedia">Choose a plan</Link> to start reading.
+                  Nothing here yet. <Link href="/encyclopedia">Choose a plan</Link> to start
+                  reading.
                 </p>
               ) : (
                 <dl className="m-0">
@@ -174,7 +235,18 @@ export default async function AccountPage({
                             {STATUS_LABEL[sub.status] ?? sub.status}
                           </span>
                           {sub.expiresAt && (
-                            <div className="mt-2 text-shadow">until {formatDate(sub.expiresAt)}</div>
+                            <div className="mt-2 text-shadow">
+                              until {formatDate(sub.expiresAt)}
+                            </div>
+                          )}
+                          {sub.status === 'pending' && (
+                            <div className="mt-3">
+                              <PayButton
+                                subscriptionId={String(sub.id)}
+                                label={sub.paymentUrl ? 'Continue payment' : 'Pay now'}
+                                className="btn btn-sm btn-crimson"
+                              />
+                            </div>
                           )}
                         </dd>
                       </div>
@@ -184,7 +256,7 @@ export default async function AccountPage({
               )}
 
               <p className="mt-[26px] mb-0 font-label text-[11px] leading-[1.7] text-shadow uppercase">
-                Payments are arranged directly with the centre — write to us if anything looks wrong.
+                Payments are handled securely by Midtrans — write to us if anything looks wrong.
               </p>
             </div>
           </div>
