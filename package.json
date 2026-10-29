@@ -28,6 +28,7 @@
     "@payloadcms/plugin-cloud-storage": "^3.86.0",
     "@payloadcms/richtext-lexical": "3.86.0",
     "@payloadcms/ui": "3.86.0",
+    "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",

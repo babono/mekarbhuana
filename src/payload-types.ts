@@ -490,6 +490,15 @@ export interface User {
   membershipStatus?: ('none' | 'active' | 'expired') | null;
   membershipExpiresAt?: string | null;
   membershipEdition?: ('en' | 'id') | null;
+  /**
+   * member_id in the old wp_swpm_members_tbl.
+   */
+  legacyMemberId?: number | null;
+  legacyPasswordHash?: string | null;
+  /**
+   * Set during the import for addresses belonging to Mekar Bhuana, its agencies, or testing. Filter on this to clear them out, then untick what should stay.
+   */
+  legacyNeedsReview?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -836,6 +845,9 @@ export interface UsersSelect<T extends boolean = true> {
   membershipStatus?: T;
   membershipExpiresAt?: T;
   membershipEdition?: T;
+  legacyMemberId?: T;
+  legacyPasswordHash?: T;
+  legacyNeedsReview?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
