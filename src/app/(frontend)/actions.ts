@@ -178,6 +178,64 @@ export async function loginAction(_prev: FormState, formData: FormData): Promise
   redirect('/account')
 }
 
+/**
+ * Email a reset link. The answer is the same whether or not the address has an
+ * account, so the form cannot be used to find out who is a member.
+ */
+export async function forgotPasswordAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const email = str(formData, 'email').toLowerCase()
+  if (!email) return { error: 'Please enter the email address you signed up with.' }
+
+  const payload = await getPayloadClient()
+  try {
+    await payload.forgotPassword({ collection: 'users', data: { email } })
+  } catch (error) {
+    payload.logger.error({ err: error }, `Password reset email for ${email}`)
+  }
+
+  return {
+    success:
+      'If that address has an account, a reset link is on its way. It works for one hour — check your spam folder if it does not arrive in a few minutes.',
+  }
+}
+
+/** Set the new password from a reset link, then sign the reader straight in. */
+export async function resetPasswordAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const token = str(formData, 'token')
+  const password = str(formData, 'password')
+  const confirm = str(formData, 'confirm')
+
+  if (!token) return { error: 'This reset link is incomplete. Please request a new one.' }
+  if (password.length < 8) return { error: 'Please choose a password of at least 8 characters.' }
+  if (password !== confirm) return { error: 'The two passwords do not match.' }
+
+  const payload = await getPayloadClient()
+  try {
+    const result = await payload.resetPassword({
+      collection: 'users',
+      data: { token, password },
+      overrideAccess: true,
+    })
+    if (result.token && result.user) {
+      const exp =
+        Math.floor(Date.now() / 1000) +
+        (payload.collections.users.config.auth.tokenExpiration ?? 7200)
+      await setAuthCookie(result.token, exp)
+    }
+  } catch {
+    return { error: 'This reset link has expired or was already used. Please request a new one.' }
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/account?password=reset')
+}
+
 export async function logoutAction(): Promise<void> {
   const store = await cookies()
   store.delete(AUTH_COOKIE)

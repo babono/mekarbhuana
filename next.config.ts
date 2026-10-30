@@ -3,6 +3,8 @@ import type { NextConfig } from 'next'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import { legacyRedirects } from './src/redirects'
+
 const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
@@ -12,6 +14,10 @@ const nextConfig: NextConfig = {
   // output tracer to ship them to the serverless bundle.
   outputFileTracingIncludes: {
     '/encyclopedia/file/[edition]': ['./private/**'],
+  },
+  // Old WordPress addresses; see src/redirects.ts.
+  async redirects() {
+    return legacyRedirects
   },
   images: {
     localPatterns: [

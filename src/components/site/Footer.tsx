@@ -30,7 +30,10 @@ const SOCIAL = [
 ]
 
 /** Masked rather than drawn, so it reads on the dark panel. See `mask-icon`. */
-const maskStyle = (icon: string) => ({ maskImage: `url('${icon}')`, WebkitMaskImage: `url('${icon}')` })
+const maskStyle = (icon: string) => ({
+  maskImage: `url('${icon}')`,
+  WebkitMaskImage: `url('${icon}')`,
+})
 
 const headingClass =
   'mb-[22px] font-body text-[11px] leading-none font-medium tracking-[0.26em] text-gold uppercase'
@@ -148,7 +151,19 @@ export function Footer() {
 
       <div className="mx-auto flex max-w-shell flex-wrap justify-between gap-3.5 border-t border-bone/14 px-[26px] py-[22px] font-label text-[11px] leading-relaxed tracking-[0.06em] text-shadow uppercase">
         <div>© {new Date().getFullYear()} Mekar Bhuana Centre · Yayasan Semara Gita Bhuana</div>
-        <div>No AI training on our archive · Terms</div>
+        <div>
+          No AI training on our archive ·{' '}
+          <Link href="/terms-conditions" className="hover:text-gold-light">
+            Terms
+          </Link>{' '}
+          ·{' '}
+          <Link
+            href="/troubleshooting-accessing-the-encyclopedia"
+            className="hover:text-gold-light"
+          >
+            Help
+          </Link>
+        </div>
       </div>
     </footer>
   )

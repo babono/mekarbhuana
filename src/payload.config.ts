@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
@@ -11,6 +12,7 @@ import { Ebooks } from './collections/Ebooks'
 import { Enquiries } from './collections/Enquiries'
 import { Ensembles } from './collections/Ensembles'
 import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
 import { Plans } from './collections/Plans'
 import { Programs } from './collections/Programs'
 import { Subscriptions } from './collections/Subscriptions'
@@ -21,10 +23,17 @@ import { cloudinaryAdapter } from './storage/cloudinaryAdapter'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+// Mail goes out through the domain's own Hostinger mailbox, which already has
+// SPF and DKIM set up. Without SMTP credentials — local development, preview
+// branches — Payload falls back to printing each message to the console.
+const smtpConfigured = Boolean(
+  process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS,
+)
+
 const cloudinaryConfigured = Boolean(
   process.env.CLOUDINARY_CLOUD_NAME &&
-    process.env.CLOUDINARY_API_KEY &&
-    process.env.CLOUDINARY_API_SECRET,
+  process.env.CLOUDINARY_API_KEY &&
+  process.env.CLOUDINARY_API_SECRET,
 )
 
 export default buildConfig({
@@ -46,6 +55,7 @@ export default buildConfig({
     withRevalidation(Ensembles, 'ensembles', ['/']),
     Media,
     withRevalidation(Plans, 'plans', ['/encyclopedia', '/']),
+    withRevalidation(Pages, 'pages', []),
     Subscriptions,
     Enquiries,
     Users,
@@ -65,6 +75,20 @@ export default buildConfig({
     push: false,
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
+  ...(smtpConfigured
+    ? {
+        email: nodemailerAdapter({
+          defaultFromAddress: process.env.EMAIL_FROM || process.env.SMTP_USER!,
+          defaultFromName: 'Mekar Bhuana Centre',
+          transportOptions: {
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT || 465),
+            secure: Number(process.env.SMTP_PORT || 465) === 465,
+            auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+          },
+        }),
+      }
+    : {}),
   sharp,
   plugins: [
     // Only takes over when Cloudinary is configured. Without the credentials the

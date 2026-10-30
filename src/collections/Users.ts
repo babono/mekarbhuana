@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { anyone, isAdmin, isAdminField, isAdminOrSelf } from '@/access'
+import { resetEmailHTML } from '@/lib/resetEmail'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -21,6 +22,29 @@ export const Users: CollectionConfig = {
     verify: false,
     maxLoginAttempts: 8,
     lockTime: 10 * 60 * 1000,
+    forgotPassword: {
+      expiration: 60 * 60 * 1000,
+      generateEmailSubject: () => 'Reset your Mekar Bhuana password',
+      generateEmailHTML: (args) =>
+        resetEmailHTML({
+          token: args?.token ?? '',
+          name: (args?.user as { name?: string } | undefined)?.name,
+        }),
+    },
+  },
+  hooks: {
+    beforeValidate: [
+      ({ data, operation, originalDoc }) => {
+        // A password chosen by any route retires the WordPress hash. Otherwise
+        // someone who still knew the old password — the very reason a reader
+        // might reset it — could sign in with it and overwrite the new one.
+        // The reset-link flow writes the raw record without an originalDoc,
+        // which is how it is recognised here.
+        const isPasswordReset = operation === 'update' && !originalDoc && Boolean(data?.hash)
+        if (data && (data.password || isPasswordReset)) data.legacyPasswordHash = null
+        return data
+      },
+    ],
   },
   access: {
     // Registration is open: anyone can create a reading account.
@@ -29,7 +53,8 @@ export const Users: CollectionConfig = {
     update: isAdminOrSelf,
     delete: isAdmin,
     // Only staff reach the Payload admin panel; members use the site itself.
-    admin: ({ req }) => Boolean((req.user as { roles?: string[] } | null)?.roles?.includes('admin')),
+    admin: ({ req }) =>
+      Boolean((req.user as { roles?: string[] } | null)?.roles?.includes('admin')),
   },
   fields: [
     {
