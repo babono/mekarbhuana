@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-import { isEntitled } from '@/access/entitlement'
+import { hasEdition } from '@/access/entitlement'
 import { institutionForRequest } from '@/access/institutional'
 import { Flipbook } from '@/components/site/Flipbook'
 import { getMe } from '@/lib/auth'
@@ -30,7 +30,7 @@ export default async function ReadPage({
     getEbooks(),
     institutionForRequest(edition),
   ])
-  const ownAccess = isEntitled(user)
+  const ownAccess = hasEdition(user, edition)
   const entitled = ownAccess || Boolean(institution)
 
   const book = books.find((item) => item.edition === edition)

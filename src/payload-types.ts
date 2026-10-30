@@ -536,7 +536,8 @@ export interface User {
   roles?: ('member' | 'admin')[] | null;
   membershipStatus?: ('none' | 'active' | 'expired') | null;
   membershipExpiresAt?: string | null;
-  membershipEdition?: ('en' | 'id') | null;
+  englishAccessUntil?: string | null;
+  indonesianAccessUntil?: string | null;
   /**
    * Shown to those readers, e.g. “University of Kentucky”. Falls back to the account name.
    */
@@ -919,7 +920,8 @@ export interface UsersSelect<T extends boolean = true> {
   roles?: T;
   membershipStatus?: T;
   membershipExpiresAt?: T;
-  membershipEdition?: T;
+  englishAccessUntil?: T;
+  indonesianAccessUntil?: T;
   institutionName?: T;
   institutionIps?: T;
   legacyMemberId?: T;

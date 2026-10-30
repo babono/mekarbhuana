@@ -4,6 +4,7 @@ import * as migration_20261029_182623_midtrans_payment_fields from './20261029_1
 import * as migration_20261029_190320_pages_collection from './20261029_190320_pages_collection'
 import * as migration_20261029_190400_seed_terms_and_help from './20261029_190400_seed_terms_and_help'
 import * as migration_20261030_030340_institutional_access from './20261030_030340_institutional_access'
+import * as migration_20261030_184358_edition_access from './20261030_184358_edition_access'
 
 export const migrations = [
   {
@@ -35,5 +36,10 @@ export const migrations = [
     up: migration_20261030_030340_institutional_access.up,
     down: migration_20261030_030340_institutional_access.down,
     name: '20261030_030340_institutional_access',
+  },
+  {
+    up: migration_20261030_184358_edition_access.up,
+    down: migration_20261030_184358_edition_access.down,
+    name: '20261030_184358_edition_access',
   },
 ]

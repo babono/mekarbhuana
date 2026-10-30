@@ -2,7 +2,7 @@ import { createReadStream } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import { Readable } from 'node:stream'
 
-import { isEntitled } from '@/access/entitlement'
+import { hasEdition } from '@/access/entitlement'
 import { institutionForRequest } from '@/access/institutional'
 import { getPayloadAndUser } from '@/lib/auth'
 import { getEbooks } from '@/lib/content'
@@ -49,7 +49,7 @@ export async function GET(
 
   const { user } = await getPayloadAndUser()
   // A library's subscription covers its readers without them signing in.
-  const entitled = isEntitled(user) || Boolean(await institutionForRequest(edition))
+  const entitled = hasEdition(user, edition) || Boolean(await institutionForRequest(edition))
 
   const headers = new Headers({
     'Content-Type': 'application/pdf',

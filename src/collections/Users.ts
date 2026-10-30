@@ -125,15 +125,20 @@ export const Users: CollectionConfig = {
           access: { create: isAdminField, update: isAdminField },
           admin: { readOnly: true, date: { pickerAppearance: 'dayOnly' } },
         },
+        // The two editions are sold separately, so each has its own window.
         {
-          name: 'membershipEdition',
-          type: 'select',
-          options: [
-            { label: 'English', value: 'en' },
-            { label: 'Bahasa Indonesia', value: 'id' },
-          ],
+          name: 'englishAccessUntil',
+          type: 'date',
+          label: 'English edition until',
           access: { create: isAdminField, update: isAdminField },
-          admin: { readOnly: true },
+          admin: { readOnly: true, date: { pickerAppearance: 'dayOnly' } },
+        },
+        {
+          name: 'indonesianAccessUntil',
+          type: 'date',
+          label: 'Bahasa Indonesia edition until',
+          access: { create: isAdminField, update: isAdminField },
+          admin: { readOnly: true, date: { pickerAppearance: 'dayOnly' } },
         },
       ],
     },

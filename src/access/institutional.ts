@@ -5,7 +5,7 @@ import { INSTITUTIONS_TAG } from '@/hooks/revalidateInstitutions'
 import { getPayloadClient } from '@/lib/auth'
 import type { User } from '@/payload-types'
 
-import { isEntitled } from './entitlement'
+import { type Edition, hasEdition } from './entitlement'
 
 /**
  * Institutional access to the Encyclopedia, granted by network address.
@@ -25,11 +25,13 @@ import { isEntitled } from './entitlement'
  * which meant a shared password and a login-limit setting that had to stay off.
  */
 
-type Edition = 'en' | 'id'
-
 type InstitutionAccount = Pick<
   User,
-  'roles' | 'membershipStatus' | 'membershipExpiresAt' | 'membershipEdition'
+  | 'roles'
+  | 'membershipStatus'
+  | 'membershipExpiresAt'
+  | 'englishAccessUntil'
+  | 'indonesianAccessUntil'
 > & { name: string; ips: string[] }
 
 export type Institution = { name: string }
@@ -62,7 +64,8 @@ const getInstitutionAccounts = unstable_cache(
         roles: doc.roles,
         membershipStatus: doc.membershipStatus,
         membershipExpiresAt: doc.membershipExpiresAt,
-        membershipEdition: doc.membershipEdition,
+        englishAccessUntil: doc.englishAccessUntil,
+        indonesianAccessUntil: doc.indonesianAccessUntil,
       }))
       .filter((account) => account.ips.length > 0)
   },
@@ -99,8 +102,7 @@ export const institutionForRequest = async (edition: Edition): Promise<Instituti
 
   for (const account of await getInstitutionAccounts()) {
     if (!account.ips.includes(ip)) continue
-    if (!isEntitled(account)) continue
-    if (account.membershipEdition && account.membershipEdition !== edition) continue
+    if (!hasEdition(account, edition)) continue
     return { name: account.name }
   }
   return null
