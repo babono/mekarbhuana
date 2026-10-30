@@ -2,12 +2,14 @@ import { createReadStream } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import { Readable } from 'node:stream'
 
-import { isEntitled } from '@/access/entitlement'
+import { hasEdition } from '@/access/entitlement'
+import { institutionForRequest } from '@/access/institutional'
 import { getPayloadAndUser } from '@/lib/auth'
 import { getEbooks } from '@/lib/content'
 import { DEFAULT_PREVIEW_PAGES, editionPath, isEdition, previewBytes } from '@/lib/encyclopedia'
 
-// Entitlement is per-reader, so this can never be prerendered or shared.
+// Entitlement is per-reader (cookie or network address), so this can never be
+// prerendered or shared.
 export const dynamic = 'force-dynamic'
 
 /** `bytes=start-end`, resolved against a known size. Null when absent or unusable. */
@@ -30,7 +32,7 @@ const parseRange = (header: string | null, size: number): { start: number; end: 
  *
  * One URL serves two different documents: subscribers get the full book, and
  * everyone else gets a short preview slice built on the server. That means the
- * response varies by cookie, so it must never be stored by a shared cache —
+ * response varies by cookie and by address, so it must never be stored by a shared cache —
  * a CDN that cached a subscriber's response would serve the whole book to the
  * next anonymous visitor. Hence `private, no-store` plus `Vary: Cookie` on
  * every path through this handler.
@@ -46,7 +48,8 @@ export async function GET(
   if (!isEdition(edition)) return new Response('Not found', { status: 404 })
 
   const { user } = await getPayloadAndUser()
-  const entitled = isEntitled(user)
+  // A library's subscription covers its readers without them signing in.
+  const entitled = hasEdition(user, edition) || Boolean(await institutionForRequest(edition))
 
   const headers = new Headers({
     'Content-Type': 'application/pdf',

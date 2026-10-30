@@ -47,10 +47,14 @@ export const syncMembership = async (userId: ID, req: PayloadRequest): Promise<v
   )
 
   // The furthest-out active subscription defines the window; stacked terms extend it.
-  const furthest = live.reduce<Subscription | null>((best, sub) => {
-    if (!best) return sub
-    return new Date(sub.expiresAt!).getTime() > new Date(best.expiresAt!).getTime() ? sub : best
-  }, null)
+  const furthestOf = (subs: Subscription[]) =>
+    subs.reduce<Subscription | null>((best, sub) => {
+      if (!best) return sub
+      return new Date(sub.expiresAt!).getTime() > new Date(best.expiresAt!).getTime() ? sub : best
+    }, null)
+  const furthest = furthestOf(live)
+  const untilFor = (edition: 'en' | 'id') =>
+    furthestOf(live.filter((sub) => sub.edition === edition))?.expiresAt ?? null
 
   // "Expired" means a window closed, not merely that a row exists — someone whose
   // only subscription is still awaiting payment has never had access to lose.
@@ -67,11 +71,14 @@ export const syncMembership = async (userId: ID, req: PayloadRequest): Promise<v
       ? {
           membershipStatus: 'active',
           membershipExpiresAt: furthest.expiresAt,
-          membershipEdition: furthest.edition,
+          englishAccessUntil: untilFor('en'),
+          indonesianAccessUntil: untilFor('id'),
         }
       : {
           membershipStatus: hasLapsed ? 'expired' : 'none',
           membershipExpiresAt: null,
+          englishAccessUntil: null,
+          indonesianAccessUntil: null,
         },
     req,
     context: { skipMembershipSync: true },

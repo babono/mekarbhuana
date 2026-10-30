@@ -47,7 +47,8 @@ const COPY = {
   },
 } as const
 
-const tab = 'px-7 py-[15px] font-body text-[12px] leading-none font-medium tracking-[0.13em] uppercase'
+const tab =
+  'px-7 py-[15px] font-body text-[12px] leading-none font-medium tracking-[0.13em] uppercase'
 
 /**
  * Edition switch and the plan tiers for whichever edition is selected.
@@ -58,7 +59,8 @@ const tab = 'px-7 py-[15px] font-body text-[12px] leading-none font-medium track
  */
 export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
   const edition = useEdition()
-  const { entitled } = useMe()
+  const { hasEdition } = useMe()
+  const entitled = hasEdition(edition)
   const copy = COPY[edition]
   const active = plans[edition]
 
@@ -126,7 +128,9 @@ export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
                   </div>
                 )}
                 <Link
-                  href={entitled ? `/encyclopedia/read?edition=${edition}` : `/join?plan=${plan.id}`}
+                  href={
+                    entitled ? `/encyclopedia/read?edition=${edition}` : `/join?plan=${plan.id}`
+                  }
                   className={`btn btn-sm mt-6 ${plan.featured ? 'btn-crimson' : 'btn-dark'}`}
                 >
                   {entitled ? copy.readNow : copy.subscribe}

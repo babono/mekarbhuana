@@ -118,6 +118,23 @@ export default async function AccountPage({
       : undefined
   const ebooks = ebooksResult.docs as Ebook[]
   const entitled = isEntitled(user)
+  // Each edition is subscribed to separately, so each shows its own end date.
+  const editions = (
+    [
+      {
+        edition: 'en',
+        label: 'English edition',
+        read: 'Read English Edition',
+        until: user.englishAccessUntil,
+      },
+      {
+        edition: 'id',
+        label: 'Edisi Bahasa',
+        read: 'Read Edisi Bahasa',
+        until: user.indonesianAccessUntil,
+      },
+    ] as const
+  ).filter((row) => row.until && new Date(row.until).getTime() > Date.now())
 
   return (
     <main>
@@ -168,22 +185,12 @@ export default async function AccountPage({
                     </span>
                   </dd>
                 </div>
-                {user.membershipExpiresAt && (
-                  <div className={dataRow}>
-                    <dt className="m-0 text-shadow uppercase">Runs until</dt>
-                    <dd className="m-0 text-right text-text">
-                      {formatDate(user.membershipExpiresAt)}
-                    </dd>
+                {editions.map(({ label, until }) => (
+                  <div key={label} className={dataRow}>
+                    <dt className="m-0 text-shadow uppercase">{label}</dt>
+                    <dd className="m-0 text-right text-text">Until {formatDate(until)}</dd>
                   </div>
-                )}
-                {user.membershipEdition && (
-                  <div className={dataRow}>
-                    <dt className="m-0 text-shadow uppercase">Edition</dt>
-                    <dd className="m-0 text-right text-text">
-                      {user.membershipEdition === 'en' ? 'English' : 'Bahasa Indonesia'}
-                    </dd>
-                  </div>
-                )}
+                ))}
                 <div className={dataRow}>
                   <dt className="m-0 text-shadow uppercase">Email</dt>
                   <dd className="m-0 text-right text-text">{user.email}</dd>
@@ -197,15 +204,16 @@ export default async function AccountPage({
               </dl>
 
               <div className="mt-[34px] flex flex-wrap gap-3">
-                {entitled ? (
-                  <>
-                    <Link href="/encyclopedia/read?edition=en" className="btn btn-sm btn-crimson">
-                      Read English Edition
+                {editions.length > 0 ? (
+                  editions.map(({ edition, read }) => (
+                    <Link
+                      key={edition}
+                      href={`/encyclopedia/read?edition=${edition}`}
+                      className="btn btn-sm btn-crimson"
+                    >
+                      {read}
                     </Link>
-                    <Link href="/encyclopedia/read?edition=id" className="btn btn-sm btn-crimson">
-                      Read Edisi Bahasa
-                    </Link>
-                  </>
+                  ))
                 ) : (
                   <Link href="/encyclopedia" className="btn btn-sm btn-crimson">
                     See the plans

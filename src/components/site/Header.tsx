@@ -32,7 +32,8 @@ export function Header() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { entitled } = useMe()
+  const { readableEdition } = useMe()
+  const entitled = readableEdition !== null
 
   const overlay = OVERLAY_ROUTES.includes(pathname)
   // Transparent only while over the hero — once the page moves, the bar solidifies.
@@ -76,7 +77,10 @@ export function Header() {
       ].join(' ')}
     >
       <div className="mx-auto flex max-w-shell flex-wrap items-center gap-x-[18px] gap-y-3 px-[26px] py-[13px]">
-        <Link href="/" className="flex flex-none items-center gap-[11px] text-inherit hover:text-inherit">
+        <Link
+          href="/"
+          className="flex flex-none items-center gap-[11px] text-inherit hover:text-inherit"
+        >
           <Logo variant="mark" height={40} className="flex-none" />
           <div>
             <div
@@ -128,7 +132,7 @@ export function Header() {
               }`}
             />
             <Link
-              href={entitled ? '/encyclopedia/read' : '/encyclopedia'}
+              href={entitled ? `/encyclopedia/read?edition=${readableEdition}` : '/encyclopedia'}
               className="border border-crimson bg-crimson px-[22px] py-[13px] font-body text-[12px] leading-none font-semibold tracking-[0.13em] whitespace-nowrap text-cream uppercase transition-colors hover:border-gold hover:bg-gold hover:text-ink"
             >
               {entitled ? 'Read Encyclopedia' : 'Subscribe to read'}
@@ -172,7 +176,7 @@ export function Header() {
           ))}
           <HeaderAuth className="py-[15px] font-display text-xl leading-none text-bone" />
           <Link
-            href={entitled ? '/encyclopedia/read' : '/encyclopedia'}
+            href={entitled ? `/encyclopedia/read?edition=${readableEdition}` : '/encyclopedia'}
             className="btn btn-crimson mt-4 block w-full"
           >
             {entitled ? 'Read Encyclopedia' : 'Subscribe to read'}

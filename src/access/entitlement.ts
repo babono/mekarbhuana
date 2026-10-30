@@ -4,6 +4,17 @@ import type { User } from '@/payload-types'
 
 import { asUser } from './index'
 
+export type Edition = 'en' | 'id'
+
+type Membership = Pick<
+  User,
+  | 'roles'
+  | 'membershipStatus'
+  | 'membershipExpiresAt'
+  | 'englishAccessUntil'
+  | 'indonesianAccessUntil'
+>
+
 /**
  * A reader is entitled when their denormalised membership window is still open.
  *
@@ -12,12 +23,24 @@ import { asUser } from './index'
  * Payload resolves `req.user` from the database on every request, so this stays
  * fresh, and gating never costs an extra query.
  */
-export const isEntitled = (user: User | null | undefined): boolean => {
+export const isEntitled = (user: Membership | null | undefined): boolean => {
   if (!user) return false
   if (user.roles?.includes('admin')) return true
   if (user.membershipStatus !== 'active') return false
   if (!user.membershipExpiresAt) return false
   return new Date(user.membershipExpiresAt).getTime() > Date.now()
+}
+
+/**
+ * Whether a reader may open the full book in one edition. The editions are sold
+ * separately, so a subscription to one does not open the other; members-only
+ * articles still need only `isEntitled`.
+ */
+export const hasEdition = (user: Membership | null | undefined, edition: Edition): boolean => {
+  if (!isEntitled(user)) return false
+  if (user!.roles?.includes('admin')) return true
+  const until = edition === 'en' ? user!.englishAccessUntil : user!.indonesianAccessUntil
+  return Boolean(until) && new Date(until!).getTime() > Date.now()
 }
 
 /**

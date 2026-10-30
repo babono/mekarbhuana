@@ -138,6 +138,8 @@ const startOfNextTerm = async (payload: Payload, sub: Subscription): Promise<Dat
     where: {
       and: [
         { user: { equals: userOf(sub) } },
+        // Only the same edition: buying the other one must not wait for this to end.
+        { edition: { equals: sub.edition } },
         { status: { equals: 'active' } },
         { id: { not_equals: sub.id } },
         { expiresAt: { greater_than: new Date().toISOString() } },

@@ -11,7 +11,8 @@ import { useMe } from './useMe'
  */
 export function EncyclopediaCta() {
   const edition = useEdition()
-  const { user, entitled, loading } = useMe()
+  const { user, hasEdition, loading } = useMe()
+  const entitled = hasEdition(edition)
 
   return (
     <>
@@ -21,10 +22,7 @@ export function EncyclopediaCta() {
             Read full edition
           </Link>
         ) : (
-          <Link
-            href={user ? '/join' : '/login'}
-            className="btn btn-gold"
-          >
+          <Link href={user ? '/join' : '/login'} className="btn btn-gold">
             {user ? 'Choose a plan' : 'Login to read full version'}
           </Link>
         )}
@@ -37,7 +35,9 @@ export function EncyclopediaCta() {
 
       {!loading && entitled && (
         <div className="mt-[26px] border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-sm leading-relaxed text-[#40602a]">
-          Your subscription is active — you have full access to both English and Bahasa Indonesia editions.
+          {edition === 'en'
+            ? 'Your subscription to the English edition is active — the whole book is open to you.'
+            : 'Langganan Edisi Bahasa Indonesia Anda aktif — seluruh buku terbuka untuk Anda.'}
         </div>
       )}
     </>

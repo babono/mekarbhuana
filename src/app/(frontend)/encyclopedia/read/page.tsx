@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-import { isEntitled } from '@/access/entitlement'
+import { hasEdition } from '@/access/entitlement'
+import { institutionForRequest } from '@/access/institutional'
 import { Flipbook } from '@/components/site/Flipbook'
 import { getMe } from '@/lib/auth'
 import { getEbooks } from '@/lib/content'
 import { DEFAULT_PREVIEW_PAGES, isEdition } from '@/lib/encyclopedia'
 
-// Whether this reader sees the whole book or a preview depends on their cookie,
-// so the page can never be prerendered.
+// Whether this reader sees the whole book or a preview depends on their cookie
+// or their network address, so the page can never be prerendered.
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
@@ -24,8 +25,13 @@ export default async function ReadPage({
   const { edition: raw } = await searchParams
   const edition = raw && isEdition(raw) ? raw : 'en'
 
-  const [user, books] = await Promise.all([getMe(), getEbooks()])
-  const entitled = isEntitled(user)
+  const [user, books, institution] = await Promise.all([
+    getMe(),
+    getEbooks(),
+    institutionForRequest(edition),
+  ])
+  const ownAccess = hasEdition(user, edition)
+  const entitled = ownAccess || Boolean(institution)
 
   const book = books.find((item) => item.edition === edition)
   const previewPages = book?.previewPages ?? DEFAULT_PREVIEW_PAGES
@@ -46,6 +52,11 @@ export default async function ReadPage({
             <h1 className="m-0 font-display text-[clamp(26px,3.4vw,40px)] leading-tight text-parchment">
               {book?.title ?? 'Encyclopedia of Balinese Gamelan Ensembles'}
             </h1>
+            {!ownAccess && institution && (
+              <p className="mt-2.5 mb-0 font-body text-[15px] leading-relaxed text-sand">
+                You are reading through the subscription of {institution.name}.
+              </p>
+            )}
             {!entitled && (
               <p className="mt-2.5 mb-0 font-body text-[15px] leading-relaxed text-sand">
                 You are reading a {previewPages}-page preview.{' '}
