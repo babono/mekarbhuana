@@ -12,7 +12,9 @@ import { asUser } from './index'
  * Payload resolves `req.user` from the database on every request, so this stays
  * fresh, and gating never costs an extra query.
  */
-export const isEntitled = (user: User | null | undefined): boolean => {
+export const isEntitled = (
+  user: Pick<User, 'roles' | 'membershipStatus' | 'membershipExpiresAt'> | null | undefined,
+): boolean => {
   if (!user) return false
   if (user.roles?.includes('admin')) return true
   if (user.membershipStatus !== 'active') return false

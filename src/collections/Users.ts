@@ -1,7 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
 import { anyone, isAdmin, isAdminField, isAdminOrSelf } from '@/access'
+import {
+  revalidateInstitutionsAfterChange,
+  revalidateInstitutionsAfterDelete,
+} from '@/hooks/revalidateInstitutions'
 import { resetEmailHTML } from '@/lib/resetEmail'
+
+/** One IPv4 or IPv6 address. Ranges are deliberately not accepted. */
+const IP =
+  /^(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)$|^[0-9a-f:]*:[0-9a-f:.]*$/i
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -45,6 +53,8 @@ export const Users: CollectionConfig = {
         return data
       },
     ],
+    afterChange: [revalidateInstitutionsAfterChange],
+    afterDelete: [revalidateInstitutionsAfterDelete],
   },
   access: {
     // Registration is open: anyone can create a reading account.
@@ -124,6 +134,43 @@ export const Users: CollectionConfig = {
           ],
           access: { create: isAdminField, update: isAdminField },
           admin: { readOnly: true },
+        },
+      ],
+    },
+    {
+      type: 'collapsible',
+      label: 'Institutional access',
+      admin: {
+        initCollapsed: true,
+        description:
+          'For a library or university that subscribes for all its readers. Anyone arriving from these addresses can read the encyclopedia without signing in, for as long as this account’s subscription runs and in its edition.',
+      },
+      fields: [
+        {
+          name: 'institutionName',
+          type: 'text',
+          access: { create: isAdminField, update: isAdminField },
+          admin: {
+            description:
+              'Shown to those readers, e.g. “University of Kentucky”. Falls back to the account name.',
+          },
+        },
+        {
+          name: 'institutionIps',
+          type: 'textarea',
+          label: 'IP addresses',
+          access: { create: isAdminField, update: isAdminField, read: isAdminField },
+          admin: {
+            description:
+              'One per line. Exact addresses only, as given by the library — usually their proxy servers. Never add a shared service’s address (such as OpenAthens), which other institutions use too.',
+          },
+          validate: (value: string | null | undefined) => {
+            const bad = (value ?? '')
+              .split(/[\s,]+/)
+              .filter(Boolean)
+              .filter((ip) => !IP.test(ip))
+            return bad.length ? `Not an IP address: ${bad.join(', ')}` : true
+          },
         },
       ],
     },

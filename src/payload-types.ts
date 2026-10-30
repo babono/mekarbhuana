@@ -538,6 +538,14 @@ export interface User {
   membershipExpiresAt?: string | null;
   membershipEdition?: ('en' | 'id') | null;
   /**
+   * Shown to those readers, e.g. “University of Kentucky”. Falls back to the account name.
+   */
+  institutionName?: string | null;
+  /**
+   * One per line. Exact addresses only, as given by the library — usually their proxy servers. Never add a shared service’s address (such as OpenAthens), which other institutions use too.
+   */
+  institutionIps?: string | null;
+  /**
    * member_id in the old wp_swpm_members_tbl.
    */
   legacyMemberId?: number | null;
@@ -912,6 +920,8 @@ export interface UsersSelect<T extends boolean = true> {
   membershipStatus?: T;
   membershipExpiresAt?: T;
   membershipEdition?: T;
+  institutionName?: T;
+  institutionIps?: T;
   legacyMemberId?: T;
   legacyPasswordHash?: T;
   legacyNeedsReview?: T;
