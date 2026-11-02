@@ -103,8 +103,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'home-popup': HomePopup;
+  };
+  globalsSelect: {
+    'home-popup': HomePopupSelect<false> | HomePopupSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -983,6 +987,53 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * An image pop-up shown once to visitors of the home page. Closing it hides it for the number of days below; saving changes here shows it to everyone again.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-popup".
+ */
+export interface HomePopup {
+  id: number;
+  enabled?: boolean | null;
+  /**
+   * The whole pop-up is this picture, so put any text on the image itself. A portrait or square image around 1080 px wide works best on phones.
+   */
+  image?: (number | null) | Media;
+  /**
+   * Where a click on the image goes, e.g. /encyclopedia or https://example.com.
+   */
+  link: string;
+  /**
+   * Optional button under the image, e.g. "Explore the Encyclopedia". Leave empty for image only.
+   */
+  buttonLabel?: string | null;
+  /**
+   * How long after the page loads before the pop-up appears.
+   */
+  delaySeconds?: number | null;
+  /**
+   * 0 shows it again on every visit.
+   */
+  hideForDays?: number | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-popup_select".
+ */
+export interface HomePopupSelect<T extends boolean = true> {
+  enabled?: T;
+  image?: T;
+  link?: T;
+  buttonLabel?: T;
+  delaySeconds?: T;
+  hideForDays?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

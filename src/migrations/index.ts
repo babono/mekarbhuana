@@ -1,10 +1,11 @@
-import * as migration_20261005_145507_initial from './20261005_145507_initial'
-import * as migration_20261029_172945_add_legacy_member_fields from './20261029_172945_add_legacy_member_fields'
-import * as migration_20261029_182623_midtrans_payment_fields from './20261029_182623_midtrans_payment_fields'
-import * as migration_20261029_190320_pages_collection from './20261029_190320_pages_collection'
-import * as migration_20261029_190400_seed_terms_and_help from './20261029_190400_seed_terms_and_help'
-import * as migration_20261030_030340_institutional_access from './20261030_030340_institutional_access'
-import * as migration_20261030_184358_edition_access from './20261030_184358_edition_access'
+import * as migration_20261005_145507_initial from './20261005_145507_initial';
+import * as migration_20261029_172945_add_legacy_member_fields from './20261029_172945_add_legacy_member_fields';
+import * as migration_20261029_182623_midtrans_payment_fields from './20261029_182623_midtrans_payment_fields';
+import * as migration_20261029_190320_pages_collection from './20261029_190320_pages_collection';
+import * as migration_20261029_190400_seed_terms_and_help from './20261029_190400_seed_terms_and_help';
+import * as migration_20261030_030340_institutional_access from './20261030_030340_institutional_access';
+import * as migration_20261030_184358_edition_access from './20261030_184358_edition_access';
+import * as migration_20261102_023102_home_popup from './20261102_023102_home_popup';
 
 export const migrations = [
   {
@@ -42,4 +43,9 @@ export const migrations = [
     down: migration_20261030_184358_edition_access.down,
     name: '20261030_184358_edition_access',
   },
-]
+  {
+    up: migration_20261102_023102_home_popup.up,
+    down: migration_20261102_023102_home_popup.down,
+    name: '20261102_023102_home_popup'
+  },
+];

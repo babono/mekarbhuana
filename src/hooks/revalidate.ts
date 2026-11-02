@@ -3,6 +3,7 @@ import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionConfig,
+  GlobalAfterChangeHook,
 } from 'payload'
 
 import type { ContentTag } from '@/lib/content'
@@ -40,6 +41,14 @@ export const revalidateAfterChange =
 
 export const revalidateAfterDelete =
   (tag: ContentTag, paths: string[]): CollectionAfterDeleteHook =>
+  ({ doc, req }) => {
+    if (req?.context?.skipRevalidate) return doc
+    purge(tag, paths)
+    return doc
+  }
+
+export const revalidateGlobalAfterChange =
+  (tag: ContentTag, paths: string[]): GlobalAfterChangeHook =>
   ({ doc, req }) => {
     if (req?.context?.skipRevalidate) return doc
     purge(tag, paths)
