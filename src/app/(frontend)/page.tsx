@@ -2,8 +2,9 @@ import Link from 'next/link'
 
 import { AboutTabs } from '@/components/site/AboutTabs'
 import { HeroParallax } from '@/components/site/HeroParallax'
+import { HomePopup } from '@/components/site/HomePopup'
 import { Plate } from '@/components/site/Plate'
-import { getEntryPlan, getFeaturedEnsembles, getPrograms } from '@/lib/content'
+import { getEntryPlan, getFeaturedEnsembles, getHomePopup, getPrograms } from '@/lib/content'
 import { planComparePrice, planPrice } from '@/lib/format'
 import { photoFor } from '@/lib/photos'
 import type { Media } from '@/payload-types'
@@ -65,14 +66,31 @@ const sectionHeading = 'font-display text-[clamp(30px,4vw,52px)] leading-[1.12] 
 const eyebrow = 'font-label text-[11px] leading-none font-medium tracking-[0.3em] uppercase'
 
 export default async function HomePage() {
-  const [programs, ensembles, entryPlan] = await Promise.all([
+  const [programs, ensembles, entryPlan, popup] = await Promise.all([
     getPrograms(),
     getFeaturedEnsembles(),
     getEntryPlan(),
+    getHomePopup(),
   ])
+  const popupImage = typeof popup?.image === 'object' ? popup.image : null
 
   return (
     <main>
+      {popup?.enabled && popupImage?.url && (
+        <HomePopup
+          image={{
+            url: popupImage.sizes?.wide?.url ?? popupImage.url,
+            alt: popupImage.alt,
+            width: popupImage.sizes?.wide?.url ? popupImage.sizes.wide.width : popupImage.width,
+            height: popupImage.sizes?.wide?.url ? popupImage.sizes.wide.height : popupImage.height,
+          }}
+          link={popup.link || '/encyclopedia'}
+          buttonLabel={popup.buttonLabel}
+          delaySeconds={popup.delaySeconds ?? 2}
+          hideForDays={popup.hideForDays ?? 3}
+          version={popup.updatedAt ?? ''}
+        />
+      )}
       {/* ---------------------------------------------------------------- Hero */}
       <section className="relative grid min-h-screen place-items-center overflow-hidden bg-bark-700 px-[26px] pt-[140px] pb-[130px]">
         <HeroParallax src="/img-hero.jpg" alt="Legong dancer in full headdress" />

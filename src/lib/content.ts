@@ -1,7 +1,7 @@
 import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/auth'
-import type { Article, Ebook, Ensemble, Page, Plan, Program } from '@/payload-types'
+import type { Article, Ebook, Ensemble, HomePopup, Page, Plan, Program } from '@/payload-types'
 
 /**
  * Cache tags, one per collection. Payload's hooks purge these on save, so a
@@ -12,6 +12,7 @@ export const TAGS = {
   articles: 'articles',
   ebooks: 'ebooks',
   ensembles: 'ensembles',
+  homePopup: 'home-popup',
   pages: 'pages',
   plans: 'plans',
   programs: 'programs',
@@ -171,4 +172,19 @@ export const getPage = unstable_cache(
   },
   ['page'],
   { tags: [TAGS.pages] },
+)
+
+/** The home page's promotional pop-up, with its image populated. */
+export const getHomePopup = unstable_cache(
+  async (): Promise<HomePopup | null> => {
+    const payload = await getPayloadClient()
+    try {
+      return (await payload.findGlobal({ slug: 'home-popup', depth: 1 })) as HomePopup
+    } catch {
+      // A database that has not run this migration yet: no pop-up, not a crash.
+      return null
+    }
+  },
+  ['home-popup'],
+  { tags: [TAGS.homePopup] },
 )
