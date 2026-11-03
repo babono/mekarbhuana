@@ -10,6 +10,24 @@ export const formatPrice = (amount: number, currency: string): string => {
 
 export const planPrice = (plan: Plan): string => formatPrice(plan.price, plan.currency)
 
+/**
+ * What Midtrans will actually charge for a plan, in whole rupiah. Dollar plans
+ * are converted at the fixed rate in Payment settings; null when no usable rate
+ * is set, which stops checkout rather than charging a wrong amount.
+ */
+export const idrCharge = (plan: Pick<Plan, 'price' | 'currency'>, usdToIdr?: number | null) => {
+  if (plan.currency === 'IDR') return Math.round(plan.price)
+  if (!usdToIdr || usdToIdr <= 0) return null
+  return Math.round(plan.price * usdToIdr)
+}
+
+/** `Charged as IDR 135.000` under a dollar price; nothing for rupiah plans. */
+export const planChargeNote = (plan: Plan, usdToIdr?: number | null): string | null => {
+  if (plan.currency === 'IDR') return null
+  const amount = idrCharge(plan, usdToIdr)
+  return amount ? `Charged as ${formatPrice(amount, 'IDR')}` : null
+}
+
 export const planComparePrice = (plan: Plan): string | null =>
   plan.compareAtPrice ? formatPrice(plan.compareAtPrice, plan.currency) : null
 

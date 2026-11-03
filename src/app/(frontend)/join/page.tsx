@@ -5,8 +5,8 @@ import { redirect } from 'next/navigation'
 import { PayButton } from '@/components/site/PayButton'
 import { RegisterForm } from '@/components/site/RegisterForm'
 import { getPayloadAndUser, readAsUser } from '@/lib/auth'
-import { formatPromoEnd, planComparePrice, planPrice } from '@/lib/format'
-import type { Plan } from '@/payload-types'
+import { formatPromoEnd, planChargeNote, planComparePrice, planPrice } from '@/lib/format'
+import type { PaymentSetting, Plan } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
 
@@ -50,6 +50,11 @@ export default async function JoinPage({
   }
   if (user && !plan) redirect('/account')
 
+  const settings = (await payload.findGlobal({
+    slug: 'payment-settings',
+    depth: 0,
+  })) as PaymentSetting
+  const chargeNote = plan ? planChargeNote(plan, settings.usdToIdr) : null
   const wasPrice = plan ? planComparePrice(plan) : null
   const promo = plan ? formatPromoEnd(plan.promoEndsAt) : null
 
@@ -98,6 +103,11 @@ export default async function JoinPage({
                   <div className="mb-1.5 font-display text-[34px] leading-none text-crimson">
                     {planPrice(plan)}
                   </div>
+                  {chargeNote && (
+                    <div className="mb-2 font-body text-sm leading-relaxed font-normal text-muted">
+                      {chargeNote} — paid in Indonesian rupiah.
+                    </div>
+                  )}
                   {wasPrice && (
                     <div className="mb-[22px] font-body text-sm leading-relaxed font-normal text-shadow line-through">
                       {wasPrice}

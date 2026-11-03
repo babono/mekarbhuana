@@ -105,9 +105,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'home-popup': HomePopup;
+    'payment-settings': PaymentSetting;
   };
   globalsSelect: {
     'home-popup': HomePopupSelect<false> | HomePopupSelect<true>;
+    'payment-settings': PaymentSettingsSelect<false> | PaymentSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -411,7 +413,13 @@ export interface Plan {
    * How long access lasts once the subscription is activated.
    */
   durationMonths: number;
+  /**
+   * Payment is always taken in rupiah. A USD plan is shown in dollars and charged at the rate in Members → Payment settings.
+   */
   currency: 'USD' | 'IDR';
+  /**
+   * In the currency above, e.g. 7.5 for USD 7.50 or 40000 for IDR 40.000.
+   */
   price: number;
   /**
    * Struck-through “was” price. Leave blank when not on promotion.
@@ -1021,6 +1029,21 @@ export interface HomePopup {
   createdAt?: string | null;
 }
 /**
+ * Plans priced in USD are shown in dollars and charged in rupiah through Midtrans, at the rate below.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payment-settings".
+ */
+export interface PaymentSetting {
+  id: number;
+  /**
+   * e.g. 18000 charges a USD 7.50 plan as IDR 135.000. A change applies to payments started after it; payment pages already open keep their amount.
+   */
+  usdToIdr: number;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-popup_select".
  */
@@ -1031,6 +1054,16 @@ export interface HomePopupSelect<T extends boolean = true> {
   buttonLabel?: T;
   delaySeconds?: T;
   hideForDays?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payment-settings_select".
+ */
+export interface PaymentSettingsSelect<T extends boolean = true> {
+  usdToIdr?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

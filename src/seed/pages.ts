@@ -26,7 +26,7 @@ By creating an account or buying a subscription, you agree to these terms.
 ## Subscriptions and payment
 
 - A subscription gives you access to the Encyclopedia of Balinese Gamelan Ensembles for the length of the plan you choose.
-- Prices are shown in Indonesian rupiah (IDR). If you pay with a card issued abroad, your bank converts the amount into your own currency and may add its own fee.
+- English edition prices are shown in US dollars; Bahasa Indonesia edition prices in Indonesian rupiah (IDR). Every payment is taken in rupiah: a dollar price is charged at the rupiah amount shown beneath it. If you pay with a card issued abroad, your bank converts that amount into your own currency and may add its own fee.
 - Payments are processed by Midtrans, an Indonesian payment provider. We never see or store your card details.
 - Your access opens as soon as Midtrans confirms the payment. Bank transfers and some e-wallets can take a little longer to confirm than cards.
 - **Subscriptions do not renew automatically.** You are only charged when you choose to buy a plan, and nothing is taken later without you asking for it.

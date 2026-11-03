@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 
-import { formatPromoEnd, planComparePrice, planPrice } from '@/lib/format'
+import { formatPromoEnd, planChargeNote, planComparePrice, planPrice } from '@/lib/format'
 import type { Plan } from '@/payload-types'
 
 import { useEdition } from './useEdition'
@@ -57,7 +57,14 @@ const tab =
  * stays statically prerendered — the selection lives in `?edition=`, read on the
  * client so it does not force dynamic rendering.
  */
-export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
+export function EditionPlans({
+  plans,
+  usdToIdr,
+}: {
+  plans: { en: Plan[]; id: Plan[] }
+  /** For the rupiah amount printed under a dollar price. */
+  usdToIdr: number | null
+}) {
   const edition = useEdition()
   const { hasEdition } = useMe()
   const entitled = hasEdition(edition)
@@ -119,6 +126,11 @@ export function EditionPlans({ plans }: { plans: { en: Plan[]; id: Plan[] } }) {
                 >
                   {planPrice(plan)}
                 </div>
+                {planChargeNote(plan, usdToIdr) && (
+                  <div className="mt-2 font-label text-[10.5px] leading-snug tracking-[0.1em] text-shadow uppercase">
+                    {planChargeNote(plan, usdToIdr)}
+                  </div>
+                )}
                 <p className="mt-5 flex-1 font-body text-[14.5px] leading-[1.75] font-normal text-muted">
                   {plan.description}
                 </p>

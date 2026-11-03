@@ -18,6 +18,7 @@ import { Programs } from './collections/Programs'
 import { Subscriptions } from './collections/Subscriptions'
 import { Users } from './collections/Users'
 import { HomePopup } from './globals/HomePopup'
+import { PaymentSettings } from './globals/PaymentSettings'
 import { withRevalidation } from './hooks/revalidate'
 import { cloudinaryAdapter } from './storage/cloudinaryAdapter'
 
@@ -61,7 +62,7 @@ export default buildConfig({
     Enquiries,
     Users,
   ],
-  globals: [HomePopup],
+  globals: [HomePopup, PaymentSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

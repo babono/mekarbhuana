@@ -1,7 +1,8 @@
 import type { Payload } from 'payload'
 
-import type { Plan, Subscription, User } from '@/payload-types'
+import type { PaymentSetting, Plan, Subscription, User } from '@/payload-types'
 
+import { formatPrice, idrCharge } from './format'
 import {
   createSnapTransaction,
   getTransactionStatus,
@@ -40,6 +41,10 @@ const appendNote = (sub: Subscription, line: string) =>
  *
  * Reusing an unpaid row is what keeps a reader who tries three times from
  * leaving three abandoned orders behind, as the old checkout did.
+ *
+ * The order always records the rupiah amount Midtrans will charge. For a plan
+ * priced in dollars that is the price at today's rate in Payment settings, read
+ * fresh here rather than from the page cache.
  */
 export const pendingSubscriptionFor = async (
   payload: Payload,
@@ -47,6 +52,15 @@ export const pendingSubscriptionFor = async (
   planId: ID,
 ): Promise<Subscription> => {
   const plan = (await payload.findByID({ collection: 'plans', id: planId, depth: 0 })) as Plan
+
+  const settings = (await payload.findGlobal({
+    slug: 'payment-settings',
+    depth: 0,
+  })) as PaymentSetting
+  const amount = idrCharge(plan, settings.usdToIdr)
+  if (!amount) {
+    throw new Error('This plan cannot be paid for online yet — please contact us to subscribe.')
+  }
 
   const { docs } = await payload.find({
     collection: 'subscriptions',
@@ -61,8 +75,9 @@ export const pendingSubscriptionFor = async (
     limit: 1,
     depth: 0,
   })
-  // A price change since the order was opened means the old one is stale.
-  if (docs[0] && docs[0].amount === plan.price) return docs[0] as Subscription
+  // A price or rate change since the order was opened means the old one is stale.
+  const open = docs[0]
+  if (open && open.currency === 'IDR' && open.amount === amount) return open as Subscription
 
   return (await payload.create({
     collection: 'subscriptions',
@@ -70,8 +85,13 @@ export const pendingSubscriptionFor = async (
       user: user.id,
       plan: plan.id,
       status: 'pending',
-      amount: plan.price,
-      currency: plan.currency,
+      amount,
+      currency: 'IDR',
+      ...(plan.currency === 'USD'
+        ? {
+            notes: `Listed at ${formatPrice(plan.price, 'USD')}, charged at IDR ${settings.usdToIdr} per USD.`,
+          }
+        : {}),
     },
   })) as Subscription
 }
@@ -99,8 +119,9 @@ export const paymentUrlFor = async (
 
   const plan = (await payload.findByID({ collection: 'plans', id: planOf(sub), depth: 0 })) as Plan
   if (sub.currency !== 'IDR' || !sub.amount || !Number.isInteger(sub.amount)) {
-    // Midtrans settles in whole rupiah only.
-    throw new Error('This plan is not priced in rupiah yet — please contact us to subscribe.')
+    // Midtrans settles in whole rupiah only. Orders opened by checkout always
+    // are; this catches one entered by hand in another currency.
+    throw new Error('This order is not in rupiah — please contact us to complete it.')
   }
 
   const orderId = newOrderId(sub.id)
