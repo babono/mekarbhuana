@@ -1,7 +1,16 @@
 import { unstable_cache } from 'next/cache'
 
 import { getPayloadClient } from '@/lib/auth'
-import type { Article, Ebook, Ensemble, HomePopup, Page, Plan, Program } from '@/payload-types'
+import type {
+  Article,
+  Ebook,
+  Ensemble,
+  HomePopup,
+  Page,
+  PaymentSetting,
+  Plan,
+  Program,
+} from '@/payload-types'
 
 /**
  * Cache tags, one per collection. Payload's hooks purge these on save, so a
@@ -187,4 +196,22 @@ export const getHomePopup = unstable_cache(
   },
   ['home-popup'],
   { tags: [TAGS.homePopup] },
+)
+
+/** The USD → IDR rate, for printing the rupiah charge under dollar prices. */
+export const getUsdToIdr = unstable_cache(
+  async (): Promise<number | null> => {
+    const payload = await getPayloadClient()
+    try {
+      const settings = (await payload.findGlobal({
+        slug: 'payment-settings',
+        depth: 0,
+      })) as PaymentSetting
+      return settings.usdToIdr ?? null
+    } catch {
+      return null
+    }
+  },
+  ['usd-to-idr'],
+  { tags: [TAGS.plans] },
 )

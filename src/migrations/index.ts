@@ -6,6 +6,7 @@ import * as migration_20261029_190400_seed_terms_and_help from './20261029_19040
 import * as migration_20261030_030340_institutional_access from './20261030_030340_institutional_access';
 import * as migration_20261030_184358_edition_access from './20261030_184358_edition_access';
 import * as migration_20261102_023102_home_popup from './20261102_023102_home_popup';
+import * as migration_20261103_024535_usd_display_idr_charge from './20261103_024535_usd_display_idr_charge';
 
 export const migrations = [
   {
@@ -46,6 +47,11 @@ export const migrations = [
   {
     up: migration_20261102_023102_home_popup.up,
     down: migration_20261102_023102_home_popup.down,
-    name: '20261102_023102_home_popup'
+    name: '20261102_023102_home_popup',
+  },
+  {
+    up: migration_20261103_024535_usd_display_idr_charge.up,
+    down: migration_20261103_024535_usd_display_idr_charge.down,
+    name: '20261103_024535_usd_display_idr_charge'
   },
 ];

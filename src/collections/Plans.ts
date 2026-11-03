@@ -49,6 +49,10 @@ export const Plans: CollectionConfig = {
       type: 'select',
       required: true,
       defaultValue: 'IDR',
+      admin: {
+        description:
+          'Payment is always taken in rupiah. A USD plan is shown in dollars and charged at the rate in Members → Payment settings.',
+      },
       options: [
         { label: 'USD', value: 'USD' },
         { label: 'IDR', value: 'IDR' },
@@ -59,6 +63,7 @@ export const Plans: CollectionConfig = {
       type: 'number',
       required: true,
       min: 0,
+      admin: { description: 'In the currency above, e.g. 7.5 for USD 7.50 or 40000 for IDR 40.000.' },
     },
     {
       name: 'compareAtPrice',

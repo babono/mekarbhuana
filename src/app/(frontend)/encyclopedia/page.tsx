@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 import { EditionPlans } from '@/components/site/EditionPlans'
 import { EncyclopediaCta } from '@/components/site/EncyclopediaCta'
 import { Plate } from '@/components/site/Plate'
-import { getEbooks, getPlans } from '@/lib/content'
+import { getEbooks, getPlans, getUsdToIdr } from '@/lib/content'
 import { photoFor } from '@/lib/photos'
 import type { Ebook, Media, Plan } from '@/payload-types'
 
@@ -24,10 +24,11 @@ const coverCaption =
 
 export default async function EncyclopediaPage() {
   // Both editions are prerendered; the switch happens on the client.
-  const [plansEn, plansId, ebooks] = await Promise.all([
+  const [plansEn, plansId, ebooks, usdToIdr] = await Promise.all([
     getPlans('en'),
     getPlans('id'),
     getEbooks(),
+    getUsdToIdr(),
   ])
 
   return (
@@ -81,7 +82,7 @@ export default async function EncyclopediaPage() {
       <section className="bg-cream py-20">
         <div className="mx-auto max-w-[1120px] px-[26px]">
           <Suspense fallback={<div className="min-h-[420px]" />}>
-            <EditionPlans plans={{ en: plansEn, id: plansId }} />
+            <EditionPlans plans={{ en: plansEn, id: plansId }} usdToIdr={usdToIdr} />
           </Suspense>
         </div>
       </section>
