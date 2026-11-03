@@ -63,7 +63,12 @@ export const Plans: CollectionConfig = {
       type: 'number',
       required: true,
       min: 0,
-      admin: { description: 'In the currency above, e.g. 7.5 for USD 7.50 or 40000 for IDR 40.000.' },
+      admin: {
+        // Spells out the rupiah charge from the live rate in Payment settings.
+        components: {
+          Description: '/components/admin/PlanPriceDescription#PlanPriceDescription',
+        },
+      },
     },
     {
       name: 'compareAtPrice',
