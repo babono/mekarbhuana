@@ -8,20 +8,21 @@
    ========================================================================== */
 
 @theme {
-  /* Palette taken from balimusicanddance.com (its Elementor global colours).
+  /* Core colours are the brand palette (gold #bf852e, brown #7c4b31, cream #eee2d0);
+     the rest come from balimusicanddance.com (its Elementor global colours).
      Values marked "derived" have no direct counterpart there and are tints or
      shades of a reference colour, used only where the design needs a step
      between two of them. */
 
   /* Surfaces */
-  --color-cream: #efe7dd; /* reference page background */
-  --color-cream-deep: #e6dacb; /* derived */
+  --color-cream: #eee2d0; /* brand cream */
+  --color-cream-deep: #e4d5bf; /* derived: brand cream, one step darker */
   --color-paper: #ffffff;
   --color-ink: #222222;
   --color-ink-deep: #1a1a1a; /* derived */
 
   /* Browns, light to dark */
-  --color-bark-450: #764b36; /* reference secondary */
+  --color-bark-450: #7c4b31; /* brand brown */
   --color-bark-500: #533526;
   --color-bark-600: #43291d; /* derived */
   --color-bark-700: #332017; /* reference text */
@@ -29,10 +30,10 @@
   --color-bark-900: #20140d; /* derived */
 
   /* Accents */
-  --color-gold: #c88a36; /* reference accent */
+  --color-gold: #bf852e; /* brand gold */
   --color-gold-light: #e2c296;
-  --color-gold-pale: #efe7dd;
-  --color-crimson: #764b36; /* the reference has no red — its secondary brown takes the role */
+  --color-gold-pale: #eee2d0;
+  --color-crimson: #7c4b31; /* the brand has no red — its brown takes the role */
   --color-sage: #7ea35a; /* status colour only, not brand */
 
   /* Text on light */
@@ -45,11 +46,11 @@
   --color-shadow: #9a8573; /* derived */
 
   /* Text on dark */
-  --color-parchment: #efe7dd;
+  --color-parchment: #eee2d0;
   --color-sand: #d8c5ab; /* derived */
   --color-dust: #b9a48d; /* derived */
   --color-clay: #cdb99f; /* derived */
-  --color-bone: #efe7dd;
+  --color-bone: #eee2d0;
   --color-smoke: #a8937d; /* derived */
 
   /* Rules */
