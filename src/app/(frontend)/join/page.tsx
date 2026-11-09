@@ -79,7 +79,7 @@ export default async function JoinPage({
           <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-start gap-11">
             {user && plan ? (
               <div className="flex flex-col gap-4">
-                <p className="m-0 font-body text-[15px] leading-[1.8] font-normal text-muted">
+                <p className="m-0 font-body text-[16px] leading-[1.8] font-normal text-muted">
                   Signed in as <span className="text-text">{user.email}</span>. Your access opens as
                   soon as Midtrans confirms the payment
                   {user.membershipExpiresAt && new Date(user.membershipExpiresAt) > new Date()
@@ -97,25 +97,25 @@ export default async function JoinPage({
 
               {plan ? (
                 <>
-                  <div className="mb-2 font-display text-[22px] leading-tight text-text">
+                  <div className="mb-2 font-display text-[29px] leading-tight text-text">
                     {plan.name} · {plan.edition === 'en' ? 'English' : 'Bahasa Indonesia'}
                   </div>
                   <div className="mb-1.5 font-display text-[34px] leading-none text-crimson">
                     {planPrice(plan)}
                   </div>
                   {chargeNote && (
-                    <div className="mb-2 font-body text-sm leading-relaxed font-normal text-muted">
+                    <div className="mb-2 font-body text-[16px] leading-relaxed font-normal text-muted">
                       {chargeNote} — paid in Indonesian rupiah.
                     </div>
                   )}
                   {wasPrice && (
-                    <div className="mb-[22px] font-body text-sm leading-relaxed font-normal text-shadow line-through">
+                    <div className="mb-[22px] font-body text-[16px] leading-relaxed font-normal text-shadow line-through">
                       {wasPrice}
                     </div>
                   )}
                 </>
               ) : (
-                <p className="m-0 mb-[22px] font-body text-[15px] leading-[1.8] font-normal text-muted">
+                <p className="m-0 mb-[22px] font-body text-[16px] leading-[1.8] font-normal text-muted">
                   No plan chosen yet — create your account now and pick one afterwards, or browse
                   the tiers first.
                 </p>
@@ -123,7 +123,7 @@ export default async function JoinPage({
 
               <div className="mb-[22px] h-px bg-line-faint" />
 
-              <div className="flex flex-col gap-3 font-body text-[14.5px] leading-relaxed font-normal text-muted">
+              <div className="flex flex-col gap-3 font-body text-[16px] leading-relaxed font-normal text-muted">
                 {PERKS.map((perk) => (
                   <div key={perk} className="flex gap-[11px]">
                     <span className="text-gold">◆</span>
@@ -133,19 +133,19 @@ export default async function JoinPage({
               </div>
 
               {promo && (
-                <div className="my-5 font-label text-[11px] leading-relaxed text-crimson uppercase">
+                <div className="my-5 font-label text-[15px] leading-relaxed text-crimson capitalize">
                   {promo}
                 </div>
               )}
 
               <Link
                 href="/encyclopedia"
-                className="mt-[18px] block font-label text-[11px] leading-none font-medium tracking-[0.14em] text-soft uppercase underline underline-offset-4"
+                className="mt-[18px] block font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-soft capitalize underline underline-offset-4"
               >
                 {plan ? 'Change plan' : 'See the plans'}
               </Link>
 
-              <p className="mt-[22px] mb-0 font-label text-[11px] leading-[1.7] text-shadow uppercase">
+              <p className="mt-[22px] mb-0 font-label text-[15px] leading-[1.7] text-shadow capitalize">
                 Secure payment by Midtrans — card, bank transfer or e-wallet. Access opens the
                 moment it is confirmed.
               </p>

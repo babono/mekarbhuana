@@ -18,14 +18,14 @@ function SubmitButton({ label, pendingLabel }: { label: string; pendingLabel: st
 function Notice({ state }: { state: FormState }) {
   if (state.error) {
     return (
-      <div className="border-l-[3px] border-crimson bg-[#fbeceb] px-4 py-3.5 font-body text-sm leading-relaxed text-crimson">
+      <div className="border-l-[3px] border-crimson bg-[#fbeceb] px-4 py-3.5 font-body text-[16px] leading-relaxed text-crimson">
         {state.error}
       </div>
     )
   }
   if (state.success) {
     return (
-      <div className="border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-sm leading-relaxed text-[#40602a]">
+      <div className="border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-[16px] leading-relaxed text-[#40602a]">
         {state.success}
       </div>
     )
@@ -57,7 +57,7 @@ export function ForgotPasswordForm() {
 
       <SubmitButton label="Send reset link" pendingLabel="Sending…" />
 
-      <div className="text-center font-body text-[13.5px] leading-relaxed font-normal text-soft">
+      <div className="text-center font-body text-[15px] leading-relaxed font-normal text-soft">
         Remembered it? <Link href="/login">Back to login</Link>
       </div>
     </form>
@@ -106,7 +106,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
       <SubmitButton label="Save and log in" pendingLabel="Saving…" />
 
       {state.error && (
-        <div className="text-center font-body text-[13.5px] leading-relaxed font-normal text-soft">
+        <div className="text-center font-body text-[15px] leading-relaxed font-normal text-soft">
           <Link href="/forgot-password">Request a new link</Link>
         </div>
       )}

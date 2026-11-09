@@ -25,7 +25,7 @@ const STATUS_LABEL: Record<string, string> = {
 
 const statusPill = (status: string) => {
   const base =
-    'inline-block border border-current px-3 py-2 font-label text-[10px] leading-none font-medium tracking-[0.16em] uppercase'
+    'inline-block border border-current px-3 py-2 font-label text-[13px] leading-snug font-medium tracking-[0.01em] capitalize'
   if (status === 'active') return `${base} text-[#40602a]`
   if (status === 'pending') return `${base} text-brass`
   return `${base} text-crimson`
@@ -57,7 +57,7 @@ const NOTICE_TONE = {
 } as const
 
 const dataRow =
-  'flex justify-between gap-4 border-b border-dotted border-line py-3.5 font-label text-[13px] leading-relaxed last:border-b-0'
+  'flex justify-between gap-4 border-b border-dotted border-line py-3.5 font-label text-[15px] leading-relaxed last:border-b-0'
 
 export default async function AccountPage({
   searchParams,
@@ -160,13 +160,13 @@ export default async function AccountPage({
       <section className="bg-cream py-20">
         <div className="mx-auto max-w-shell px-[26px]">
           {welcome && !notice && (
-            <div className="mb-[34px] border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-sm leading-relaxed text-[#40602a]">
+            <div className="mb-[34px] border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-[16px] leading-relaxed text-[#40602a]">
               Welcome to Mekar Bhuana.
             </div>
           )}
           {notice && (
             <div
-              className={`mb-[34px] border-l-[3px] px-4 py-3.5 font-body text-sm leading-relaxed ${NOTICE_TONE[notice.tone]}`}
+              className={`mb-[34px] border-l-[3px] px-4 py-3.5 font-body text-[16px] leading-relaxed ${NOTICE_TONE[notice.tone]}`}
             >
               {notice.text}
             </div>
@@ -178,7 +178,7 @@ export default async function AccountPage({
 
               <dl className="m-0">
                 <div className={dataRow}>
-                  <dt className="m-0 text-shadow uppercase">Status</dt>
+                  <dt className="m-0 text-shadow capitalize">Status</dt>
                   <dd className="m-0 text-right text-text">
                     <span className={statusPill(entitled ? 'active' : 'expired')}>
                       {entitled ? 'Active' : (user.membershipStatus ?? 'none')}
@@ -187,17 +187,17 @@ export default async function AccountPage({
                 </div>
                 {editions.map(({ label, until }) => (
                   <div key={label} className={dataRow}>
-                    <dt className="m-0 text-shadow uppercase">{label}</dt>
+                    <dt className="m-0 text-shadow capitalize">{label}</dt>
                     <dd className="m-0 text-right text-text">Until {formatDate(until)}</dd>
                   </div>
                 ))}
                 <div className={dataRow}>
-                  <dt className="m-0 text-shadow uppercase">Email</dt>
+                  <dt className="m-0 text-shadow capitalize">Email</dt>
                   <dd className="m-0 text-right text-text">{user.email}</dd>
                 </div>
                 {user.country && (
                   <div className={dataRow}>
-                    <dt className="m-0 text-shadow uppercase">Country</dt>
+                    <dt className="m-0 text-shadow capitalize">Country</dt>
                     <dd className="m-0 text-right text-text">{user.country}</dd>
                   </div>
                 )}
@@ -231,7 +231,7 @@ export default async function AccountPage({
               <div className="kicker mb-5">Subscriptions</div>
 
               {subscriptions.length === 0 ? (
-                <p className="m-0 font-body text-[15px] leading-[1.8] font-normal text-muted">
+                <p className="m-0 font-body text-[16px] leading-[1.8] font-normal text-muted">
                   Nothing here yet. <Link href="/encyclopedia">Choose a plan</Link> to start
                   reading.
                 </p>
@@ -241,7 +241,7 @@ export default async function AccountPage({
                     const plan = typeof sub.plan === 'object' ? (sub.plan as Plan) : null
                     return (
                       <div key={sub.id} className={dataRow}>
-                        <dt className="m-0 text-shadow uppercase">
+                        <dt className="m-0 text-shadow capitalize">
                           {plan?.name ?? 'Plan'}
                           {sub.amount != null && sub.currency
                             ? ` · ${formatPrice(sub.amount, sub.currency)}`
@@ -272,7 +272,7 @@ export default async function AccountPage({
                 </dl>
               )}
 
-              <p className="mt-[26px] mb-0 font-label text-[11px] leading-[1.7] text-shadow uppercase">
+              <p className="mt-[26px] mb-0 font-label text-[15px] leading-[1.7] text-shadow capitalize">
                 Payments are handled securely by Midtrans — write to us if anything looks wrong.
               </p>
             </div>

@@ -34,7 +34,7 @@ export function EncyclopediaCta() {
       </div>
 
       {!loading && entitled && (
-        <div className="mt-[26px] border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-sm leading-relaxed text-[#40602a]">
+        <div className="mt-[26px] border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-[16px] leading-relaxed text-[#40602a]">
           {edition === 'en'
             ? 'Your subscription to the English edition is active — the whole book is open to you.'
             : 'Langganan Edisi Bahasa Indonesia Anda aktif — seluruh buku terbuka untuk Anda.'}

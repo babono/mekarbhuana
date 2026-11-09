@@ -354,7 +354,7 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
 
   if (error) {
     return (
-      <p className="mx-auto max-w-[420px] text-center font-body text-[15px] leading-relaxed text-sand">
+      <p className="mx-auto max-w-[420px] text-center font-body text-[16px] leading-relaxed text-sand">
         {error}
       </p>
     )
@@ -364,7 +364,7 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
     const percent = Math.round(progress * 100)
     return (
       <div className="flex min-h-[520px] flex-col items-center justify-center gap-4">
-        <span className="font-label text-[10px] leading-none tracking-[0.24em] text-dust uppercase">
+        <span className="font-label text-[13px] leading-snug tracking-[0.01em] text-dust capitalize">
           Opening {title}
         </span>
         <div
@@ -380,7 +380,7 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
             style={{ width: `${Math.max(percent, 4)}%` }}
           />
         </div>
-        <span className="font-label text-[9px] leading-none tracking-[0.2em] text-shadow uppercase">
+        <span className="font-label text-[13px] leading-snug tracking-[0.01em] text-shadow capitalize">
           {percent}%
         </span>
       </div>
@@ -438,7 +438,7 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
           >
             Previous
           </button>
-          <span className="font-label text-[10px] leading-none tracking-[0.2em] text-dust uppercase">
+          <span className="font-label text-[13px] leading-snug tracking-[0.01em] text-dust capitalize">
             {Math.min(current + 1, pageCount)} / {pageCount}
             {!entitled && ` of ${totalPages}`}
           </span>
@@ -454,7 +454,7 @@ export function Flipbook({ src, entitled, totalPages, title }: Props) {
         {!entitled && atEnd && (
           <div className="mt-8 max-w-[440px] border border-gold/40 bg-bark-600 px-7 py-6 text-center">
             <div className="kicker mb-3 text-gold-light">End of preview</div>
-            <p className="mb-5 font-body text-[15px] leading-[1.75] text-sand">
+            <p className="mb-5 font-body text-[16px] leading-[1.75] text-sand">
               You have read {pageCount} of {totalPages} pages. A subscription opens the rest of
               the encyclopedia, in both editions.
             </p>

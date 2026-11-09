@@ -44,10 +44,10 @@ export default function HirePage() {
             </p>
 
             <div className="my-[26px] border-l-[3px] border-crimson bg-cream-deep px-[26px] py-6">
-              <div className="mb-3.5 font-label text-[11px] leading-none font-medium tracking-[0.2em] text-crimson uppercase">
+              <div className="mb-3.5 font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-crimson capitalize">
                 Before you write to us
               </div>
-              <p className="m-0 font-body text-[15px] leading-[1.8] font-normal text-body">
+              <p className="m-0 font-body text-[16px] leading-[1.8] font-normal text-body">
                 We don&rsquo;t do modern gamelan, Bali fusion, or dancers performing to recorded
                 music — the last of which is against Indonesian regulation anyway. Dance is always
                 with a full orchestra, and our prices reflect that.

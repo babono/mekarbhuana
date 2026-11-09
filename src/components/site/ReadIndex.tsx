@@ -9,7 +9,7 @@ import { photoFor } from '@/lib/photos'
 import type { Article, Media } from '@/payload-types'
 
 const chip =
-  'border px-5 py-3 font-label text-[11px] leading-none font-medium tracking-[0.14em] uppercase transition-colors'
+  'border px-5 py-3 font-label text-[14px] leading-snug font-medium tracking-[0.01em] capitalize transition-colors'
 const chipIdle = 'border-line-strong text-soft hover:border-gold hover:text-crimson'
 const chipActive = 'border-bark-450 bg-bark-450 text-bone'
 
@@ -88,10 +88,10 @@ export function ReadIndex({ articles }: { articles: Article[] }) {
             <h2 className="m-0 mb-4 font-display text-[clamp(24px,2.8vw,36px)] leading-tight text-balance text-text">
               {lead.title}
             </h2>
-            <p className="m-0 mb-[22px] font-body text-[15.5px] leading-[1.8] font-normal text-muted">
+            <p className="m-0 mb-[22px] font-body text-[16px] leading-[1.8] font-normal text-muted">
               {lead.excerpt}
             </p>
-            <span className="font-label text-[11px] leading-none font-medium tracking-[0.16em] text-crimson uppercase">
+            <span className="font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-crimson capitalize">
               Read the article →
             </span>
           </div>
@@ -117,10 +117,10 @@ export function ReadIndex({ articles }: { articles: Article[] }) {
                 {articleKicker(article)}
                 {article.access === 'members' && ' · Members'}
               </div>
-              <h3 className="m-0 mb-3.5 font-display text-[21px] leading-tight text-text">
+              <h3 className="m-0 mb-3.5 font-display text-[27px] leading-tight text-text">
                 {article.title}
               </h3>
-              <p className="m-0 font-body text-[14.5px] leading-[1.75] font-normal text-muted">
+              <p className="m-0 font-body text-[16px] leading-[1.75] font-normal text-muted">
                 {article.excerpt}
               </p>
             </div>

@@ -25,7 +25,7 @@ const NAV = [
 const OVERLAY_ROUTES = ['/']
 
 const navLink =
-  'font-body text-[12px] leading-none font-medium tracking-[0.08em] uppercase whitespace-nowrap ' +
+  'font-body text-[13px] leading-none font-medium tracking-[0.01em] capitalize whitespace-nowrap ' +
   'px-[9px] py-[9px] border-b-2 transition-colors'
 
 export function Header() {
@@ -84,14 +84,14 @@ export function Header() {
           <Logo variant="mark" height={40} className="flex-none" />
           <div>
             <div
-              className={`font-display text-[15px] leading-none tracking-[0.19em] transition-colors ${
+              className={`font-body font-semibold text-[16px] leading-none tracking-[0.01em] transition-colors ${
                 clear ? 'text-parchment' : 'text-bark-600'
               }`}
             >
-              MEKAR BHUANA
+              Mekar Bhuana
             </div>
             <div
-              className={`mt-1 font-label text-[8.5px] leading-snug tracking-[0.19em] uppercase transition-colors ${
+              className={`mt-1 font-label text-[13px] leading-snug tracking-[0.01em] capitalize transition-colors ${
                 clear ? 'text-gold-light' : 'text-brass'
               }`}
             >
@@ -127,13 +127,13 @@ export function Header() {
 
           <div className="ml-auto flex items-center gap-2.5">
             <HeaderAuth
-              className={`px-1 py-[9px] font-body text-[12px] leading-none font-medium tracking-[0.11em] whitespace-nowrap uppercase transition-colors ${
+              className={`px-1 py-[9px] font-body text-[13px] leading-none font-medium tracking-[0.01em] whitespace-nowrap capitalize transition-colors ${
                 clear ? 'text-sand hover:text-parchment' : 'text-soft hover:text-crimson'
               }`}
             />
             <Link
               href={entitled ? `/encyclopedia/read?edition=${readableEdition}` : '/encyclopedia'}
-              className="border border-crimson bg-crimson px-[22px] py-[13px] font-body text-[12px] leading-none font-semibold tracking-[0.13em] whitespace-nowrap text-cream uppercase transition-colors hover:border-gold hover:bg-gold hover:text-ink"
+              className="border border-crimson bg-crimson px-[22px] py-[13px] font-body text-[13px] leading-none font-semibold tracking-[0.01em] whitespace-nowrap text-cream capitalize transition-colors hover:border-gold hover:bg-gold hover:text-ink"
             >
               {entitled ? 'Read Encyclopedia' : 'Subscribe to read'}
             </Link>
@@ -169,12 +169,12 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="border-b border-bone/16 py-[15px] font-display text-xl leading-none text-bone"
+              className="border-b border-bone/16 py-[15px] font-body font-medium text-xl leading-none text-bone"
             >
               {item.label === 'Visit' ? 'Visit & contact' : item.label}
             </Link>
           ))}
-          <HeaderAuth className="py-[15px] font-display text-xl leading-none text-bone" />
+          <HeaderAuth className="py-[15px] font-body font-medium text-xl leading-none text-bone" />
           <Link
             href={entitled ? `/encyclopedia/read?edition=${readableEdition}` : '/encyclopedia'}
             className="btn btn-crimson mt-4 block w-full"

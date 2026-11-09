@@ -31,10 +31,10 @@ export function AudioPill() {
           ))}
         </span>
         <span>
-          <span className="block font-display text-[12.5px] leading-tight tracking-[0.07em] whitespace-nowrap text-bone">
+          <span className="block font-body font-semibold text-[13px] leading-tight tracking-[0.01em] whitespace-nowrap text-bone">
             This Is Mekar Bhuana
           </span>
-          <span className="mt-0.5 block font-label text-[9px] leading-snug tracking-[0.14em] text-dust uppercase">
+          <span className="mt-0.5 block font-label text-[13px] leading-snug tracking-[0.01em] text-dust capitalize">
             {playing ? 'Now playing' : 'Paused'}
           </span>
         </span>

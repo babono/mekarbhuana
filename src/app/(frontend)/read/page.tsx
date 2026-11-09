@@ -47,10 +47,10 @@ export default async function ReadPage() {
 
           <div className="mt-11 flex flex-wrap items-center justify-between gap-[26px] bg-bark-450 p-[38px]">
             <div>
-              <div className="mb-2 font-display text-2xl leading-snug text-bone">
+              <div className="mb-2 font-display text-[31px] leading-snug text-bone">
                 E-books &amp; the Encyclopedia
               </div>
-              <div className="max-w-[460px] font-body text-[15px] leading-[1.7] font-normal text-clay">
+              <div className="max-w-[460px] font-body text-[16px] leading-[1.7] font-normal text-clay">
                 Longer work lives behind a subscription — including the 400-page Encyclopedia of
                 Balinese Gamelan Ensembles.
               </div>

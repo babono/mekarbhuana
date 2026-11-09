@@ -53,12 +53,12 @@ export default async function ReadPage({
               {book?.title ?? 'Encyclopedia of Balinese Gamelan Ensembles'}
             </h1>
             {!ownAccess && institution && (
-              <p className="mt-2.5 mb-0 font-body text-[15px] leading-relaxed text-sand">
+              <p className="mt-2.5 mb-0 font-body text-[16px] leading-relaxed text-sand">
                 You are reading through the subscription of {institution.name}.
               </p>
             )}
             {!entitled && (
-              <p className="mt-2.5 mb-0 font-body text-[15px] leading-relaxed text-sand">
+              <p className="mt-2.5 mb-0 font-body text-[16px] leading-relaxed text-sand">
                 You are reading a {previewPages}-page preview.{' '}
                 <Link href="/encyclopedia#plans" className="text-gold-light underline">
                   Subscribe
@@ -73,7 +73,7 @@ export default async function ReadPage({
               <Link
                 key={value}
                 href={`/encyclopedia/read?edition=${value}`}
-                className={`border px-4 py-2.5 font-label text-[10px] leading-none tracking-[0.16em] uppercase transition-colors ${
+                className={`border px-4 py-2.5 font-label text-[13px] leading-snug tracking-[0.01em] capitalize transition-colors ${
                   value === edition
                     ? 'border-gold-light text-gold-light'
                     : 'border-gold-light/30 text-sand hover:border-gold-light hover:text-gold-light'
