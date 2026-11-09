@@ -136,16 +136,16 @@ function HoverCard({ anchor }: { anchor: Anchor }) {
     >
       <div className="relative flex-1 bg-[radial-gradient(circle_at_50%_40%,#4a3022,#20140d_75%)]">
         <InstrumentViewer model={instrument.model} scan={instrument.scan} embed={instrument.embed} />
-        <span className="absolute top-3 left-3 border border-gold-light/40 px-2 py-1 font-label text-[9px] leading-none tracking-[0.2em] text-gold-light uppercase">
+        <span className="absolute top-3 left-3 border border-gold-light/40 px-2 py-1 font-label text-[13px] leading-snug tracking-[0.01em] text-gold-light capitalize">
           3D preview
         </span>
       </div>
       <div className="border-t border-gold/30 px-4 py-3">
-        <div className="font-display text-lg leading-tight text-parchment">{instrument.name}</div>
-        <div className="mt-1 truncate font-label text-[10px] tracking-[0.14em] text-dust uppercase">
+        <div className="font-display text-[23px] leading-tight text-parchment">{instrument.name}</div>
+        <div className="mt-1 truncate font-label text-[13px] tracking-[0.01em] text-dust capitalize">
           {instrument.kind}
         </div>
-        <div className="mt-2 font-label text-[10px] tracking-[0.14em] text-gold-light uppercase">
+        <div className="mt-2 font-label text-[13px] tracking-[0.01em] text-gold-light capitalize">
           Click to explore →
         </div>
       </div>
@@ -187,14 +187,14 @@ function InstrumentDialog({
               embed={instrument.embed}
               interactive
             />
-            <div className="pointer-events-none absolute inset-x-0 bottom-4 text-center font-label text-[10px] tracking-[0.2em] text-dust uppercase">
+            <div className="pointer-events-none absolute inset-x-0 bottom-4 text-center font-label text-[13px] tracking-[0.01em] text-dust capitalize">
               Drag to rotate · Scroll or pinch to zoom
             </div>
           </div>
 
           <div className="flex flex-col border-l border-gold/25 p-8 max-[820px]:border-t max-[820px]:border-l-0">
             <div className="flex items-start justify-between gap-4">
-              <div className="font-label text-[10px] leading-none tracking-[0.2em] text-gold-light uppercase">
+              <div className="font-label text-[13px] leading-snug tracking-[0.01em] text-gold-light capitalize">
                 {instrument.kind}
               </div>
               <button
@@ -209,7 +209,7 @@ function InstrumentDialog({
             <h2 className="mt-3 mb-4 font-display text-4xl leading-tight text-parchment">
               {instrument.name}
             </h2>
-            <p className="m-0 font-body text-[15px] leading-[1.75] text-sand">
+            <p className="m-0 font-body text-[16px] leading-[1.75] text-sand">
               {instrument.description}
             </p>
 
@@ -217,7 +217,7 @@ function InstrumentDialog({
               {instrument.facts.map((fact) => (
                 <div
                   key={fact.label}
-                  className="flex justify-between gap-4 border-b border-gold/20 py-3 font-body text-[14px]"
+                  className="flex justify-between gap-4 border-b border-gold/20 py-3 font-body text-[15px]"
                 >
                   <dt className="text-dust">{fact.label}</dt>
                   <dd className="m-0 text-right text-parchment">{fact.value}</dd>
@@ -225,7 +225,7 @@ function InstrumentDialog({
               ))}
             </dl>
 
-            <p className="mt-auto mb-0 pt-8 font-body text-[13px] leading-relaxed text-smoke italic">
+            <p className="mt-auto mb-0 pt-8 font-body text-[15px] leading-relaxed text-smoke italic">
               {instrument.scan || instrument.embed
                 ? 'Photogrammetry scan made with KIRI Engine.'
                 : 'Stand-in model for this prototype. The final version shows a KIRI Engine scan of the instrument in the Mekar Bhuana collection.'}
@@ -292,13 +292,13 @@ export function InstrumentFigure({
           className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
         />
         <div className="absolute inset-0 bg-linear-to-t from-bark-900/55 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        <span className="absolute top-3 right-3 flex items-center gap-1.5 bg-bark-800/85 px-2.5 py-1.5 font-label text-[10px] leading-none tracking-[0.18em] text-gold-light uppercase backdrop-blur-sm">
+        <span className="absolute top-3 right-3 flex items-center gap-1.5 bg-bark-800/85 px-2.5 py-1.5 font-label text-[13px] leading-snug tracking-[0.01em] text-gold-light capitalize backdrop-blur-sm">
           <CubeIcon className="size-3.5" />
           {canHover ? '3D' : 'Tap for 3D'}
         </span>
       </button>
-      <figcaption className="mt-2.5 font-body text-[13px] leading-snug text-muted italic">
-        <span className="font-label text-[10px] tracking-[0.16em] text-brass uppercase not-italic">
+      <figcaption className="mt-2.5 font-body text-[14px] leading-snug text-muted italic">
+        <span className="font-label text-[13px] tracking-[0.01em] text-brass capitalize not-italic">
           Fig. {number}
         </span>{' '}
         — {caption}

@@ -2,7 +2,7 @@
 export function ViewerLoading() {
   return (
     <div className="absolute inset-0 grid place-items-center">
-      <span className="font-label text-[10px] tracking-[0.2em] text-smoke uppercase">
+      <span className="font-label text-[13px] tracking-[0.01em] text-smoke capitalize">
         Loading model…
       </span>
     </div>

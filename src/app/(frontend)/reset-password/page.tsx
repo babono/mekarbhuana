@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 function MissingToken() {
   return (
-    <p className="m-0 font-body text-[15px] leading-[1.8] font-normal text-muted">
+    <p className="m-0 font-body text-[16px] leading-[1.8] font-normal text-muted">
       This page needs the link from your reset email.{' '}
       <Link href="/forgot-password">Request a new link</Link>.
     </p>
@@ -42,7 +42,7 @@ export default async function ResetPasswordPage({
             <h1 className="m-0 mb-3 font-display text-[clamp(28px,3.6vw,42px)] leading-tight text-parchment">
               Choose a new password
             </h1>
-            <p className="m-0 font-body text-[15px] leading-[1.7] font-normal text-dust">
+            <p className="m-0 font-body text-[16px] leading-[1.7] font-normal text-dust">
               Pick something you have not used here before.
             </p>
           </div>

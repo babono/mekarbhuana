@@ -21,7 +21,7 @@ export function LoginForm() {
   return (
     <form action={formAction} className="flex flex-col gap-4">
       {state.error && (
-        <div className="border-l-[3px] border-crimson bg-[#fbeceb] px-4 py-3.5 font-body text-sm leading-relaxed text-crimson">
+        <div className="border-l-[3px] border-crimson bg-[#fbeceb] px-4 py-3.5 font-body text-[16px] leading-relaxed text-crimson">
           {state.error}
         </div>
       )}
@@ -54,14 +54,14 @@ export function LoginForm() {
           autoComplete="current-password"
           required
         />
-        <div className="mt-2.5 text-right font-body text-[13px] leading-relaxed font-normal">
+        <div className="mt-2.5 text-right font-body text-[15px] leading-relaxed font-normal">
           <Link href="/forgot-password">Forgot your password?</Link>
         </div>
       </div>
 
       <SubmitButton />
 
-      <div className="text-center font-body text-[13.5px] leading-relaxed font-normal text-soft">
+      <div className="text-center font-body text-[15px] leading-relaxed font-normal text-soft">
         Not a member yet? <Link href="/join">Subscribe now</Link>
       </div>
     </form>

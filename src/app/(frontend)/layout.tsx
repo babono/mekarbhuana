@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Fraunces, Spectral } from 'next/font/google'
+import { Inter, Katibeh } from 'next/font/google'
 import React from 'react'
 
 import { AudioPill } from '@/components/site/AudioPill'
@@ -11,31 +11,23 @@ import { WhatsAppWidget } from '@/components/site/WhatsAppWidget'
 import './styles.css'
 
 /**
- * Headings and labels both. Requested as a variable font so the optical-size
- * axis is available: `opsz` is what lets one family carry a 90px hero title and
- * a 10px eyebrow without the small setting going spindly.
- *
- * SOFT and WONK are Fraunces' own axes and are not served unless asked for by
- * name — SOFT rounds the terminals, WONK swaps in the splayed, calligraphic
- * alternates. Both are set per-role in styles.css.
+ * Big headings and titles only. Katibeh is a single-weight display face (Latin
+ * by Eduardo Tunni) and turns cramped below ~26px, where Inter takes over.
  */
-const fraunces = Fraunces({
+const katibeh = Katibeh({
+  weight: '400',
   subsets: ['latin'],
-  axes: ['SOFT', 'WONK', 'opsz'],
-  variable: '--font-fraunces',
+  variable: '--font-katibeh',
   display: 'swap',
 })
 
 /**
- * Body copy. Drawn for long-form reading on screen, which the articles and the
- * encyclopedia need. Only the weights the design actually uses are requested;
- * italics are included because Payload rich text emits <em>.
+ * Everything else: body copy, small headings, labels, buttons and forms.
+ * Variable, so every weight the design asks for comes from one file.
  */
-const spectral = Spectral({
-  weight: ['400', '500', '600'],
-  style: ['normal', 'italic'],
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-spectral',
+  variable: '--font-inter',
   display: 'swap',
 })
 
@@ -51,7 +43,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
   return (
-    <html lang="en" className={`${fraunces.variable} ${spectral.variable}`}>
+    <html lang="en" className={`${katibeh.variable} ${inter.variable}`}>
       <head>
         {/* Balinese script is used decoratively throughout; next/font has no
             Latin-subset equivalent, so it is loaded directly. */}

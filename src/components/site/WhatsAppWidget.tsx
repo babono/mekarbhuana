@@ -88,10 +88,10 @@ export function WhatsAppWidget() {
               <WhatsAppGlyph className="size-[21px]" />
             </span>
             <div className="min-w-0 flex-1">
-              <div className="font-display text-[15px] leading-tight text-parchment">
+              <div className="font-display text-[20px] leading-tight text-parchment">
                 Chat with the centre
               </div>
-              <div className="mt-1 font-label text-[9.5px] leading-none tracking-[0.16em] text-gold-light uppercase">
+              <div className="mt-1 font-label text-[13px] leading-snug tracking-[0.01em] text-gold-light capitalize">
                 Replies Mon–Fri · 09:00–17:00 WITA
               </div>
             </div>
@@ -115,10 +115,10 @@ export function WhatsAppWidget() {
 
           <div className="px-[18px] pt-[18px] pb-4">
             <div className="max-w-[15.5rem] border border-line bg-paper px-[15px] py-3">
-              <p className="mb-0 font-body text-[14px] leading-[1.6] text-text">
+              <p className="mb-0 font-body text-[16px] leading-[1.6] text-text">
                 Om Swastiastu 🙏 How can we help — lessons, workshops, or hiring a troupe?
               </p>
-              <span className="mt-1.5 block font-label text-[9px] leading-none tracking-[0.14em] text-shadow uppercase">
+              <span className="mt-1.5 block font-label text-[13px] leading-snug tracking-[0.01em] text-shadow capitalize">
                 {time}
               </span>
             </div>
@@ -132,7 +132,7 @@ export function WhatsAppWidget() {
                     setMessage(prompt.text)
                     inputRef.current?.focus()
                   }}
-                  className="cursor-pointer border border-line-strong bg-transparent px-2.5 py-1.5 font-label text-[9.5px] leading-none tracking-[0.13em] text-soft uppercase transition-colors hover:border-gold hover:text-crimson"
+                  className="cursor-pointer border border-line-strong bg-transparent px-2.5 py-1.5 font-label text-[13px] leading-snug tracking-[0.01em] text-soft capitalize transition-colors hover:border-gold hover:text-crimson"
                 >
                   {prompt.label}
                 </button>
@@ -158,13 +158,13 @@ export function WhatsAppWidget() {
                 }
               }}
               placeholder="Write your message…"
-              className="field resize-none px-3.5 py-2.5 text-[14px]"
+              className="field resize-none px-3.5 py-2.5 text-[15px]"
             />
             <button type="button" onClick={send} className="btn btn-sm btn-crimson mt-2.5 flex w-full items-center justify-center gap-2">
               <WhatsAppGlyph className="size-3.5" />
               Send on WhatsApp
             </button>
-            <p className="mt-2.5 mb-0 text-center font-label text-[9px] leading-snug tracking-[0.1em] text-shadow uppercase">
+            <p className="mt-2.5 mb-0 text-center font-label text-[13px] leading-snug tracking-[0.01em] text-shadow capitalize">
               Opens WhatsApp — you still press send there
             </p>
           </div>
@@ -182,10 +182,10 @@ export function WhatsAppWidget() {
           <WhatsAppGlyph className="size-5" />
         </span>
         <span className="max-[560px]:hidden">
-          <span className="block font-display text-[12.5px] leading-tight tracking-[0.07em] whitespace-nowrap text-bone">
+          <span className="block font-body font-semibold text-[13px] leading-tight tracking-[0.01em] whitespace-nowrap text-bone">
             Chat with us
           </span>
-          <span className="mt-0.5 block font-label text-[9px] leading-snug tracking-[0.14em] text-dust uppercase">
+          <span className="mt-0.5 block font-label text-[13px] leading-snug tracking-[0.01em] text-dust capitalize">
             WhatsApp
           </span>
         </span>

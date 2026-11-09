@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 const coverCaption =
-  'mt-3 text-center font-label text-xs leading-relaxed tracking-[0.1em] text-dust uppercase'
+  'mt-3 text-center font-label text-[15px] leading-relaxed tracking-normal text-dust capitalize'
 
 export default async function EncyclopediaPage() {
   // Both editions are prerendered; the switch happens on the client.
@@ -90,7 +90,7 @@ export default async function EncyclopediaPage() {
       <section id="preview" className="bg-cream-deep py-20">
         <div className="mx-auto max-w-[1120px] px-[26px]">
           <div className="mb-[34px] flex items-center gap-4">
-            <span className="font-label text-[11px] leading-none font-medium tracking-[0.3em] text-brass uppercase">
+            <span className="font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-brass capitalize">
               Preview
             </span>
             <div className="h-px flex-1 bg-line" />
@@ -107,13 +107,13 @@ export default async function EncyclopediaPage() {
                   <div className="kicker">
                     {book.edition === 'en' ? 'English' : 'Bahasa Indonesia'}
                   </div>
-                  <h2 className="mt-3.5 mb-3.5 font-display text-[22px] leading-tight text-text">
+                  <h2 className="mt-3.5 mb-3.5 font-display text-[29px] leading-tight text-text">
                     {book.title}
                   </h2>
-                  <p className="m-0 mb-5 font-body text-[15px] leading-[1.8] font-normal text-muted">
+                  <p className="m-0 mb-5 font-body text-[16px] leading-[1.8] font-normal text-muted">
                     {book.summary}
                   </p>
-                  <div className="flex flex-wrap items-center gap-[18px] font-label text-[11px] leading-relaxed tracking-[0.14em] text-smoke uppercase">
+                  <div className="flex flex-wrap items-center gap-[18px] font-label text-[15px] leading-relaxed tracking-normal text-smoke capitalize">
                     {book.pageCount && <span>{book.pageCount} pages</span>}
                     {book.ensembleCount && <span>{book.ensembleCount} ensembles</span>}
                   </div>

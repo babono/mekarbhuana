@@ -43,7 +43,7 @@ export function AboutTabs() {
             key={item.tab}
             type="button"
             onClick={() => setActive(index)}
-            className={`cursor-pointer border px-6 py-[15px] font-body text-[12px] leading-none font-medium tracking-[0.13em] uppercase transition-colors ${
+            className={`cursor-pointer border px-6 py-[15px] font-body text-[13px] leading-none font-medium tracking-[0.01em] capitalize transition-colors ${
               index === active
                 ? 'border-bark-450 bg-bark-450 text-bone'
                 : 'border-line-strong text-soft hover:border-gold hover:text-crimson'

@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 const page =
   'relative flex flex-col gap-6 bg-[#f6efe4] px-[clamp(22px,4vw,52px)] pt-12 pb-10 text-body'
 const runningHead =
-  'absolute top-5 inset-x-[clamp(22px,4vw,52px)] flex justify-between font-label text-[9px] tracking-[0.24em] text-shadow uppercase'
+  'absolute top-5 inset-x-[clamp(22px,4vw,52px)] flex justify-between font-label text-[13px] tracking-[0.01em] text-shadow capitalize'
 const prose = 'm-0 font-body text-[16px] leading-[1.8] text-body text-pretty'
-const folio = 'mt-auto pt-4 text-center font-label text-[10px] tracking-[0.2em] text-shadow'
+const folio = 'mt-auto pt-4 text-center font-label text-[13px] tracking-[0.2em] text-shadow'
 
 export default function InstrumentPreviewDemo() {
   return (
@@ -33,7 +33,7 @@ export default function InstrumentPreviewDemo() {
 
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-[640px]">
-            <span className="mb-4 inline-block border border-gold-light/50 px-2.5 py-1.5 font-label text-[10px] leading-none tracking-[0.2em] text-gold-light uppercase">
+            <span className="mb-4 inline-block border border-gold-light/50 px-2.5 py-1.5 font-label text-[13px] leading-snug tracking-[0.01em] text-gold-light capitalize">
               Prototype
             </span>
             <h1 className="m-0 font-display text-[clamp(30px,4vw,48px)] leading-[1.08] text-parchment">
@@ -44,7 +44,7 @@ export default function InstrumentPreviewDemo() {
               model of it. Click to open the model full size and turn it around yourself.
             </p>
           </div>
-          <div className="flex flex-col gap-2 font-label text-[10px] tracking-[0.18em] text-dust uppercase">
+          <div className="flex flex-col gap-2 font-label text-[13px] tracking-[0.01em] text-dust capitalize">
             <span>Hover · preview</span>
             <span>Click · explore</span>
             <span>Phone · tap</span>
@@ -124,7 +124,7 @@ export default function InstrumentPreviewDemo() {
                 />
                 <aside className="border-l-2 border-gold pl-4">
                   <div className="kicker">Compare</div>
-                  <p className="mt-2.5 mb-0 font-body text-[14px] leading-[1.7] text-muted">
+                  <p className="mt-2.5 mb-0 font-body text-[16px] leading-[1.7] text-muted">
                     Far older than kebyar is the{' '}
                     <InstrumentTerm id="selonding">selonding</InstrumentTerm>, whose keys are
                     forged from iron rather than cast in bronze.
@@ -163,9 +163,9 @@ export default function InstrumentPreviewDemo() {
             },
           ].map((item) => (
             <div key={item.step}>
-              <div className="font-label text-[11px] tracking-[0.24em] text-gold">{item.step}</div>
-              <h3 className="mt-2 mb-2 font-display text-2xl text-parchment">{item.title}</h3>
-              <p className="m-0 font-body text-[15px] leading-[1.7] text-sand">{item.body}</p>
+              <div className="font-label text-[13px] tracking-[0.24em] text-gold">{item.step}</div>
+              <h3 className="mt-2 mb-2 font-display text-[31px] text-parchment">{item.title}</h3>
+              <p className="m-0 font-body text-[16px] leading-[1.7] text-sand">{item.body}</p>
             </div>
           ))}
         </section>

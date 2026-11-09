@@ -15,7 +15,7 @@ export const resetEmailHTML = ({ token, name }: { token: string; name?: string |
 <html>
   <body style="margin:0;padding:32px 16px;background:#f6f1e7;font-family:Georgia,serif;color:#2b211a">
     <div style="max-width:520px;margin:0 auto;background:#fffdf8;padding:36px 32px;border-top:4px solid #9b2b22">
-      <p style="margin:0 0 6px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#8a6d3b">Mekar Bhuana Centre</p>
+      <p style="margin:0 0 6px;font-size:12px;text-transform:capitalize;color:#8a6d3b">Mekar Bhuana Centre</p>
       <h1 style="margin:0 0 22px;font-size:26px;font-weight:normal">Reset your password</h1>
       <p style="margin:0 0 16px;font-size:16px;line-height:1.7">${greeting}</p>
       <p style="margin:0 0 26px;font-size:16px;line-height:1.7">
@@ -23,7 +23,7 @@ export const resetEmailHTML = ({ token, name }: { token: string; name?: string |
         Choose a new one with the button below. The link works for one hour.
       </p>
       <p style="margin:0 0 28px">
-        <a href="${link}" style="display:inline-block;background:#9b2b22;color:#fffdf8;text-decoration:none;padding:14px 26px;font-size:14px;letter-spacing:0.12em;text-transform:uppercase">Choose a new password</a>
+        <a href="${link}" style="display:inline-block;background:#9b2b22;color:#fffdf8;text-decoration:none;padding:14px 26px;font-size:14px;text-transform:capitalize">Choose a new password</a>
       </p>
       <p style="margin:0 0 10px;font-size:14px;line-height:1.7;color:#6b5a4b">
         If the button does not work, copy this address into your browser:<br>

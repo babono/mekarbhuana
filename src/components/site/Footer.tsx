@@ -36,7 +36,7 @@ const maskStyle = (icon: string) => ({
 })
 
 const headingClass =
-  'mb-[22px] font-body text-[11px] leading-none font-medium tracking-[0.26em] text-gold uppercase'
+  'mb-[22px] font-body text-[14px] leading-none font-medium tracking-[0.01em] text-gold capitalize'
 
 export function Footer() {
   return (
@@ -47,19 +47,19 @@ export function Footer() {
         <div>
           <div className="mb-[22px] flex items-center gap-[11px]">
             <Logo variant="mark" height={42} className="flex-none" />
-            <div className="font-display text-[15px] leading-snug tracking-[0.19em] text-bone">
-              MEKAR
+            <div className="font-body font-semibold text-[15px] leading-snug tracking-[0.01em] text-bone">
+              Mekar
               <br />
-              BHUANA
+              Bhuana
             </div>
           </div>
 
-          <p className="mb-5 max-w-[270px] font-body text-sm leading-[1.85] text-clay">
+          <p className="mb-5 max-w-[270px] font-body text-[16px] leading-[1.85] text-clay">
             A family-based gamelan and dance centre in Kesiman Kertalangu — teaching, restoring,
             recording and performing the older music of Bali since 2002.
           </p>
 
-          <div className="font-label text-[11px] leading-[1.9] tracking-[0.06em] text-smoke uppercase">
+          <div className="font-label text-[15px] leading-[1.9] tracking-normal text-smoke capitalize">
             Jl. Gandapura III no. 501X
             <br />
             Kesiman Kertalangu, Denpasar
@@ -72,7 +72,7 @@ export function Footer() {
 
         <div>
           <div className={headingClass}>Explore</div>
-          <div className="flex flex-col gap-[13px] font-body text-sm leading-snug">
+          <div className="flex flex-col gap-[13px] font-body text-[15px] leading-snug">
             {EXPLORE.map((item) => (
               <Link key={item.href} href={item.href} className="text-bone hover:text-gold-light">
                 {item.label}
@@ -102,7 +102,7 @@ export function Footer() {
                 <strong className="font-sans text-2xl font-bold tracking-tight text-[#002B11]">
                   #9
                 </strong>
-                <span className="font-sans text-xs font-medium text-gray-700">
+                <span className="font-sans text-[13px] font-medium text-gray-700">
                   of 154 classes &amp; workshops in Denpasar
                 </span>
               </div>
@@ -112,11 +112,11 @@ export function Footer() {
                     <span key={i} className="block size-3 rounded-full bg-[#00AA6C]" />
                   ))}
                 </div>
-                <span className="font-sans text-xs font-semibold text-[#00AA6C] group-hover:underline">
+                <span className="font-sans text-[13px] font-semibold text-[#00AA6C] group-hover:underline">
                   112 reviews
                 </span>
               </div>
-              <div className="mt-3.5 border-t border-gray-100 pt-3 font-sans text-xs leading-relaxed text-gray-600 italic">
+              <div className="mt-3.5 border-t border-gray-100 pt-3 font-sans text-[15px] leading-relaxed text-gray-600 italic">
                 “A cultural immersion experience.”
                 <br />
                 “Learn dancing and play music.”
@@ -149,7 +149,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-shell flex-wrap justify-between gap-3.5 border-t border-bone/14 px-[26px] py-[22px] font-label text-[11px] leading-relaxed tracking-[0.06em] text-shadow uppercase">
+      <div className="mx-auto flex max-w-shell flex-wrap justify-between gap-3.5 border-t border-bone/14 px-[26px] py-[22px] font-label text-[15px] leading-relaxed tracking-normal text-shadow capitalize">
         <div>© {new Date().getFullYear()} Mekar Bhuana Centre · Yayasan Semara Gita Bhuana</div>
         <div>
           No AI training on our archive ·{' '}

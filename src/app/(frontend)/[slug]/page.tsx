@@ -78,7 +78,7 @@ export default async function StandalonePage({ params }: { params: Promise<{ slu
             <RichText data={page.body} />
           </div>
 
-          <p className="mt-14 mb-0 font-label text-[11px] leading-[1.7] tracking-[0.06em] text-shadow uppercase">
+          <p className="mt-14 mb-0 font-label text-[15px] leading-[1.7] tracking-normal text-shadow capitalize">
             Last updated {formatDate(page.updatedAt)}
           </p>
         </div>

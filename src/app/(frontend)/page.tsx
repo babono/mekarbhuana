@@ -63,7 +63,7 @@ const PRESERVATION = [
 ]
 
 const sectionHeading = 'font-display text-[clamp(30px,4vw,52px)] leading-[1.12] text-balance'
-const eyebrow = 'font-label text-[11px] leading-none font-medium tracking-[0.3em] uppercase'
+const eyebrow = 'font-label text-[14px] leading-snug font-medium tracking-[0.01em] capitalize'
 
 export default async function HomePage() {
   const [programs, ensembles, entryPlan, popup] = await Promise.all([
@@ -98,10 +98,10 @@ export default async function HomePage() {
 
 
         <div className="animate-rise-in relative max-w-[820px] text-center">
-          <div className="mb-[26px] font-label text-[10px] leading-none font-medium tracking-[0.4em] text-gold-light uppercase">
+          <div className="mb-[26px] font-label text-[13px] leading-snug font-medium tracking-[0.01em] text-gold-light capitalize">
             Family-based gamelan &amp; dance centre
           </div>
-          <h1 className="m-0 mb-[26px] font-display text-[clamp(40px,7.4vw,92px)] leading-[1.02] tracking-[-0.02em] text-balance text-parchment">
+          <h1 className="m-0 mb-[26px] font-display text-[clamp(40px,7.4vw,92px)] leading-[1.02] text-balance text-parchment">
             Bronze that still
             <br />
             remembers Bali
@@ -131,7 +131,7 @@ export default async function HomePage() {
               <div className="font-display text-[clamp(28px,3.2vw,40px)] leading-none text-crimson">
                 {stat.value}
               </div>
-              <div className="mt-2 font-label text-xs leading-relaxed tracking-[0.1em] text-stone uppercase">
+              <div className="mt-2 font-label text-[15px] leading-relaxed tracking-normal text-stone capitalize">
                 {stat.label}
               </div>
             </div>
@@ -209,13 +209,13 @@ export default async function HomePage() {
                       {program.balineseTitle}
                     </div>
                   )}
-                  <h3 className="mt-2 mb-3 font-display text-[21px] leading-tight text-bone">
+                  <h3 className="mt-2 mb-3 font-display text-[27px] leading-tight text-bone">
                     {program.title}
                   </h3>
-                  <p className="mb-[18px] font-body text-sm leading-[1.7] font-normal text-dust">
+                  <p className="mb-[18px] font-body text-[16px] leading-[1.7] font-normal text-dust">
                     {program.summary}
                   </p>
-                  <span className="font-label text-[11px] leading-none font-medium tracking-[0.16em] text-gold-light uppercase">
+                  <span className="font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-gold-light capitalize">
                     {program.durationLabel ?? 'Read more'} →
                   </span>
                 </div>
@@ -237,7 +237,7 @@ export default async function HomePage() {
               A pavilion, a walled garden, a studio and an outdoor rehearsal ground — attached to our
               house. Frangipani drops onto the gongs. The neighbours know the repertoire.
             </p>
-            <div className="flex flex-col gap-[11px] font-label text-[13px] leading-relaxed tracking-[0.06em] text-bark-700 uppercase">
+            <div className="flex flex-col gap-[11px] font-label text-[15px] leading-relaxed tracking-normal text-bark-700 capitalize">
               {[
                 'Open-air rehearsal grounds',
                 'Outdoor gamelan set-up',
@@ -288,10 +288,10 @@ export default async function HomePage() {
                 />
                 <div className="p-[26px]">
                   {ensemble.statusLabel && <div className="kicker">{ensemble.statusLabel}</div>}
-                  <h3 className="my-3 font-display text-[22px] leading-tight text-text">
+                  <h3 className="my-3 font-display text-[29px] leading-tight text-text">
                     {ensemble.name}
                   </h3>
-                  <p className="m-0 font-body text-[14.5px] leading-[1.75] font-normal text-muted">
+                  <p className="m-0 font-body text-[16px] leading-[1.75] font-normal text-muted">
                     {ensemble.description}
                   </p>
                 </div>
@@ -332,7 +332,7 @@ export default async function HomePage() {
                     <strong className="block font-display text-[30px] leading-none font-normal text-gold-light">
                       {value}
                     </strong>
-                    <span className="mt-[7px] block font-label text-[11px] leading-relaxed tracking-[0.1em] text-shadow uppercase">
+                    <span className="mt-[7px] block font-label text-[15px] leading-relaxed tracking-normal text-shadow capitalize">
                       {label}
                     </span>
                   </div>
@@ -342,14 +342,14 @@ export default async function HomePage() {
               {entryPlan && (
                 <div className="mb-[26px] flex flex-wrap items-baseline gap-[18px] border border-gold-light/30 px-6 py-[22px]">
                   {planComparePrice(entryPlan) && (
-                    <span className="font-body text-sm leading-normal text-dust line-through">
+                    <span className="font-body text-[15px] leading-normal text-dust line-through">
                       {planComparePrice(entryPlan)}
                     </span>
                   )}
                   <span className="font-display text-[30px] leading-none text-parchment">
                     {planPrice(entryPlan)}
                   </span>
-                  <span className="font-body text-[13px] leading-normal text-sand">per month</span>
+                  <span className="font-body text-[14px] leading-normal text-sand">per month</span>
                 </div>
               )}
 
@@ -378,11 +378,11 @@ export default async function HomePage() {
               <div className="mb-[26px] grid size-11 place-items-center rounded-full border border-gold">
                 {card.icon}
               </div>
-              <div className="mb-3.5 font-display text-2xl leading-tight text-text">{card.title}</div>
-              <p className="mb-[22px] flex-1 font-body text-[15px] leading-[1.75] font-normal text-muted">
+              <div className="mb-3.5 font-display text-[31px] leading-tight text-text">{card.title}</div>
+              <p className="mb-[22px] flex-1 font-body text-[16px] leading-[1.75] font-normal text-muted">
                 {card.body}
               </p>
-              <span className="font-label text-[11px] leading-none font-medium tracking-[0.16em] text-crimson uppercase">
+              <span className="font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-crimson capitalize">
                 {card.cta}
               </span>
             </Link>
@@ -411,20 +411,20 @@ export default async function HomePage() {
                   className={`border-t-[3px] bg-cream p-[34px] ${borderClass}`}
                 >
                   <div
-                    className={`mb-[18px] font-label text-[10px] leading-none font-medium tracking-[0.2em] uppercase ${textClass}`}
+                    className={`mb-[18px] font-label text-[13px] leading-snug font-medium tracking-[0.01em] capitalize ${textClass}`}
                   >
                     {item.kicker}
                   </div>
-                  <div className="mb-3.5 font-display text-[22px] leading-tight text-text">
+                  <div className="mb-3.5 font-display text-[29px] leading-tight text-text">
                     {item.title}
                   </div>
-                  <p className="m-0 font-body text-[15px] leading-[1.75] font-normal text-muted">
+                  <p className="m-0 font-body text-[16px] leading-[1.75] font-normal text-muted">
                     {item.body}
                   </p>
                   {item.kicker === 'Archive' && (
                     <Link
                       href="/read"
-                      className="mt-5 inline-block font-label text-[11px] leading-none font-medium tracking-[0.16em] text-crimson uppercase"
+                      className="mt-5 inline-block font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-crimson capitalize"
                     >
                       Read the field notes →
                     </Link>
@@ -436,10 +436,10 @@ export default async function HomePage() {
 
           <div className="mt-[34px] flex flex-wrap items-center justify-between gap-[26px] bg-bark-450 p-[38px]">
             <div>
-              <div className="mb-2 font-display text-2xl leading-snug text-bone">
+              <div className="mb-2 font-display text-[31px] leading-snug text-bone">
                 Restoration is paid for by people, not grants
               </div>
-              <div className="max-w-[460px] font-body text-[15px] leading-[1.7] font-normal text-clay">
+              <div className="max-w-[460px] font-body text-[16px] leading-[1.7] font-normal text-clay">
                 Donations go through Yayasan Semara Gita Bhuana and should be tax deductible.
               </div>
             </div>

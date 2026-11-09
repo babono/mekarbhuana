@@ -93,7 +93,7 @@ export default async function ProgramsPage() {
             </div>
 
             {program.note && (
-              <p className="mt-[18px] mb-[30px] border-l-2 border-gold pl-4 font-body text-[14.5px] leading-[1.8] font-normal text-crimson">
+              <p className="mt-[18px] mb-[30px] border-l-2 border-gold pl-4 font-body text-[16px] leading-[1.8] font-normal text-crimson">
                 {program.note}
               </p>
             )}
@@ -103,7 +103,7 @@ export default async function ProgramsPage() {
                 {(program.highlights ?? []).map((item) => (
                   <div
                     key={item.id ?? item.label}
-                    className="border border-line p-3.5 font-label text-xs leading-normal tracking-[0.06em] text-soft uppercase"
+                    className="border border-line p-3.5 font-label text-[13px] leading-normal tracking-[0.01em] text-soft capitalize"
                   >
                     {item.label}
                   </div>
@@ -148,7 +148,7 @@ export default async function ProgramsPage() {
         <div className="mx-auto max-w-shell">
           <div className="mb-11 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center gap-12">
             <div>
-              <span className="font-label text-[11px] leading-none font-medium tracking-[0.3em] text-gold-light uppercase">
+              <span className="font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-gold-light capitalize">
                 Instructors
               </span>
               <h2 className="mt-5 mb-[18px] font-display text-[clamp(28px,3.6vw,44px)] leading-[1.14] text-balance text-parchment">
@@ -164,8 +164,8 @@ export default async function ProgramsPage() {
 
           <div className="border border-gold-light/28 bg-bark-600 p-[34px]">
             <div className="mb-[26px] flex flex-wrap items-center justify-between gap-[18px]">
-              <div className="font-display text-[22px] leading-snug text-bone">Centre schedule</div>
-              <div className="font-label text-[11px] leading-relaxed tracking-[0.1em] text-shadow uppercase">
+              <div className="font-display text-[29px] leading-snug text-bone">Centre schedule</div>
+              <div className="font-label text-[15px] leading-relaxed tracking-normal text-shadow capitalize">
                 GMT+08 · Central Indonesia Time
               </div>
             </div>

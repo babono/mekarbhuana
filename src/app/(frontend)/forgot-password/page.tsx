@@ -27,7 +27,7 @@ export default async function ForgotPasswordPage() {
             <h1 className="m-0 mb-3 font-display text-[clamp(28px,3.6vw,42px)] leading-tight text-parchment">
               Forgot your password?
             </h1>
-            <p className="m-0 font-body text-[15px] leading-[1.7] font-normal text-dust">
+            <p className="m-0 font-body text-[16px] leading-[1.7] font-normal text-dust">
               Enter your email and we will send you a link to choose a new one.
             </p>
           </div>

@@ -20,7 +20,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
 
   if (state.success) {
     return (
-      <div className="border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-sm leading-relaxed text-[#40602a]">
+      <div className="border-l-[3px] border-sage bg-[#eef3e8] px-4 py-3.5 font-body text-[16px] leading-relaxed text-[#40602a]">
         {state.success}
       </div>
     )
@@ -29,7 +29,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
   return (
     <form action={formAction} className="flex flex-col gap-4">
       {state.error && (
-        <div className="border-l-[3px] border-crimson bg-[#fbeceb] px-4 py-3.5 font-body text-sm leading-relaxed text-crimson">
+        <div className="border-l-[3px] border-crimson bg-[#fbeceb] px-4 py-3.5 font-body text-[16px] leading-relaxed text-crimson">
           {state.error}
         </div>
       )}
@@ -63,7 +63,7 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
 
       <SubmitButton />
 
-      <div className="font-label text-[11px] leading-[1.7] text-shadow uppercase">
+      <div className="font-label text-[15px] leading-[1.7] text-shadow capitalize">
         We reply within two working days
       </div>
     </form>

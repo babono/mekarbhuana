@@ -48,7 +48,7 @@ const COPY = {
 } as const
 
 const tab =
-  'px-7 py-[15px] font-body text-[12px] leading-none font-medium tracking-[0.13em] uppercase'
+  'px-7 py-[15px] font-body text-[13px] leading-none font-medium tracking-[0.01em] capitalize'
 
 /**
  * Edition switch and the plan tiers for whichever edition is selected.
@@ -107,11 +107,11 @@ export function EditionPlans({
                 }`}
               >
                 {plan.badge && (
-                  <div className="absolute -top-px -right-px bg-crimson px-3 py-2 font-label text-[9.5px] leading-none font-medium tracking-[0.16em] text-cream uppercase">
+                  <div className="absolute -top-px -right-px bg-crimson px-3 py-2 font-label text-[13px] leading-snug font-medium tracking-[0.01em] text-cream capitalize">
                     {plan.badge}
                   </div>
                 )}
-                <div className="font-label text-[10px] leading-none font-medium tracking-[0.2em] text-brass uppercase">
+                <div className="font-label text-[13px] leading-snug font-medium tracking-[0.01em] text-brass capitalize">
                   {plan.name}
                 </div>
                 {wasPrice && (
@@ -127,15 +127,15 @@ export function EditionPlans({
                   {planPrice(plan)}
                 </div>
                 {planChargeNote(plan, usdToIdr) && (
-                  <div className="mt-2 font-label text-[10.5px] leading-snug tracking-[0.1em] text-shadow uppercase">
+                  <div className="mt-2 font-label text-[13px] leading-snug tracking-[0.01em] text-shadow capitalize">
                     {planChargeNote(plan, usdToIdr)}
                   </div>
                 )}
-                <p className="mt-5 flex-1 font-body text-[14.5px] leading-[1.75] font-normal text-muted">
+                <p className="mt-5 flex-1 font-body text-[16px] leading-[1.75] font-normal text-muted">
                   {plan.description}
                 </p>
                 {promo && (
-                  <div className="my-5 font-label text-[11px] leading-relaxed text-crimson uppercase">
+                  <div className="my-5 font-label text-[15px] leading-relaxed text-crimson capitalize">
                     {promo}
                   </div>
                 )}
@@ -156,8 +156,8 @@ export function EditionPlans({
       <div className="mt-11 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[26px] border-t border-line pt-[38px]">
         {copy.perks.map((perk) => (
           <div key={perk.title}>
-            <div className="mb-2.5 font-display text-lg leading-snug text-text">{perk.title}</div>
-            <p className="m-0 font-body text-[14.5px] leading-[1.75] font-normal text-muted">
+            <div className="mb-2.5 font-display text-[23px] leading-snug text-text">{perk.title}</div>
+            <p className="m-0 font-body text-[16px] leading-[1.75] font-normal text-muted">
               {perk.body}
             </p>
           </div>
