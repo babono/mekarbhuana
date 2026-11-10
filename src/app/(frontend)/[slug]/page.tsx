@@ -55,7 +55,7 @@ export default async function StandalonePage({ params }: { params: Promise<{ slu
             </Link>{' '}
             / {page.title}
           </div>
-          <h1 className="m-0 mb-5 max-w-[900px] font-display text-[clamp(38px,6vw,78px)] leading-[1.04] text-balance text-parchment">
+          <h1 className="m-0 mb-5 max-w-[900px] font-display text-[clamp(31px,4.9vw,64px)] leading-[1.12] text-balance text-parchment">
             {page.title}
           </h1>
           {page.intro && (
@@ -71,8 +71,8 @@ export default async function StandalonePage({ params }: { params: Promise<{ slu
           <div
             className="max-w-[720px] font-body text-[17px] leading-[1.85] font-normal text-body
               [&_a]:text-crimson [&_a]:underline [&_a]:underline-offset-4
-              [&_h2]:mt-13 [&_h2]:mb-[18px] [&_h2]:font-display [&_h2]:text-[30px] [&_h2]:leading-tight [&_h2]:text-text
-              [&_h3]:mt-10 [&_h3]:mb-3.5 [&_h3]:font-display [&_h3]:text-[22px] [&_h3]:leading-tight [&_h3]:text-text
+              [&_h2]:mt-13 [&_h2]:mb-[18px] [&_h2]:font-display [&_h2]:text-[23px] [&_h2]:leading-tight [&_h2]:text-text
+              [&_h3]:mt-10 [&_h3]:mb-3.5 [&_h3]:font-display [&_h3]:text-[17px] [&_h3]:leading-tight [&_h3]:text-text
               [&_li]:mb-2.5 [&_ol]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_p]:mb-6 [&_p]:text-pretty [&_strong]:text-text [&_ul]:mb-6 [&_ul]:list-disc [&_ul]:pl-6"
           >
             <RichText data={page.body} />

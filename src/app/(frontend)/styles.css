@@ -40,10 +40,10 @@
   --color-text: #332017;
   --color-body: #533526;
   --color-muted: #5e4535; /* derived */
-  --color-soft: #6b6b6b;
-  --color-brass: #9c6d2b;
-  --color-stone: #7a6150; /* derived */
-  --color-shadow: #9a8573; /* derived */
+  --color-soft: #5c5c5c; /* ≥4.5:1 on cream-deep (WCAG AA) */
+  --color-brass: #7a5522; /* ≥4.5:1 on cream-deep (WCAG AA) */
+  --color-stone: #6e5748; /* derived, ≥4.5:1 on cream-deep */
+  --color-shadow: #67594d; /* derived, ≥4.5:1 on cream-deep — light surfaces only */
 
   /* Text on dark */
   --color-parchment: #eee2d0;
@@ -51,7 +51,7 @@
   --color-dust: #b9a48d; /* derived */
   --color-clay: #cdb99f; /* derived */
   --color-bone: #eee2d0;
-  --color-smoke: #a8937d; /* derived */
+  --color-smoke: #b7a593; /* derived, ≥4.5:1 on bark-500 — dark surfaces only */
 
   /* Rules */
   --color-line: #cac3bb; /* reference border */
@@ -59,10 +59,10 @@
   --color-line-soft: #d6cec4; /* derived */
   --color-line-faint: #e0d8cd; /* derived */
 
-  /* Type — Katibeh for headings, Inter for everything else. */
-  --font-display: var(--font-katibeh), Georgia, serif;
-  --font-body: var(--font-inter), system-ui, sans-serif;
-  --font-label: var(--font-inter), system-ui, sans-serif;
+  /* Type — Montserrat for headings, Lato for everything else. */
+  --font-display: var(--font-montserrat), system-ui, sans-serif;
+  --font-body: var(--font-lato), system-ui, sans-serif;
+  --font-label: var(--font-lato), system-ui, sans-serif;
   --font-balinese: 'Noto Serif Balinese', serif;
 
   /* Shell width */
@@ -123,6 +123,36 @@
     scroll-behavior: smooth;
   }
 
+  /* A visible keyboard focus ring everywhere, in a colour that reads on both
+     the cream and the dark brown surfaces (WCAG 2.4.7). */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  /* Links inside running text are underlined, so they are not told apart by
+     colour alone (WCAG 1.4.1). Buttons and card links are styled on their own. */
+  p a:not(.btn),
+  li a:not(.btn),
+  .crumb a {
+    text-decoration-line: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   body {
     background: var(--color-cream);
     color: var(--color-ink);
@@ -143,9 +173,10 @@
     color: var(--color-ink-deep);
   }
 
-  /* Katibeh sets its letters close; a hair of air keeps titles legible. */
+  /* Montserrat is wide; semibold with slightly closed tracking keeps titles compact. */
   .font-display {
-    letter-spacing: 0.01em;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   /* Preflight strips these; the design relies on them everywhere. */

@@ -62,7 +62,10 @@ export function LoginForm() {
       <SubmitButton />
 
       <div className="text-center font-body text-[15px] leading-relaxed font-normal text-soft">
-        Not a member yet? <Link href="/join">Subscribe now</Link>
+        Not a member yet?{' '}
+        <Link href="/join" className="underline underline-offset-3">
+          Subscribe now
+        </Link>
       </div>
     </form>
   )

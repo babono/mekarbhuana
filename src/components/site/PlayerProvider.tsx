@@ -99,6 +99,15 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
     window.onSpotifyIframeApiReady = build
 
+    // Spotify swaps the host node for an unnamed iframe; give it an accessible
+    // name the moment it appears (WCAG 4.1.2).
+    const frameParent = hostRef.current?.parentElement
+    const observer = new MutationObserver(() => {
+      const frame = frameParent?.querySelector('iframe')
+      if (frame && !frame.title) frame.title = 'Mekar Bhuana music player (Spotify)'
+    })
+    if (frameParent) observer.observe(frameParent, { childList: true, subtree: true })
+
     if (!document.querySelector(`script[src="${IFRAME_API_SRC}"]`)) {
       const script = document.createElement('script')
       script.src = IFRAME_API_SRC
@@ -108,6 +117,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
     return () => {
       cancelled = true
+      observer.disconnect()
       controllerRef.current?.destroy?.()
       controllerRef.current = null
     }

@@ -55,7 +55,10 @@ export function RegisterForm({ planId }: { planId?: string }) {
       <SubmitButton hasPlan={Boolean(planId)} />
 
       <div className="text-center font-body text-[15px] leading-relaxed font-normal text-soft">
-        Already a member? <Link href="/login">Log in</Link>
+        Already a member?{' '}
+        <Link href="/login" className="underline underline-offset-3">
+          Log in
+        </Link>
       </div>
     </form>
   )

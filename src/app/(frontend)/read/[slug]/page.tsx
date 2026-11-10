@@ -29,6 +29,18 @@ const findArticle = async (slug: string, user: User | null): Promise<Article | n
   return (docs[0] as Article) ?? null
 }
 
+/**
+ * Imported articles open with the paragraph their excerpt was taken from, so
+ * the excerpt is only shown as a lead-in when the body does not already say it.
+ */
+const opensWithExcerpt = (article: Article): boolean => {
+  const first = (article.body?.root?.children ?? []).find((node) => node.type === 'paragraph') as
+    | { children?: { text?: string }[] }
+    | undefined
+  const text = (first?.children ?? []).map((child) => child.text ?? '').join('')
+  return Boolean(article.excerpt) && text.startsWith(article.excerpt.slice(0, 60))
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -70,7 +82,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </Link>{' '}
             / {categoryLabel}
           </div>
-          <h1 className="m-0 mb-5 max-w-[900px] font-display text-[clamp(38px,6vw,78px)] leading-[1.04] text-balance text-parchment">
+          <h1 className="m-0 mb-5 max-w-[900px] font-display text-[clamp(31px,4.9vw,64px)] leading-[1.12] text-balance text-parchment">
             {article.title}
           </h1>
           <div className="mt-[26px] flex flex-wrap items-center gap-[18px] font-label text-[15px] leading-relaxed tracking-normal text-smoke capitalize">
@@ -96,13 +108,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div
             className="max-w-[720px] font-body text-[18px] leading-[1.85] font-normal text-body
               [&_blockquote]:my-8 [&_blockquote]:border-l-2 [&_blockquote]:border-gold [&_blockquote]:pl-[22px] [&_blockquote]:text-muted [&_blockquote]:italic
-              [&_h2]:mt-13 [&_h2]:mb-[18px] [&_h2]:font-display [&_h2]:text-[32px] [&_h2]:leading-tight [&_h2]:text-text
-              [&_h3]:mt-10 [&_h3]:mb-3.5 [&_h3]:font-display [&_h3]:text-2xl [&_h3]:leading-tight [&_h3]:text-text
-              [&_li]:mb-2.5 [&_ol]:mb-6 [&_ol]:pl-6 [&_p]:mb-6 [&_p]:text-pretty [&_ul]:mb-6 [&_ul]:pl-6"
+              [&_h2]:mt-13 [&_h2]:mb-[18px] [&_h2]:font-display [&_h2]:text-[25px] [&_h2]:leading-tight [&_h2]:text-text
+              [&_h3]:mt-10 [&_h3]:mb-3.5 [&_h3]:font-display [&_h3]:text-xl [&_h3]:leading-tight [&_h3]:text-text
+              [&_img]:my-8 [&_img]:h-auto [&_img]:max-w-full [&_li]:mb-2.5 [&_ol]:mb-6 [&_ol]:pl-6 [&_p]:mb-6 [&_p]:text-pretty [&_ul]:mb-6 [&_ul]:pl-6"
           >
-            <p className="font-body text-[21px] leading-[1.75] font-normal text-muted">
-              {article.excerpt}
-            </p>
+            {!opensWithExcerpt(article) && (
+              <p className="font-body text-[21px] leading-[1.75] font-normal text-muted">
+                {article.excerpt}
+              </p>
+            )}
 
             {article.body ? <RichText data={article.body} /> : null}
           </div>
@@ -111,7 +125,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {locked && (
           <div className="relative -mt-40 bg-linear-to-b from-transparent to-cream to-[130px] pt-40">
             <div className="mx-auto max-w-[640px] bg-bark-450 px-[38px] py-[46px] text-center">
-              <h2 className="m-0 mb-3.5 font-display text-[28px] leading-tight text-bone">
+              <h2 className="m-0 mb-3.5 font-display text-[22px] leading-tight text-bone">
                 The rest of this is for members
               </h2>
               <p className="m-0 mb-7 font-body text-[16px] leading-[1.8] font-normal text-clay">

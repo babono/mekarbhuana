@@ -49,7 +49,7 @@ export default async function ReadPage({
 
         <div className="mb-9 flex flex-wrap items-end justify-between gap-5">
           <div>
-            <h1 className="m-0 font-display text-[clamp(26px,3.4vw,40px)] leading-tight text-parchment">
+            <h1 className="m-0 font-display text-[clamp(21px,2.8vw,33px)] leading-tight text-parchment">
               {book?.title ?? 'Encyclopedia of Balinese Gamelan Ensembles'}
             </h1>
             {!ownAccess && institution && (

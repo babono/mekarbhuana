@@ -88,7 +88,7 @@ export function WhatsAppWidget() {
               <WhatsAppGlyph className="size-[21px]" />
             </span>
             <div className="min-w-0 flex-1">
-              <div className="font-display text-[20px] leading-tight text-parchment">
+              <div className="font-display text-[16px] leading-tight text-parchment">
                 Chat with the centre
               </div>
               <div className="mt-1 font-label text-[13px] leading-snug tracking-[0.01em] text-gold-light capitalize">

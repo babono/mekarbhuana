@@ -85,7 +85,7 @@ export function ReadIndex({ articles }: { articles: Article[] }) {
           />
           <div className="p-[38px]">
             <div className="kicker mb-4 text-crimson">Featured · {articleKicker(lead)}</div>
-            <h2 className="m-0 mb-4 font-display text-[clamp(24px,2.8vw,36px)] leading-tight text-balance text-text">
+            <h2 className="m-0 mb-4 font-display text-[clamp(20px,2.3vw,30px)] leading-tight text-balance text-text">
               {lead.title}
             </h2>
             <p className="m-0 mb-[22px] font-body text-[16px] leading-[1.8] font-normal text-muted">
@@ -117,7 +117,7 @@ export function ReadIndex({ articles }: { articles: Article[] }) {
                 {articleKicker(article)}
                 {article.access === 'members' && ' · Members'}
               </div>
-              <h3 className="m-0 mb-3.5 font-display text-[27px] leading-tight text-text">
+              <h3 className="m-0 mb-3.5 font-display text-[21px] leading-tight text-text">
                 {article.title}
               </h3>
               <p className="m-0 font-body text-[16px] leading-[1.75] font-normal text-muted">

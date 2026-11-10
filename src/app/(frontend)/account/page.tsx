@@ -146,7 +146,7 @@ export default async function AccountPage({
             </Link>{' '}
             / Account
           </div>
-          <h1 className="m-0 mb-5 font-display text-[clamp(38px,6vw,78px)] leading-[1.04] text-balance text-parchment">
+          <h1 className="m-0 mb-5 font-display text-[clamp(31px,4.9vw,64px)] leading-[1.12] text-balance text-parchment">
             {user.name}
           </h1>
           <p className="m-0 max-w-[540px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-normal text-pretty text-sand">

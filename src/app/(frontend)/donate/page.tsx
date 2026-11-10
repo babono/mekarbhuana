@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Donations',
   description:
-    'Donations reach us through Yayasan Semara Gita Bhuana, the Indonesian non-profit that supports the centre.',
+    'Donate to Mekar Bhuana via the Indonesian non-profit organisation Semara Gita Bhuana Foundation, which means that your donation should be tax deductible.',
 }
 
 const BANK_DETAILS = [
@@ -28,18 +28,18 @@ export default function DonatePage() {
         </div>
 
         <div className="relative mx-auto max-w-shell">
-          <div className="mb-[22px] font-label text-[14px] leading-snug tracking-[0.01em] text-cream/65 capitalize">
+          <div className="mb-[22px] font-label text-[14px] leading-snug tracking-[0.01em] text-bone capitalize">
             <Link href="/" className="text-cream">
               Mekar Bhuana
             </Link>{' '}
             / Donations
           </div>
-          <h1 className="m-0 mb-5 font-display text-[clamp(38px,6vw,78px)] leading-[1.04] text-balance text-parchment">
-            Keep the bronze playing
+          <h1 className="m-0 mb-5 font-display text-[clamp(31px,4.9vw,64px)] leading-[1.12] text-balance text-parchment">
+            Donations
           </h1>
           <p className="m-0 max-w-[560px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-normal text-pretty text-parchment/85">
-            Donations reach us through Yayasan Semara Gita Bhuana, the Indonesian non-profit that
-            supports the centre — which also means your gift should be tax deductible.
+            Donate to Mekar Bhuana via the Indonesian non-profit organisation Semara Gita Bhuana
+            Foundation that supports us, which means that your donation should be tax deductible.
           </p>
         </div>
       </section>
@@ -48,11 +48,11 @@ export default function DonatePage() {
         <div className="mx-auto grid max-w-[1000px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-[26px] px-[26px]">
           <div className="card p-[38px]">
             <div className="kicker mb-[18px]">Option one</div>
-            <h2 className="m-0 mb-2.5 font-display text-[26px] leading-tight text-text">
+            <h2 className="m-0 mb-2.5 font-display text-[20px] leading-tight text-text">
               Bank transfer
             </h2>
             <p className="m-0 mb-[26px] font-body text-[16px] leading-[1.75] font-normal text-crimson">
-              Please check every line — an incorrect detail means the transfer comes back to you.
+              Please make sure that these are 100% correct so that your donation is not returned.
             </p>
 
             <dl className="m-0">
@@ -70,13 +70,13 @@ export default function DonatePage() {
 
           <div className="flex flex-col gap-[22px]">
             <div className="bg-bark-450 p-[38px]">
-              <div className="mb-[18px] font-label text-[13px] leading-snug font-medium tracking-[0.01em] text-gold-light capitalize">
+              <div className="mb-[18px] font-label text-[13px] leading-snug font-medium tracking-[0.01em] text-bone capitalize">
                 Option two
               </div>
-              <h2 className="m-0 mb-3.5 font-display text-[26px] leading-tight text-bone">
+              <h2 className="m-0 mb-3.5 font-display text-[20px] leading-tight text-bone">
                 Card or e-wallet
               </h2>
-              <p className="m-0 mb-7 font-body text-[16px] leading-[1.8] font-normal text-clay">
+              <p className="m-0 mb-7 font-body text-[16px] leading-[1.8] font-normal text-bone">
                 Faster, and it works from anywhere. Write to us and we will send a payment link for
                 the amount you choose.
               </p>
@@ -86,12 +86,13 @@ export default function DonatePage() {
             </div>
 
             <div className="border border-line p-[30px]">
-              <div className="mb-3 font-display text-[25px] leading-snug text-text">
+              <div className="mb-3 font-display text-[19px] leading-snug text-text">
                 Where it goes
               </div>
               <p className="m-0 font-body text-[16px] leading-[1.8] font-normal text-muted">
-                Restoration materials and smithing, instructor fees, documentation trips, and
-                returning instruments to the villages that made them.
+                Donate to support our projects: restoring our antique gamelan, reconstructing
+                ensembles lost to history, and recording previously unrecorded court and archaic style
+                gamelan pieces.
               </p>
             </div>
           </div>

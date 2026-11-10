@@ -76,12 +76,15 @@ export function Header() {
           : 'border-b border-line-soft bg-cream/93 backdrop-blur-[14px]',
       ].join(' ')}
     >
-      <div className="mx-auto flex max-w-shell flex-wrap items-center gap-x-[18px] gap-y-3 px-[26px] py-[13px]">
+      <div className="mx-auto flex max-w-shell flex-wrap items-center gap-x-[18px] gap-y-3 px-[26px] py-[9px]">
         <Link
           href="/"
           className="flex flex-none items-center gap-[11px] text-inherit hover:text-inherit"
         >
-          <Logo variant="mark" height={40} className="flex-none" />
+          <Logo
+            height={62}
+            className={`flex-none transition-colors ${clear ? 'text-gold-light' : 'text-crimson'}`}
+          />
           <div>
             <div
               className={`font-body font-semibold text-[16px] leading-none tracking-[0.01em] transition-colors ${
@@ -91,11 +94,11 @@ export function Header() {
               Mekar Bhuana
             </div>
             <div
-              className={`mt-1 font-label text-[13px] leading-snug tracking-[0.01em] capitalize transition-colors ${
+              className={`mt-1 font-label text-[13px] leading-snug tracking-[0.01em] transition-colors ${
                 clear ? 'text-gold-light' : 'text-brass'
               }`}
             >
-              Gamelan &amp; Dance · Denpasar
+              Bali Music and Dance
             </div>
           </div>
         </Link>

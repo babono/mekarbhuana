@@ -36,7 +36,7 @@ export default function InstrumentPreviewDemo() {
             <span className="mb-4 inline-block border border-gold-light/50 px-2.5 py-1.5 font-label text-[13px] leading-snug tracking-[0.01em] text-gold-light capitalize">
               Prototype
             </span>
-            <h1 className="m-0 font-display text-[clamp(30px,4vw,48px)] leading-[1.08] text-parchment">
+            <h1 className="m-0 font-display text-[clamp(25px,3.3vw,39px)] leading-[1.12] text-parchment">
               See the instruments in 3D as you read
             </h1>
             <p className="mt-4 mb-0 font-body text-[17px] leading-[1.7] text-sand">
@@ -64,13 +64,13 @@ export default function InstrumentPreviewDemo() {
 
               <div>
                 <div className="kicker">Ensemble · North Bali, 1910s</div>
-                <h2 className="mt-3 mb-0 font-display text-[clamp(28px,3vw,38px)] leading-tight text-text">
+                <h2 className="mt-3 mb-0 font-display text-[clamp(23px,2.5vw,31px)] leading-tight text-text">
                   Gamelan Gong Kebyar
                 </h2>
               </div>
 
               <p className={prose}>
-                <span className="float-left mt-1.5 mr-2 font-display text-[54px] leading-[0.8] text-crimson">
+                <span className="float-left mt-1.5 mr-2 font-display text-[42px] leading-[0.8] text-crimson">
                   K
                 </span>
                 ebyar means “to flare up”, and the style lives up to it: sudden bursts of sound,
@@ -164,7 +164,7 @@ export default function InstrumentPreviewDemo() {
           ].map((item) => (
             <div key={item.step}>
               <div className="font-label text-[13px] tracking-[0.24em] text-gold">{item.step}</div>
-              <h3 className="mt-2 mb-2 font-display text-[31px] text-parchment">{item.title}</h3>
+              <h3 className="mt-2 mb-2 font-display text-[24px] text-parchment">{item.title}</h3>
               <p className="m-0 font-body text-[16px] leading-[1.7] text-sand">{item.body}</p>
             </div>
           ))}

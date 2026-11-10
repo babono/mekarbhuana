@@ -16,26 +16,26 @@ export const revalidate = 86400
 const STATS = [
   { value: '27', label: 'Gamelan sets in our care' },
   { value: '100+', label: 'Ensembles documented' },
-  { value: '24', label: 'Years teaching visitors' },
+  { value: '2000', label: 'Founded' },
   { value: '#9', label: 'of 154 in Denpasar' },
 ]
 
 const HIRE_CARDS = [
   {
     title: 'Hire a troupe',
-    body: 'Professional and semi-professional groups for festivals, openings, hotels and villas. Classical and archaic repertoire only — dance always with a full orchestra.',
+    body: 'Our professional and semi-professional troupes are available to perform at festivals, events, launchings, openings, hotels, villas and other occasions.',
     cta: 'Performances →',
     icon: <span className="size-[11px] rotate-45 bg-gold" />,
   },
   {
     title: 'Hire an expert',
-    body: 'Speakers and consultants on Balinese gamelan, dance and culture for your event, seminar or university module.',
+    body: 'Hire an expert in Balinese gamelan, dance or Balinese culture in general for your event, seminar or workshop.',
     cta: 'Experts →',
     icon: <span className="size-[11px] rotate-45 border border-gold" />,
   },
   {
     title: 'Record with us',
-    body: 'Engineers who know where to put a microphone in front of bronze — multi-track or natural stereo, in our studio or on location.',
+    body: 'Record your gamelan group, someone else’s group, traditional gamelan music or your latest gamelan composition with us!',
     cta: 'Recording →',
     icon: <span className="h-0.5 w-[11px] bg-gold" />,
   },
@@ -43,26 +43,26 @@ const HIRE_CARDS = [
 
 const PRESERVATION = [
   {
-    kicker: 'In progress',
+    kicker: 'Current projects',
     accent: 'border-t-crimson text-crimson',
-    title: 'Restoring a Gender Wayang',
-    body: 'Four instruments, and only the original keys survive. The resonators, frames and carving all have to be rebuilt from scratch.',
+    title: 'Restoring Gender Wayang set #5',
+    body: 'We are currently restoring Gender Wayang set #5 which consists of four instruments, but keys only as the original casings no longer exist.',
   },
   {
-    kicker: 'Seeking funding',
+    kicker: 'Planned projects',
     accent: 'border-t-gold text-brass',
-    title: 'A Javanese gamelan from the 1830s',
-    body: 'A historic ensemble with Chinese connections and rare instruments dating back to the early nineteenth century, waiting on a restoration budget.',
+    title: 'A historic Javanese gamelan',
+    body: 'We are in the process of trying to get funding to embark on a restoration project of a historic Javanese gamelan with Chinese connections and rare pakurmatan-style instruments that dates back to the early 1800s.',
   },
   {
-    kicker: 'Archive',
+    kicker: 'Portfolio',
     accent: 'border-t-bark-450 text-soft',
-    title: 'Documentation & repatriation',
-    body: 'Recordings, measurements and photographs of ensembles across Bali — including instruments returned to the villages they came from.',
+    title: 'Since 2000',
+    body: 'We’ve been doing documentation, reconstruction, restoration and repatriation projects as well as performing and creating workshop and cultural immersion programs since 2000.',
   },
 ]
 
-const sectionHeading = 'font-display text-[clamp(30px,4vw,52px)] leading-[1.12] text-balance'
+const sectionHeading = 'font-display text-[clamp(25px,3.3vw,43px)] leading-[1.12] text-balance'
 const eyebrow = 'font-label text-[14px] leading-snug font-medium tracking-[0.01em] capitalize'
 
 export default async function HomePage() {
@@ -99,16 +99,14 @@ export default async function HomePage() {
 
         <div className="animate-rise-in relative max-w-[820px] text-center">
           <div className="mb-[26px] font-label text-[13px] leading-snug font-medium tracking-[0.01em] text-gold-light capitalize">
-            Family-based gamelan &amp; dance centre
+            Family based gamelan and dance centre
           </div>
-          <h1 className="m-0 mb-[26px] font-display text-[clamp(40px,7.4vw,92px)] leading-[1.02] text-balance text-parchment">
-            Bronze that still
-            <br />
-            remembers Bali
+          <h1 className="m-0 mb-[26px] font-display text-[clamp(33px,6.1vw,75px)] leading-[1.12] text-balance text-parchment">
+            Mekar Bhuana
           </h1>
           <p className="mx-auto mb-10 max-w-[540px] font-body text-[clamp(16px,1.55vw,20px)] leading-[1.75] font-normal text-pretty text-sand">
-            Twenty-seven gamelan sets live in our family compound in Kesiman. Some of them were
-            nearly lost. All of them are still played.
+            Mekar Bhuana means &ldquo;to blossom around the world&rdquo; &mdash; documenting,
+            reconstructing and repatriating Balinese gamelan.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link href="/programs" className="btn btn-gold">
@@ -128,7 +126,7 @@ export default async function HomePage() {
         <div className="mx-auto grid max-w-shell grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-[26px] px-[26px] py-[34px]">
           {STATS.map((stat) => (
             <div key={stat.label}>
-              <div className="font-display text-[clamp(28px,3.2vw,40px)] leading-none text-crimson">
+              <div className="font-display text-[clamp(23px,2.6vw,33px)] leading-none text-crimson">
                 {stat.value}
               </div>
               <div className="mt-2 font-label text-[15px] leading-relaxed tracking-normal text-stone capitalize">
@@ -181,11 +179,14 @@ export default async function HomePage() {
           </div>
 
           <div className="mb-14 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-end gap-12">
-            <h2 className={`${sectionHeading} m-0 text-parchment`}>Come and put your hands on it</h2>
+            <h2 className={`${sectionHeading} m-0 text-parchment`}>
+              Immerse yourself in the beauty of Balinese music and dance
+            </h2>
             <p className="m-0 max-w-[460px] font-body text-base leading-[1.8] font-normal text-sand">
-              Every session is led by working musicians and dancers, with an English-speaking
-              ethnomusicologist to explain what you&rsquo;re hearing. Book at least two weeks ahead —
-              we&rsquo;re a home, not a venue.
+              Join our in-depth workshops led by English-speaking experts, including a native
+              English-speaking ethnomusicologist. Note that since our centre is family based, we
+              don&rsquo;t accept walk-ins. All bookings need to be made at least two weeks in
+              advance via email.
             </p>
           </div>
 
@@ -205,11 +206,11 @@ export default async function HomePage() {
                 />
                 <div className="p-[26px]">
                   {program.balineseTitle && (
-                    <div className="font-balinese text-[19px] leading-[2] text-gold">
+                    <div aria-hidden="true" className="font-balinese text-[19px] leading-[2] text-gold-light">
                       {program.balineseTitle}
                     </div>
                   )}
-                  <h3 className="mt-2 mb-3 font-display text-[27px] leading-tight text-bone">
+                  <h3 className="mt-2 mb-3 font-display text-[21px] leading-tight text-bone">
                     {program.title}
                   </h3>
                   <p className="mb-[18px] font-body text-[16px] leading-[1.7] font-normal text-dust">
@@ -229,20 +230,25 @@ export default async function HomePage() {
       <section className="relative bg-gold">
         <div className="mx-auto grid max-w-shell grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-13 px-[26px] py-[88px]">
           <div>
-            <span className={`${eyebrow} text-bark-700`}>03 — The compound</span>
+            <span className={`${eyebrow} text-bark-700`}>03 — Facilities</span>
             <h2 className={`${sectionHeading} mt-[22px] mb-5 text-text`}>
-              Open-air, half garden, entirely lived in
+              Facilities
             </h2>
             <p className="mb-[26px] max-w-[440px] font-body text-[16.5px] leading-[1.8] font-normal text-pretty text-text">
-              A pavilion, a walled garden, a studio and an outdoor rehearsal ground — attached to our
-              house. Frangipani drops onto the gongs. The neighbours know the repertoire.
+              A family based centre, Mekar Bhuana is attached to our home and focussed around our
+              garden, pavilion and studio areas.
             </p>
             <div className="flex flex-col gap-[11px] font-label text-[15px] leading-relaxed tracking-normal text-bark-700 capitalize">
               {[
+                'Entrance gate',
+                'Garden features',
+                'Water features',
                 'Open-air rehearsal grounds',
                 'Outdoor gamelan set-up',
-                'Recording studio & archive',
-                'Garden pavilion for performances',
+                'Pavilion gamelan set-up',
+                'Resting pavilion',
+                'Eco-friendly refreshment',
+                'Green waste & recycling hub',
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <i className="size-1.5 flex-none rotate-45 bg-bark-700" />
@@ -268,11 +274,11 @@ export default async function HomePage() {
 
           <div className="mb-12 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-end gap-12">
             <h2 className={`${sectionHeading} m-0 text-text`}>
-              Twenty-seven sets, each with a reason to exist
+              Collections
             </h2>
             <p className="m-0 max-w-[460px] font-body text-base leading-[1.8] font-normal text-pretty text-body">
-              Twenty-two in Bali, five in Aotearoa. Several were rebuilt from a handful of surviving
-              keys; one is the only ensemble of its kind outside Indonesia.
+              We have more than 27 gamelan sets at Mekar Bhuana, with 22 at Mekar Bhuana in Bali and
+              five at Mekar Bhuana Aotearoa in New Zealand.
             </p>
           </div>
 
@@ -288,7 +294,7 @@ export default async function HomePage() {
                 />
                 <div className="p-[26px]">
                   {ensemble.statusLabel && <div className="kicker">{ensemble.statusLabel}</div>}
-                  <h3 className="my-3 font-display text-[29px] leading-tight text-text">
+                  <h3 className="my-3 font-display text-[22px] leading-tight text-text">
                     {ensemble.name}
                   </h3>
                   <p className="m-0 font-body text-[16px] leading-[1.75] font-normal text-muted">
@@ -314,12 +320,12 @@ export default async function HomePage() {
             <div>
               <span className={`${eyebrow} text-gold-light`}>05 — Encyclopedia</span>
               <h2 className={`${sectionHeading} mt-[22px] mb-5 text-parchment`}>
-                Every Balinese gamelan we could find, written down
+                Encyclopedia of Balinese Gamelan Ensembles
               </h2>
               <p className="mb-[26px] max-w-[470px] font-body text-[16.5px] leading-[1.8] font-normal text-pretty text-sand">
-                Four hundred pages. More than a hundred ensembles — ancient to contemporary, popular
-                to extinct — each with links to video and audio, read as a flipbook in English or
-                Bahasa Indonesia.
+                From ancient to contemporary, popular to extinct: 400+ pages of over 100 different
+                ensembles. Available to be read as a 3D flipbook with links to video and audio, in
+                English and Indonesian.
               </p>
 
               <div className="mb-[34px] flex flex-wrap gap-[26px]">
@@ -329,10 +335,10 @@ export default async function HomePage() {
                   ['2', 'Languages'],
                 ].map(([value, label]) => (
                   <div key={label}>
-                    <strong className="block font-display text-[30px] leading-none font-normal text-gold-light">
+                    <strong className="block font-display text-[23px] leading-none text-gold-light">
                       {value}
                     </strong>
-                    <span className="mt-[7px] block font-label text-[15px] leading-relaxed tracking-normal text-shadow capitalize">
+                    <span className="mt-[7px] block font-label text-[15px] leading-relaxed tracking-normal text-smoke capitalize">
                       {label}
                     </span>
                   </div>
@@ -346,7 +352,7 @@ export default async function HomePage() {
                       {planComparePrice(entryPlan)}
                     </span>
                   )}
-                  <span className="font-display text-[30px] leading-none text-parchment">
+                  <span className="font-display text-[23px] leading-none text-parchment">
                     {planPrice(entryPlan)}
                   </span>
                   <span className="font-body text-[14px] leading-normal text-sand">per month</span>
@@ -378,7 +384,7 @@ export default async function HomePage() {
               <div className="mb-[26px] grid size-11 place-items-center rounded-full border border-gold">
                 {card.icon}
               </div>
-              <div className="mb-3.5 font-display text-[31px] leading-tight text-text">{card.title}</div>
+              <div className="mb-3.5 font-display text-[24px] leading-tight text-text">{card.title}</div>
               <p className="mb-[22px] flex-1 font-body text-[16px] leading-[1.75] font-normal text-muted">
                 {card.body}
               </p>
@@ -394,12 +400,12 @@ export default async function HomePage() {
       <section className="border-t border-line bg-cream-deep py-24">
         <div className="mx-auto max-w-shell px-[26px]">
           <div className="mb-[34px] flex items-center gap-4">
-            <span className={`${eyebrow} text-brass`}>06 — Preservation</span>
+            <span className={`${eyebrow} text-brass`}>06 — Projects</span>
             <div className="h-px flex-1 bg-line" />
           </div>
 
           <h2 className={`${sectionHeading} mt-0 mb-[46px] max-w-[680px] text-text`}>
-            Some of this music has four players left
+            Find out about our completed, current and planned projects as well as how you can help
           </h2>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-[22px]">
@@ -415,13 +421,13 @@ export default async function HomePage() {
                   >
                     {item.kicker}
                   </div>
-                  <div className="mb-3.5 font-display text-[29px] leading-tight text-text">
+                  <div className="mb-3.5 font-display text-[22px] leading-tight text-text">
                     {item.title}
                   </div>
                   <p className="m-0 font-body text-[16px] leading-[1.75] font-normal text-muted">
                     {item.body}
                   </p>
-                  {item.kicker === 'Archive' && (
+                  {item.kicker === 'Portfolio' && (
                     <Link
                       href="/read"
                       className="mt-5 inline-block font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-crimson capitalize"
@@ -436,11 +442,12 @@ export default async function HomePage() {
 
           <div className="mt-[34px] flex flex-wrap items-center justify-between gap-[26px] bg-bark-450 p-[38px]">
             <div>
-              <div className="mb-2 font-display text-[31px] leading-snug text-bone">
-                Restoration is paid for by people, not grants
+              <div className="mb-2 font-display text-[24px] leading-snug text-bone">
+                Donate to support our projects
               </div>
-              <div className="max-w-[460px] font-body text-[16px] leading-[1.7] font-normal text-clay">
-                Donations go through Yayasan Semara Gita Bhuana and should be tax deductible.
+              <div className="max-w-[460px] font-body text-[16px] leading-[1.7] font-normal text-bone">
+                Donate to Mekar Bhuana via the Indonesian non-profit organisation Semara Gita Bhuana
+                Foundation that supports us, which means that your donation should be tax deductible.
               </div>
             </div>
             <Link href="/donate" className="btn btn-gold">
