@@ -38,8 +38,8 @@ export default async function ResetPasswordPage({
 
         <div className="relative mx-auto max-w-[470px]">
           <div className="mb-[38px] text-center">
-            <Logo height={64} className="mx-auto mb-6" />
-            <h1 className="m-0 mb-3 font-display text-[clamp(28px,3.6vw,42px)] leading-tight text-parchment">
+            <Logo height={104} className="mx-auto mb-6 block text-gold-light" />
+            <h1 className="m-0 mb-3 font-display text-[clamp(23px,3vw,34px)] leading-tight text-parchment">
               Choose a new password
             </h1>
             <p className="m-0 font-body text-[16px] leading-[1.7] font-normal text-dust">

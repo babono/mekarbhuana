@@ -22,6 +22,12 @@ export const metadata: Metadata = {
 const coverCaption =
   'mt-3 text-center font-label text-[15px] leading-relaxed tracking-normal text-dust capitalize'
 
+/**
+ * The covers are shown whole, at the printed book's proportions (512 × 800),
+ * so an uploaded cover is never cropped. Upload them under Content → E-books.
+ */
+const bookCover = 'aspect-[16/25] shadow-[0_18px_40px_-12px_rgb(0_0_0/0.6)]'
+
 export default async function EncyclopediaPage() {
   // Both editions are prerendered; the switch happens on the client.
   const [plansEn, plansId, ebooks, usdToIdr] = await Promise.all([
@@ -44,7 +50,7 @@ export default async function EncyclopediaPage() {
               </Link>{' '}
               / Encyclopedia
             </div>
-            <h1 className="m-0 mb-5 font-display text-[clamp(34px,5vw,66px)] leading-[1.06] text-balance text-parchment">
+            <h1 className="m-0 mb-5 font-display text-[clamp(28px,4.1vw,54px)] leading-[1.12] text-balance text-parchment">
               Encyclopedia of Balinese Gamelan Ensembles
             </h1>
             <p className="m-0 mb-[30px] max-w-[520px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-normal text-pretty text-sand">
@@ -56,13 +62,13 @@ export default async function EncyclopediaPage() {
             </Suspense>
           </div>
 
-          <div className="flex gap-[18px]">
+          <div className="mx-auto flex w-full max-w-[520px] gap-[22px]">
             <div className="flex-1">
               <Plate
                 label="cover — English edition"
                 image={ebooks.find((b) => b.edition === 'en')?.cover as Media | null}
                 src={photoFor('ebooks', ebooks.find((b) => b.edition === 'en')?.slug)}
-                height={340}
+                className={bookCover}
               />
               <div className={coverCaption}>English</div>
             </div>
@@ -71,7 +77,7 @@ export default async function EncyclopediaPage() {
                 label="sampul — edisi Bahasa Indonesia"
                 image={ebooks.find((b) => b.edition === 'id')?.cover as Media | null}
                 src={photoFor('ebooks', ebooks.find((b) => b.edition === 'id')?.slug)}
-                height={340}
+                className={bookCover}
               />
               <div className={coverCaption}>Bahasa</div>
             </div>
@@ -107,13 +113,13 @@ export default async function EncyclopediaPage() {
                   <div className="kicker">
                     {book.edition === 'en' ? 'English' : 'Bahasa Indonesia'}
                   </div>
-                  <h2 className="mt-3.5 mb-3.5 font-display text-[29px] leading-tight text-text">
+                  <h2 className="mt-3.5 mb-3.5 font-display text-[22px] leading-tight text-text">
                     {book.title}
                   </h2>
                   <p className="m-0 mb-5 font-body text-[16px] leading-[1.8] font-normal text-muted">
                     {book.summary}
                   </p>
-                  <div className="flex flex-wrap items-center gap-[18px] font-label text-[15px] leading-relaxed tracking-normal text-smoke capitalize">
+                  <div className="flex flex-wrap items-center gap-[18px] font-label text-[15px] leading-relaxed tracking-normal text-stone capitalize">
                     {book.pageCount && <span>{book.pageCount} pages</span>}
                     {book.ensembleCount && <span>{book.ensembleCount} ensembles</span>}
                   </div>

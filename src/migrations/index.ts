@@ -7,6 +7,7 @@ import * as migration_20261030_030340_institutional_access from './20261030_0303
 import * as migration_20261030_184358_edition_access from './20261030_184358_edition_access';
 import * as migration_20261102_023102_home_popup from './20261102_023102_home_popup';
 import * as migration_20261103_024535_usd_display_idr_charge from './20261103_024535_usd_display_idr_charge';
+import * as migration_20261110_090000_old_site_copy from './20261110_090000_old_site_copy';
 
 export const migrations = [
   {
@@ -52,6 +53,11 @@ export const migrations = [
   {
     up: migration_20261103_024535_usd_display_idr_charge.up,
     down: migration_20261103_024535_usd_display_idr_charge.down,
-    name: '20261103_024535_usd_display_idr_charge'
+    name: '20261103_024535_usd_display_idr_charge',
+  },
+  {
+    up: migration_20261110_090000_old_site_copy.up,
+    down: migration_20261110_090000_old_site_copy.down,
+    name: '20261110_090000_old_site_copy',
   },
 ];

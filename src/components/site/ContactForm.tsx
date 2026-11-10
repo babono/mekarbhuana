@@ -34,16 +34,30 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
         </div>
       )}
 
-      <input name="name" className="field" placeholder="Your name" autoComplete="name" required />
+      <input
+        name="name"
+        className="field"
+        placeholder="Your name"
+        aria-label="Your name"
+        autoComplete="name"
+        required
+      />
       <input
         name="email"
         type="email"
         className="field"
         placeholder="Email address"
+        aria-label="Email address"
         autoComplete="email"
         required
       />
-      <select name="topic" className="field" defaultValue={defaultTopic ?? ''} required>
+      <select
+        name="topic"
+        className="field"
+        aria-label="What is this about?"
+        defaultValue={defaultTopic ?? ''}
+        required
+      >
         <option value="" disabled>
           What is this about?
         </option>
@@ -58,14 +72,12 @@ export function ContactForm({ defaultTopic }: { defaultTopic?: string }) {
         className="field"
         rows={6}
         placeholder="Tell us what you have in mind, and when"
+        aria-label="Your message"
         required
       />
 
       <SubmitButton />
 
-      <div className="font-label text-[15px] leading-[1.7] text-shadow capitalize">
-        We reply within two working days
-      </div>
     </form>
   )
 }

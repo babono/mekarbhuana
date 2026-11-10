@@ -62,13 +62,13 @@ export default async function JoinPage({
     <main>
       <section className="bg-cream px-[26px] pt-[70px] pb-[90px]">
         <div className="mx-auto max-w-[1000px]">
-          <div className="crumb">
+          <div className="crumb text-stone">
             <Link href="/" className="text-crimson">
               Mekar Bhuana
             </Link>{' '}
             / Subscribe
           </div>
-          <h1 className="m-0 mb-3.5 font-display text-[clamp(32px,4.6vw,58px)] leading-[1.08] text-balance text-text">
+          <h1 className="m-0 mb-3.5 font-display text-[clamp(26px,3.8vw,48px)] leading-[1.12] text-balance text-text">
             {user ? 'Complete your subscription' : 'Create your reading account'}
           </h1>
           <p className="m-0 mb-11 max-w-[520px] font-body text-[17px] leading-[1.8] font-normal text-muted">
@@ -97,10 +97,10 @@ export default async function JoinPage({
 
               {plan ? (
                 <>
-                  <div className="mb-2 font-display text-[29px] leading-tight text-text">
+                  <div className="mb-2 font-display text-[22px] leading-tight text-text">
                     {plan.name} · {plan.edition === 'en' ? 'English' : 'Bahasa Indonesia'}
                   </div>
-                  <div className="mb-1.5 font-display text-[34px] leading-none text-crimson">
+                  <div className="mb-1.5 font-display text-[26px] leading-none text-crimson">
                     {planPrice(plan)}
                   </div>
                   {chargeNote && (

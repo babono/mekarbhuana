@@ -10,9 +10,9 @@ import type { Media } from '@/payload-types'
 export const revalidate = 86400
 
 export const metadata: Metadata = {
-  title: 'Learn with us',
+  title: 'Programs',
   description:
-    'Four ways in — from a single hour at a gangsa to a two-week study-abroad programme. All bookings need two weeks’ notice.',
+    'Join our in-depth workshops led by English-speaking experts, including a native English-speaking ethnomusicologist. Experience hands-on learning in gamelan or dance, or both.',
 }
 
 export default async function ProgramsPage() {
@@ -35,12 +35,15 @@ export default async function ProgramsPage() {
             </Link>{' '}
             / Programs
           </div>
-          <h1 className="m-0 mb-5 font-display text-[clamp(38px,6vw,78px)] leading-[1.04] text-balance text-parchment">
-            Learn with us
+          <h1 className="m-0 mb-5 font-display text-[clamp(31px,4.9vw,64px)] leading-[1.12] text-balance text-parchment">
+            Programs
           </h1>
           <p className="m-0 max-w-[540px] font-body text-[clamp(16px,1.5vw,19px)] leading-[1.75] font-normal text-pretty text-sand">
-            Four ways in — from a single hour at a gangsa to a two-week study-abroad programme. All
-            bookings need two weeks&rsquo; notice.
+            Join our in-depth workshops led by English-speaking experts, including a native
+            English-speaking ethnomusicologist. With our skilled team, you&rsquo;ll gain a
+            comprehensive understanding of the art-forms, beyond just practice. Our interactive
+            sessions include PowerPoint presentations, videos, and local practitioner
+            demonstrations. Experience hands-on learning in gamelan or dance, or both.
           </p>
         </div>
       </section>
@@ -68,11 +71,11 @@ export default async function ProgramsPage() {
         const body = (
           <div>
             {program.balineseTitle && (
-              <div className="font-balinese text-2xl leading-[2] text-gold">
+              <div aria-hidden="true" className="font-balinese text-2xl leading-[2] text-brass">
                 {program.balineseTitle}
               </div>
             )}
-            <h2 className="mt-1.5 mb-5 font-display text-[clamp(28px,3.6vw,46px)] leading-[1.14] text-balance text-text">
+            <h2 className="mt-1.5 mb-5 font-display text-[clamp(23px,3vw,38px)] leading-[1.14] text-balance text-text">
               {program.title}
             </h2>
 
@@ -151,12 +154,12 @@ export default async function ProgramsPage() {
               <span className="font-label text-[14px] leading-snug font-medium tracking-[0.01em] text-gold-light capitalize">
                 Instructors
               </span>
-              <h2 className="mt-5 mb-[18px] font-display text-[clamp(28px,3.6vw,44px)] leading-[1.14] text-balance text-parchment">
-                Teachers from a dozen different villages
+              <h2 className="mt-5 mb-[18px] font-display text-[clamp(23px,3vw,36px)] leading-[1.14] text-balance text-parchment">
+                Instructors
               </h2>
               <p className="m-0 max-w-[460px] font-body text-base leading-[1.8] font-normal text-sand">
-                Each brings their own regional style. Several have taught foreign students for two
-                decades; all of them still play in their own banjar.
+                We have a team of expert instructors from a number of different villages in Bali who
+                are experienced in teaching both local and foreign students.
               </p>
             </div>
             <Plate label="instructor teaching a foreign student" src="/img-mb-22.jpeg" height={300} />
@@ -164,8 +167,8 @@ export default async function ProgramsPage() {
 
           <div className="border border-gold-light/28 bg-bark-600 p-[34px]">
             <div className="mb-[26px] flex flex-wrap items-center justify-between gap-[18px]">
-              <div className="font-display text-[29px] leading-snug text-bone">Centre schedule</div>
-              <div className="font-label text-[15px] leading-relaxed tracking-normal text-shadow capitalize">
+              <div className="font-display text-[22px] leading-snug text-bone">Centre schedule</div>
+              <div className="font-label text-[15px] leading-relaxed tracking-normal text-smoke capitalize">
                 GMT+08 · Central Indonesia Time
               </div>
             </div>

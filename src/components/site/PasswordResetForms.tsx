@@ -58,7 +58,10 @@ export function ForgotPasswordForm() {
       <SubmitButton label="Send reset link" pendingLabel="Sending…" />
 
       <div className="text-center font-body text-[15px] leading-relaxed font-normal text-soft">
-        Remembered it? <Link href="/login">Back to login</Link>
+        Remembered it?{' '}
+        <Link href="/login" className="underline underline-offset-3">
+          Back to login
+        </Link>
       </div>
     </form>
   )

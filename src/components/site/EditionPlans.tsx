@@ -76,12 +76,15 @@ export function EditionPlans({
       <div className="mb-[46px] flex w-fit border border-line-strong">
         <Link
           href="/encyclopedia"
+          aria-current={edition === 'en' ? 'page' : undefined}
           className={`${tab} ${edition === 'en' ? 'bg-bark-450 text-bone' : 'text-soft'}`}
         >
           English edition
         </Link>
         <Link
           href="/encyclopedia?edition=id"
+          aria-current={edition === 'id' ? 'page' : undefined}
+          lang="id"
           className={`${tab} border-l border-line-strong ${
             edition === 'id' ? 'bg-bark-450 text-bone' : 'text-soft'
           }`}
@@ -120,7 +123,7 @@ export function EditionPlans({
                   </div>
                 )}
                 <div
-                  className={`font-display text-[clamp(26px,3.2vw,40px)] leading-tight whitespace-nowrap text-text ${
+                  className={`font-display text-[clamp(21px,2.6vw,33px)] leading-tight whitespace-nowrap text-text ${
                     wasPrice ? '' : 'mt-5'
                   }`}
                 >
@@ -156,7 +159,7 @@ export function EditionPlans({
       <div className="mt-11 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[26px] border-t border-line pt-[38px]">
         {copy.perks.map((perk) => (
           <div key={perk.title}>
-            <div className="mb-2.5 font-display text-[23px] leading-snug text-text">{perk.title}</div>
+            <div className="mb-2.5 font-display text-[18px] leading-snug text-text">{perk.title}</div>
             <p className="m-0 font-body text-[16px] leading-[1.75] font-normal text-muted">
               {perk.body}
             </p>

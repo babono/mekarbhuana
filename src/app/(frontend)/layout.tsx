@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Katibeh } from 'next/font/google'
+import { Lato, Montserrat } from 'next/font/google'
 import React from 'react'
 
 import { AudioPill } from '@/components/site/AudioPill'
@@ -11,23 +11,26 @@ import { WhatsAppWidget } from '@/components/site/WhatsAppWidget'
 import './styles.css'
 
 /**
- * Big headings and titles only. Katibeh is a single-weight display face (Latin
- * by Eduardo Tunni) and turns cramped below ~26px, where Inter takes over.
+ * Headings and titles. Variable, so every weight comes from one file. The
+ * traditional character comes from the photography and the Balinese script,
+ * so the type itself stays clean and modern.
  */
-const katibeh = Katibeh({
-  weight: '400',
+const montserrat = Montserrat({
   subsets: ['latin'],
-  variable: '--font-katibeh',
+  variable: '--font-montserrat',
   display: 'swap',
 })
 
 /**
- * Everything else: body copy, small headings, labels, buttons and forms.
- * Variable, so every weight the design asks for comes from one file.
+ * Everything else: body copy, labels, buttons and forms. Lato is static, so
+ * only the weights the design uses are loaded (medium resolves to 400,
+ * semibold to 700).
  */
-const inter = Inter({
+const lato = Lato({
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-lato',
   display: 'swap',
 })
 
@@ -43,7 +46,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
   return (
-    <html lang="en" className={`${katibeh.variable} ${inter.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${lato.variable}`}>
       <head>
         {/* Balinese script is used decoratively throughout; next/font has no
             Latin-subset equivalent, so it is loaded directly. */}
@@ -55,9 +58,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        {/* WCAG 2.4.1: keyboard users can jump past the header navigation. */}
+        <a
+          href="#content"
+          className="sr-only z-200 bg-bark-450 px-5 py-3 font-body text-[15px] font-semibold text-bone focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:px-5 focus:py-3"
+        >
+          Skip to content
+        </a>
         <PlayerProvider>
           <Header />
-          {children}
+          <div id="content" tabIndex={-1} className="outline-none">
+            {children}
+          </div>
           <Footer />
           <AudioPill />
           <WhatsAppWidget />

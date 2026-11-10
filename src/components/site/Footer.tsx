@@ -36,7 +36,7 @@ const maskStyle = (icon: string) => ({
 })
 
 const headingClass =
-  'mb-[22px] font-body text-[14px] leading-none font-medium tracking-[0.01em] text-gold capitalize'
+  'mb-[22px] font-body text-[14px] leading-none font-medium tracking-[0.01em] text-gold-light capitalize'
 
 export function Footer() {
   return (
@@ -45,12 +45,15 @@ export function Footer() {
 
       <div className="mx-auto grid max-w-shell grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-12 px-[26px] pt-[70px] pb-10">
         <div>
-          <div className="mb-[22px] flex items-center gap-[11px]">
-            <Logo variant="mark" height={42} className="flex-none" />
-            <div className="font-body font-semibold text-[15px] leading-snug tracking-[0.01em] text-bone">
-              Mekar
-              <br />
-              Bhuana
+          <div className="mb-[22px] flex items-center gap-[14px]">
+            <Logo height={96} className="flex-none text-gold" />
+            <div>
+              <div className="font-body font-semibold text-[16px] leading-none tracking-[0.01em] text-bone">
+                Mekar Bhuana
+              </div>
+              <div className="mt-1 font-label text-[13px] leading-snug tracking-[0.01em] text-gold-light">
+                Bali Music and Dance
+              </div>
             </div>
           </div>
 
@@ -112,7 +115,7 @@ export function Footer() {
                     <span key={i} className="block size-3 rounded-full bg-[#00AA6C]" />
                   ))}
                 </div>
-                <span className="font-sans text-[13px] font-semibold text-[#00AA6C] group-hover:underline">
+                <span className="font-sans text-[13px] font-semibold text-[#00754a] group-hover:underline">
                   112 reviews
                 </span>
               </div>
@@ -149,17 +152,17 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-shell flex-wrap justify-between gap-3.5 border-t border-bone/14 px-[26px] py-[22px] font-label text-[15px] leading-relaxed tracking-normal text-shadow capitalize">
+      <div className="mx-auto flex max-w-shell flex-wrap justify-between gap-3.5 border-t border-bone/14 px-[26px] py-[22px] font-label text-[15px] leading-relaxed tracking-normal text-smoke capitalize">
         <div>© {new Date().getFullYear()} Mekar Bhuana Centre · Yayasan Semara Gita Bhuana</div>
         <div>
           No AI training on our archive ·{' '}
-          <Link href="/terms-conditions" className="hover:text-gold-light">
+          <Link href="/terms-conditions" className="text-smoke underline underline-offset-3 hover:text-gold-light">
             Terms
           </Link>{' '}
           ·{' '}
           <Link
             href="/troubleshooting-accessing-the-encyclopedia"
-            className="hover:text-gold-light"
+            className="text-smoke underline underline-offset-3 hover:text-gold-light"
           >
             Help
           </Link>

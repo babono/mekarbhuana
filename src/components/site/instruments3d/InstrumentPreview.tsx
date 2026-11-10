@@ -141,7 +141,7 @@ function HoverCard({ anchor }: { anchor: Anchor }) {
         </span>
       </div>
       <div className="border-t border-gold/30 px-4 py-3">
-        <div className="font-display text-[23px] leading-tight text-parchment">{instrument.name}</div>
+        <div className="font-display text-[18px] leading-tight text-parchment">{instrument.name}</div>
         <div className="mt-1 truncate font-label text-[13px] tracking-[0.01em] text-dust capitalize">
           {instrument.kind}
         </div>
@@ -206,7 +206,7 @@ function InstrumentDialog({
                 ×
               </button>
             </div>
-            <h2 className="mt-3 mb-4 font-display text-4xl leading-tight text-parchment">
+            <h2 className="mt-3 mb-4 font-display text-[28px] leading-tight text-parchment">
               {instrument.name}
             </h2>
             <p className="m-0 font-body text-[16px] leading-[1.75] text-sand">
